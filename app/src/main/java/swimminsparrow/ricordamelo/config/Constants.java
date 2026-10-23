@@ -33,7 +33,7 @@ public class Constants {
 
     // DONATION / COFFEE LINK //
     public static final String DONATE_URL = "https://buymeacoffee.com/swimminsparrow";
-    public static final String PRIVACY_POLICY_URL = "https://github.com/swimminsparrow/pillsos-reminder/docs/privacy-policy.html";
+    public static final String PRIVACY_POLICY_URL = "https://swimminsparrow.github.io/pillsos-reminder/privacy-policy.html";
 
     // NTFY SERVER CONFIG //
     public static final String NTFY_BASE_URL = "https://ntfy.sh/";
