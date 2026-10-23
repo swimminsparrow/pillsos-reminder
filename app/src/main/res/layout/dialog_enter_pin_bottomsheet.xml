@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollEnterPin"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:fillViewport="true"
+    android:overScrollMode="never"
+    android:background="@drawable/bg_bottom_sheet_rounded">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <!-- Bottom Sheet Drag Handle -->
+        <View
+            android:layout_width="40dp"
+            android:layout_height="4dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="16dp"
+            android:background="#D1D5DB" />
+
+        <!-- 1. Input State -->
+        <LinearLayout
+            android:id="@+id/layoutInputState"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <TextView
+                style="@style/TextAppearance.PillSOS.CardHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/sos_enter_pin_title"
+                android:textSize="20sp" />
+
+            <TextView
+                style="@style/TextAppearance.PillSOS.ListItemSubtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="20dp"
+                android:text="@string/sos_enter_pin_desc" />
+
+            <!-- 6-Digit PIN Input Boxes -->
+            <LinearLayout
+                android:id="@+id/layoutPinBoxes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/etPin1"
+                    style="@style/Widget.PillSOS.PinBox"
+                    android:imeOptions="actionNext|flagNoExtractUi"
+                    android:inputType="number"
+                    android:maxLength="1"
+                    tools:text="8" />
+
+                <EditText
+                    android:id="@+id/etPin2"
+                    style="@style/Widget.PillSOS.PinBox"
+                    android:imeOptions="actionNext|flagNoExtractUi"
+                    android:inputType="number"
+                    android:maxLength="1"
+                    tools:text="4" />
+
+                <EditText
+                    android:id="@+id/etPin3"
+                    style="@style/Widget.PillSOS.PinBox"
+                    android:imeOptions="actionNext|flagNoExtractUi"
+                    android:inputType="number"
+                    android:maxLength="1"
+                    tools:text="7" />
+
+                <View
+                    android:layout_width="8dp"
+                    android:layout_height="1dp" />
+
+                <EditText
+                    android:id="@+id/etPin4"
+                    style="@style/Widget.PillSOS.PinBox"
+                    android:imeOptions="actionNext|flagNoExtractUi"
+                    android:inputType="number"
+                    android:maxLength="1"
+                    tools:text="2" />
+
+                <EditText
+                    android:id="@+id/etPin5"
+                    style="@style/Widget.PillSOS.PinBox"
+                    android:imeOptions="actionNext|flagNoExtractUi"
+                    android:inputType="number"
+                    android:maxLength="1"
+                    tools:text="0" />
+
+                <EditText
+                    android:id="@+id/etPin6"
+                    style="@style/Widget.PillSOS.PinBox"
+                    android:imeOptions="actionDone|flagNoExtractUi"
+                    android:inputType="number"
+                    android:maxLength="1"
+                    tools:text="1" />
+            </LinearLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnConnect"
+                style="@style/PositiveButton"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:text="@string/sos_connect_btn"
+                android:textSize="16sp"
+                app:icon="@drawable/ic_receive_plane_left"
+                app:iconTint="@android:color/white"
+                app:iconGravity="textStart"
+                app:iconPadding="8dp" />
+        </LinearLayout>
+
+        <!-- 2. Waiting State (Inline, non-blocking) -->
+        <LinearLayout
+            android:id="@+id/layoutWaitingState"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:visibility="gone">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/ivWaitingAvatar"
+                android:layout_width="68dp"
+                android:layout_height="68dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="12dp"
+                android:scaleType="centerCrop"
+                app:shapeAppearanceOverlay="@style/CircleImageStyle"
+                app:strokeColor="#E0E0E0"
+                app:strokeWidth="1dp"
+                android:src="@drawable/avatar" />
+
+            <TextView
+                android:id="@+id/tvWaitingTitle"
+                style="@style/TextAppearance.PillSOS.CardHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textSize="20sp"
+                tools:text="Richiesta inviata a Marco" />
+
+            <TextView
+                android:id="@+id/tvWaitingSubtitle"
+                style="@style/TextAppearance.PillSOS.ListItemSubtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:textAlignment="center"
+                android:text="@string/sos_waiting_approval_hint" />
+
+            <ProgressBar
+                android:id="@+id/pbWaiting"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="32dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

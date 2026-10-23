@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- General & Profile -->
+    <PreferenceCategory android:title="@string/set_cat_general">
+
+        <ListPreference
+            android:defaultValue="DEFAULT"
+            android:entries="@array/appLanguageEntries"
+            android:entryValues="@array/appLanguageValues"
+            android:icon="@drawable/baseline_language_24"
+            android:key="d_app_language"
+            android:summary="%s"
+            android:title="@string/language_setting_title" />
+
+        <EditTextPreference
+            android:capitalize="words"
+            android:defaultValue="@string/mario"
+            android:inputType="textCapWords"
+            android:key="d_2"
+            android:maxLines="1"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:title="@string/set_t_2"
+            android:icon="@drawable/baseline_person_24" />
+
+    </PreferenceCategory>
+
+    <!-- Sound & Notifications -->
+    <PreferenceCategory android:title="@string/set_cat_sound">
+
+        <Preference
+            android:key="d_8"
+            android:summary="Default"
+            android:title="@string/set_t_8"
+            android:icon="@drawable/baseline_music_note_24" />
+
+        <Preference
+            android:key="d_12"
+            android:summary="10 min"
+            android:title="@string/alarmDuration"
+            android:icon="@drawable/baseline_history_24" />
+
+        <ListPreference
+            android:defaultValue="max_volume"
+            android:entries="@array/alarmSoundModeEntries"
+            android:entryValues="@array/alarmSoundModeValues"
+            android:icon="@drawable/baseline_volume_up_24"
+            android:key="d_alarm_sound_mode"
+            android:summary="%s"
+            android:title="@string/alarm_sound_mode_title" />
+
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="d_tts"
+            android:title="@string/tts_title"
+            android:summary="@string/tts_summary"
+            android:icon="@drawable/ic_record_voice_over_24" />
+
+    </PreferenceCategory>
+
+    <!-- Emergency & SOS -->
+    <PreferenceCategory android:title="@string/set_cat_emergency">
+
+
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="d_fall_detection"
+            android:title="@string/fall_detection_title"
+            android:summary="@string/fall_detection_summary"
+            android:icon="@drawable/ic_fall_detection_24" />
+
+        <SeekBarPreference
+            android:key="d_fall_sensitivity_threshold"
+            android:title="@string/fall_sensitivity_title"
+            android:defaultValue="60"
+            android:max="100"
+            app:min="10"
+            app:seekBarIncrement="5"
+            app:showSeekBarValue="false"
+            app:updatesContinuously="true"
+            android:icon="@drawable/ic_tune_24"
+            android:dependency="d_fall_detection" />
+
+    </PreferenceCategory>
+
+    <!-- Troubleshooting & Diagnostics -->
+    <PreferenceCategory
+        android:key="set_troubleshooting_tools"
+        android:title="@string/set_cat_tools">
+
+        <Preference
+            android:key="d_11"
+            android:summary="@string/set_s_11"
+            android:title="@string/faq3"
+            android:icon="@drawable/outline_battery_status_good_24" />
+
+        <Preference
+            android:key="d_test_alarm"
+            android:summary="@string/test_alarm_summary"
+            android:title="@string/test_alarm_title"
+            android:icon="@drawable/ic_add_alert_24dp" />
+
+    </PreferenceCategory>
+
+    <!-- About & Support -->
+    <PreferenceCategory android:title="@string/set_cat_about">
+
+        <Preference
+            android:key="d_rate_app"
+            android:summary="@string/rateme__dialog_feedback_message"
+            android:title="@string/rateme__dialog_first_title"
+            android:icon="@drawable/ic_star_rate_24dp" />
+
+        <Preference
+            android:key="d_coffee"
+            android:summary="@string/buy_me_a_coffee_description"
+            android:title="@string/buy_me_a_coffee"
+            android:icon="@drawable/baseline_coffee_24_green" />
+
+        <Preference
+            android:key="d_about"
+            android:title="@string/about_app_title"
+            android:summary=""
+            android:icon="@drawable/baseline_info_24" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

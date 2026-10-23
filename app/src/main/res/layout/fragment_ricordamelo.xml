@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_screen"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <!-- 🔹 Contenitore Banner Superiori -->
+    <LinearLayout
+        android:id="@+id/layout_top_banners"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical">
+
+        <!-- Banner Notifiche Disattivate (mostrato solo se notifiche disabilitate) -->
+        <include
+            android:id="@+id/card_notifications_disabled"
+            layout="@layout/card_notifications_disabled_banner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="4dp"
+            android:visibility="gone" />
+
+        <!-- Banner Visualizzazione Sopra Altre App (mostrato solo se rilevamento cadute attivo e permesso mancante) -->
+        <include
+            android:id="@+id/card_overlay_disabled"
+            layout="@layout/card_overlay_disabled_banner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="4dp"
+            android:visibility="gone" />
+
+        <!-- Mini-banner rapido "Sto Bene" -->
+        <include
+            android:id="@+id/card_im_ok_banner"
+            layout="@layout/card_im_ok_banner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="4dp" />
+    </LinearLayout>
+
+    <GridView
+        android:id="@+id/griglia"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/layout_top_banners"
+        android:layout_above="@+id/bottom_container"
+        android:clipToPadding="false"
+        android:horizontalSpacing="8dp"
+        android:numColumns="1"
+        android:paddingStart="3dp"
+        android:paddingTop="3dp"
+        android:paddingEnd="3dp"
+        android:paddingBottom="88dp"
+        android:scrollbars="vertical"
+        android:verticalSpacing="10dp" />
+
+    <!-- 🔹 EMPTY STATE -->
+    <LinearLayout
+        android:id="@+id/emptyMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:elevation="6dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <FrameLayout
+            android:layout_width="88dp"
+            android:layout_height="88dp"
+            android:background="@drawable/bg_empty_state_icon">
+
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/ic_add_alert_24dp"
+                app:tint="@color/defaultColor" />
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/nessun_promemoria_disponibile"
+            style="@style/TextAppearance.PillSOS.CardHeader"
+            android:gravity="center"
+            android:lineSpacingExtra="4dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_empty_add_reminder"
+            style="@style/PositiveButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:paddingEnd="10dp"
+            android:text="@string/crea_nuovo_allarme"
+            app:icon="@drawable/outline_add_24"
+            app:iconTint="@android:color/white"
+            app:iconGravity="textStart"
+            app:iconPadding="8dp" />
+
+    </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_add_reminder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="16dp"
+        android:backgroundTint="@color/defaultColor"
+        android:tint="@android:color/white"
+        android:strokeColor="@color/defaultColor"
+        android:strokeWidth="0"
+        app:srcCompat="@android:drawable/ic_input_add"
+        android:layout_above="@+id/bottom_container"
+        />
+
+
+    <RelativeLayout
+        android:id="@+id/bottom_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_horizontal">
+
+        <FrameLayout
+            android:id="@+id/ad_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

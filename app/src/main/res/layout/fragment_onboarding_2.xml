@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_screen"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="22dp"
+        android:paddingTop="14dp"
+        android:paddingEnd="22dp"
+        android:paddingBottom="16dp">
+
+        <!-- Stepper Progress Bars -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="4dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="6dp"
+                android:background="@drawable/bg_step_progress_inactive" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="4dp"
+                android:layout_weight="1"
+                android:layout_marginStart="6dp"
+                android:background="@drawable/bg_step_progress_active" />
+        </LinearLayout>
+
+        <!-- Step Badge -->
+        <TextView
+            style="@style/TextAppearance.PillSOS.PillLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:letterSpacing="0.08"
+            android:text="@string/onboarding_step_2_badge" />
+
+        <!-- Screen Header -->
+        <TextView
+            style="@style/TextAppearance.PillSOS.ScreenTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="@string/onboarding_notifications_title" />
+
+        <TextView
+            style="@style/TextAppearance.PillSOS.ListItemSubtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/onboarding_notifications_subtitle" />
+
+        <!-- Card 0: Notification Permission -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardNotificationPerm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="12dp"
+            app:cardBackgroundColor="#FFFFFF"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="1dp"
+            app:strokeColor="#D6E2DA"
+            app:strokeWidth="1.2dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="14dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <!-- Circular Icon Frame -->
+                    <FrameLayout
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:background="@drawable/bg_pill_recommended">
+
+                        <ImageView
+                            android:id="@+id/ivNotificationIcon"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="center"
+                            android:contentDescription="@string/onboarding_perm_notif_title"
+                            android:src="@drawable/ic_notifications_bell_24"
+                            app:tint="@color/defaultColor" />
+                    </FrameLayout>
+
+                    <TextView
+                        style="@style/TextAppearance.PillSOS.CardHeader"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="6dp"
+                        android:layout_weight="1"
+                        android:text="@string/onboarding_perm_notif_title" />
+
+                    <TextView
+                        style="@style/TextAppearance.PillSOS.PillLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_pill_recommended"
+                        android:paddingStart="7dp"
+                        android:paddingTop="2dp"
+                        android:paddingEnd="7dp"
+                        android:paddingBottom="2dp"
+                        android:text="@string/onboarding_badge_recommended"
+                        android:textColor="@color/defaultColor"
+                        android:textSize="11sp" />
+                </LinearLayout>
+
+                <TextView
+                    style="@style/TextAppearance.PillSOS.ListItemSubtitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="@string/onboarding_perm_notif_desc" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnNotificationPerm"
+                    style="@style/NeutralButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:text="@string/onboarding_perm_notif_enable"
+                    android:textSize="13.5sp"
+                    app:cornerRadius="12dp"
+                    app:icon="@drawable/ic_notifications_bell_24"
+                    app:iconGravity="textStart"
+                    app:iconPadding="8dp" />
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Card 1: Battery Optimization Reliability -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardBatteryOpt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            app:cardBackgroundColor="#FFFFFF"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="1dp"
+            app:strokeColor="#D6E2DA"
+            app:strokeWidth="1.2dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="14dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <!-- Circular Icon Frame -->
+                    <FrameLayout
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:background="@drawable/bg_pill_recommended">
+
+                        <ImageView
+                            android:id="@+id/ivBatteryStatusIcon"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="center"
+                            android:contentDescription="@string/onboarding_battery_title"
+                            android:src="@drawable/outline_battery_status_good_24"
+                            app:tint="@color/defaultColor" />
+                    </FrameLayout>
+
+                    <TextView
+                        style="@style/TextAppearance.PillSOS.CardHeader"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="6dp"
+                        android:layout_weight="1"
+                        android:text="@string/onboarding_battery_title" />
+
+                    <TextView
+                        style="@style/TextAppearance.PillSOS.PillLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_pill_recommended"
+                        android:paddingStart="7dp"
+                        android:paddingTop="2dp"
+                        android:paddingEnd="7dp"
+                        android:paddingBottom="2dp"
+                        android:text="@string/onboarding_badge_recommended"
+                        android:textColor="@color/defaultColor"
+                        android:textSize="11sp" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tvBatteryStatusSubtitle"
+                    style="@style/TextAppearance.PillSOS.ListItemSubtitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="@string/onboarding_battery_desc" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnBatteryOpt"
+                    style="@style/NeutralButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:text="@string/onboarding_battery_disable_restrictions"
+                    android:textSize="13.5sp"
+                    app:cornerRadius="12dp"
+                    app:icon="@drawable/outline_battery_status_good_24"
+                    app:iconGravity="textStart"
+                    app:iconPadding="8dp" />
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Card 2: Overlay Permission (Display Over Other Apps) -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardOverlayPerm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            app:cardBackgroundColor="#FFFFFF"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="1dp"
+            app:strokeColor="#D6E2DA"
+            app:strokeWidth="1.2dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="14dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <!-- Circular Icon Frame -->
+                    <FrameLayout
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:background="@drawable/bg_pill_recommended">
+
+                        <ImageView
+                            android:id="@+id/ivOverlayStatusIcon"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="center"
+                            android:contentDescription="@string/onboarding_overlay_title"
+                            android:src="@drawable/ic_fall_detection_24"
+                            app:tint="@color/defaultColor" />
+                    </FrameLayout>
+
+                    <TextView
+                        style="@style/TextAppearance.PillSOS.CardHeader"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="6dp"
+                        android:layout_weight="1"
+                        android:text="@string/onboarding_overlay_title" />
+
+                    <TextView
+                        style="@style/TextAppearance.PillSOS.PillLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_pill_recommended"
+                        android:paddingStart="7dp"
+                        android:paddingTop="2dp"
+                        android:paddingEnd="7dp"
+                        android:paddingBottom="2dp"
+                        android:text="@string/onboarding_badge_recommended"
+                        android:textColor="@color/defaultColor"
+                        android:textSize="11sp" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tvOverlayStatusSubtitle"
+                    style="@style/TextAppearance.PillSOS.ListItemSubtitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="@string/onboarding_overlay_desc" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnOverlayPerm"
+                    style="@style/NeutralButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:text="@string/onboarding_overlay_enable"
+                    android:textSize="13.5sp"
+                    app:cornerRadius="12dp"
+                    app:icon="@drawable/ic_fall_detection_24"
+                    app:iconGravity="textStart"
+                    app:iconPadding="8dp" />
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Flexible Spacer -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:minHeight="16dp" />
+
+        <!-- Start App Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_start_MainActivity"
+            style="@style/PositiveButton"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="4dp"
+            android:text="@string/start_app"
+            android:textSize="15.5sp"
+            app:cornerRadius="16dp"
+            app:icon="@drawable/baseline_chevron_right_24"
+            app:iconGravity="textEnd"
+            app:iconPadding="8dp"
+            app:iconTint="@android:color/white" />
+
+    </LinearLayout>
+</ScrollView>

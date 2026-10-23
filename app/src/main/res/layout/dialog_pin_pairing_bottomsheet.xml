@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:fillViewport="true"
+    android:overScrollMode="never"
+    android:background="@drawable/bg_bottom_sheet_rounded">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <!-- BottomSheet Drag Handle -->
+        <View
+            android:layout_width="40dp"
+            android:layout_height="4dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="16dp"
+            android:background="#D1D5DB" />
+
+        <TextView
+            style="@style/TextAppearance.PillSOS.CardHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/your_secret_code"
+            android:textSize="20sp" />
+
+        <TextView
+            style="@style/TextAppearance.PillSOS.ListItemSubtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="20dp"
+            android:text="@string/sos_pin_pairing_desc" />
+
+        <!-- 6-Digit PIN Display Boxes -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvDigit1"
+                style="@style/Widget.PillSOS.PinBox"
+                tools:text="8" />
+
+            <TextView
+                android:id="@+id/tvDigit2"
+                style="@style/Widget.PillSOS.PinBox"
+                tools:text="4" />
+
+            <TextView
+                android:id="@+id/tvDigit3"
+                style="@style/Widget.PillSOS.PinBox"
+                tools:text="7" />
+
+            <View
+                android:layout_width="8dp"
+                android:layout_height="1dp" />
+
+            <TextView
+                android:id="@+id/tvDigit4"
+                style="@style/Widget.PillSOS.PinBox"
+                tools:text="2" />
+
+            <TextView
+                android:id="@+id/tvDigit5"
+                style="@style/Widget.PillSOS.PinBox"
+                tools:text="0" />
+
+            <TextView
+                android:id="@+id/tvDigit6"
+                style="@style/Widget.PillSOS.PinBox"
+                tools:text="1" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvPinValidity"
+            style="@style/TextAppearance.PillSOS.ListItemSubtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="16dp"
+            android:drawableStart="@drawable/ic_access_time_24"
+            android:drawablePadding="6dp"
+            android:drawableTint="?android:attr/textColorSecondary"
+            android:gravity="center_vertical"
+            android:text="@string/sos_pin_validity_hint"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/tvCode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
+        <!-- Primary Full-Width Action Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnShare"
+            style="@style/PositiveButton"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/share"
+            app:icon="@drawable/ic_send_plane_right"
+            app:iconGravity="textStart"
+            app:iconPadding="8dp"
+            app:iconTint="@android:color/white" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnCloseSheet"
+            style="@style/NeutralButton"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="12dp"
+            android:text="@string/btn_close" />
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

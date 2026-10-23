@@ -1,0 +1,682 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_screen"
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="12dp"
+            android:paddingTop="16dp"
+            android:paddingEnd="12dp"
+            android:paddingBottom="24dp">
+
+            <!-- Photo Selection Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <FrameLayout
+                    android:id="@+id/photo_container"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clipChildren="false"
+                    android:clipToPadding="false">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/mFoto"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:padding="2dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/default_pill"
+                        app:shapeAppearanceOverlay="@style/CircleImageStyle"
+                        app:strokeColor="@color/defaultColor"
+                        app:strokeWidth="2.5dp" />
+
+                    <!-- Mini Floating Camera Badge -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="26dp"
+                        android:layout_height="26dp"
+                        android:layout_gravity="bottom|end"
+                        app:cardBackgroundColor="@color/defaultColor"
+                        app:cardCornerRadius="13dp"
+                        app:cardElevation="2dp"
+                        app:strokeColor="@android:color/white"
+                        app:strokeWidth="1.5dp">
+
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_camera_alt_black_24dp"
+                            app:tint="@android:color/white" />
+                    </com.google.android.material.card.MaterialCardView>
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/editPhotoText"
+                    style="@style/TextAppearance.PillSOS.PillValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:text="@string/tap_to_change_photo" />
+            </LinearLayout>
+
+            <!-- Card 1: Drug Name -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                app:cardBackgroundColor="@android:color/white"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="3dp"
+                app:strokeWidth="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <!-- Header -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="14dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_pill_capsule_24"
+                            app:tint="@color/defaultColor" />
+
+                        <TextView
+                            style="@style/TextAppearance.PillSOS.CardHeader"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:text="@string/sub1" />
+                    </LinearLayout>
+
+                    <!-- Input Box with integrated Clear Text EndIcon -->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layout_nome"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/insert_drug_name"
+                        app:boxCornerRadiusBottomEnd="12dp"
+                        app:boxCornerRadiusBottomStart="12dp"
+                        app:boxCornerRadiusTopEnd="12dp"
+                        app:boxCornerRadiusTopStart="12dp"
+                        app:boxStrokeColor="@color/defaultColor"
+                        app:endIconMode="clear_text"
+                        app:hintTextColor="@color/defaultColor">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/mNome"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textCapWords"
+                            android:singleLine="true"
+                            android:textColor="@color/primary_text"
+                            android:textSize="16sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Card 2: Alarm Times -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                app:cardBackgroundColor="@android:color/white"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="3dp"
+                app:strokeWidth="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <!-- Header -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="14dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_access_time_24"
+                            app:tint="@color/defaultColor" />
+
+                        <TextView
+                            style="@style/TextAppearance.PillSOS.CardHeader"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:text="@string/sub2" />
+                    </LinearLayout>
+
+                    <!-- Empty State: Prominent Actionable Button -->
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/button_empty_add_time"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:text="@string/tap_to_add_time"
+                        android:textColor="@color/defaultColor"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        app:backgroundTint="#F4FAF6"
+                        app:cornerRadius="14dp"
+                        app:icon="@drawable/outline_add_24"
+                        app:iconGravity="textStart"
+                        app:iconPadding="8dp"
+                        app:iconSize="20dp"
+                        app:iconTint="@color/defaultColor"
+                        app:rippleColor="#331E6F3E"
+                        app:strokeColor="#C8E6C9"
+                        app:strokeWidth="1.2dp" />
+
+                    <!-- Chips Container -->
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/chipGroupOrari"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        app:chipSpacingHorizontal="8dp"
+                        app:chipSpacingVertical="6dp" />
+
+                    <!-- Compatibility hidden views -->
+                    <TextView
+                        android:id="@+id/editOrari"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:visibility="gone" />
+
+                    <View
+                        android:id="@+id/button_orario"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:visibility="gone" />
+
+                    <View
+                        android:id="@+id/button_cancella"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:visibility="gone" />
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Card 3: Days Selection -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                app:cardBackgroundColor="@android:color/white"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="3dp"
+                app:strokeWidth="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <!-- Header -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="14dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_date_range_white_24dp"
+                            app:tint="@color/defaultColor" />
+
+                        <TextView
+                            style="@style/TextAppearance.PillSOS.CardHeader"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:singleLine="true"
+                            android:text="@string/sub2_1" />
+                    </LinearLayout>
+
+                    <!-- Segmented Pill Toggle for Days -->
+                    <LinearLayout
+                        android:id="@+id/toggle_container_days"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_marginBottom="12dp"
+                        android:background="@drawable/bg_segmented_track"
+                        android:orientation="horizontal"
+                        android:padding="4dp">
+
+                        <!-- Tab 1: Everyday -->
+                        <LinearLayout
+                            android:id="@+id/toggle_days_everyday"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_segmented_item_inactive"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:id="@+id/iv_days_everyday"
+                                android:layout_width="18dp"
+                                android:layout_height="18dp"
+                                android:src="@drawable/baseline_done_24"
+                                app:tint="@color/defaultColor" />
+
+                            <TextView
+                                android:id="@+id/tv_days_everyday"
+                                style="@style/TextAppearance.PillSOS.PillLabel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:text="@string/allDays"
+                                android:textColor="@color/primary_text" />
+                        </LinearLayout>
+
+                        <!-- Tab 2: Custom Days (Active by Default) -->
+                        <LinearLayout
+                            android:id="@+id/toggle_days_custom"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_segmented_item_active"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:id="@+id/iv_days_custom"
+                                android:layout_width="18dp"
+                                android:layout_height="18dp"
+                                android:src="@drawable/ic_date_range_white_24dp"
+                                app:tint="@android:color/white" />
+
+                            <TextView
+                                android:id="@+id/tv_days_custom"
+                                style="@style/TextAppearance.PillSOS.PillLabel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:text="@string/days_mode_custom"
+                                android:textColor="@android:color/white" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+                    <!-- State B: Week Days Capsule Buttons Container: 2-Column Balanced Grid -->
+                    <LinearLayout
+                        android:id="@+id/layout_days_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:visibility="visible"
+                        android:orientation="vertical">
+
+                        <!-- Row 1: Lunedì & Martedì -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <swimminsparrow.ricordamelo.ui.common.CapsuleDayButton
+                                android:id="@+id/mLunedi"
+                                style="@style/Widget.PillSOS.CapsuleDayButton"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_marginEnd="4dp"
+                                tools:text="Lunedì" />
+
+                            <swimminsparrow.ricordamelo.ui.common.CapsuleDayButton
+                                android:id="@+id/mMartedi"
+                                style="@style/Widget.PillSOS.CapsuleDayButton"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_marginStart="4dp"
+                                tools:text="Martedì" />
+                        </LinearLayout>
+
+                        <!-- Row 2: Mercoledì & Giovedì -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:orientation="horizontal">
+
+                            <swimminsparrow.ricordamelo.ui.common.CapsuleDayButton
+                                android:id="@+id/mMercoledi"
+                                style="@style/Widget.PillSOS.CapsuleDayButton"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_marginEnd="4dp"
+                                tools:text="Mercoledì" />
+
+                            <swimminsparrow.ricordamelo.ui.common.CapsuleDayButton
+                                android:id="@+id/mGiovedi"
+                                style="@style/Widget.PillSOS.CapsuleDayButton"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_marginStart="4dp"
+                                tools:text="Giovedì" />
+                        </LinearLayout>
+
+                        <!-- Row 3: Venerdì & Sabato -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:orientation="horizontal">
+
+                            <swimminsparrow.ricordamelo.ui.common.CapsuleDayButton
+                                android:id="@+id/mVenerdi"
+                                style="@style/Widget.PillSOS.CapsuleDayButton"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_marginEnd="4dp"
+                                tools:text="Venerdì" />
+
+                            <swimminsparrow.ricordamelo.ui.common.CapsuleDayButton
+                                android:id="@+id/mSabato"
+                                style="@style/Widget.PillSOS.CapsuleDayButton"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_marginStart="4dp"
+                                tools:text="Sabato" />
+                        </LinearLayout>
+
+                        <!-- Row 4: Domenica (Centered) -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:orientation="horizontal"
+                            android:weightSum="4">
+
+                            <Space
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_weight="1" />
+
+                            <swimminsparrow.ricordamelo.ui.common.CapsuleDayButton
+                                android:id="@+id/mDomenica"
+                                style="@style/Widget.PillSOS.CapsuleDayButton"
+                                android:layout_width="0dp"
+                                android:layout_weight="2"
+                                android:layout_marginStart="4dp"
+                                android:layout_marginEnd="4dp"
+                                tools:text="Domenica" />
+
+                            <Space
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_weight="1" />
+                        </LinearLayout>
+                    </LinearLayout>
+                    <!--END THIRD-->
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Card 4: Duration -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                app:cardBackgroundColor="@android:color/white"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="3dp"
+                app:strokeWidth="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <!-- Header -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="14dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_date_range_white_24dp"
+                            app:tint="@color/defaultColor" />
+
+                        <TextView
+                            style="@style/TextAppearance.PillSOS.CardHeader"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:text="@string/sub2_2" />
+                    </LinearLayout>
+
+                    <!-- Segmented Pill Toggle -->
+                    <LinearLayout
+                        android:id="@+id/toggle_container_duration"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_marginBottom="12dp"
+                        android:background="@drawable/bg_segmented_track"
+                        android:orientation="horizontal"
+                        android:padding="4dp">
+
+                        <LinearLayout
+                            android:id="@+id/toggle_duration_forever"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_segmented_item_active"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:id="@+id/iv_duration_forever"
+                                android:layout_width="18dp"
+                                android:layout_height="18dp"
+                                android:src="@drawable/ic_infinity_24"
+                                app:tint="@android:color/white" />
+
+                            <TextView
+                                android:id="@+id/tv_duration_forever"
+                                style="@style/TextAppearance.PillSOS.PillLabel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:text="@string/forever"
+                                android:textColor="@android:color/white" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/toggle_duration_until"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_segmented_item_inactive"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:id="@+id/iv_duration_until"
+                                android:layout_width="18dp"
+                                android:layout_height="18dp"
+                                android:src="@drawable/ic_date_range_white_24dp"
+                                app:tint="@color/defaultColor" />
+
+                            <TextView
+                                android:id="@+id/tv_duration_until"
+                                style="@style/TextAppearance.PillSOS.PillLabel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:text="@string/treatment_until_title"
+                                android:textColor="@color/primary_text" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+                    <!-- State B: Until Date Interactive Selector -->
+                    <LinearLayout
+                        android:id="@+id/container_duration_until"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <!-- Interactive Date Field Row -->
+                        <LinearLayout
+                            android:id="@+id/row_date_picker"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bg_date_field"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:foreground="?android:attr/selectableItemBackground"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingHorizontal="14dp"
+                            android:paddingVertical="12dp">
+
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:src="@drawable/ic_date_range_white_24dp"
+                                app:tint="@color/defaultColor" />
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="12dp"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    style="@style/TextAppearance.PillSOS.Caption"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/finoal" />
+
+                                <TextView
+                                    android:id="@+id/dataFine"
+                                    style="@style/TextAppearance.PillSOS.ListItemTitle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="13-10-2026" />
+                            </LinearLayout>
+
+                            <TextView
+                                android:id="@+id/tvDurationRemaining"
+                                style="@style/TextAppearance.PillSOS.PillLabel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/bg_pill_recommended"
+                                android:paddingHorizontal="8dp"
+                                android:paddingVertical="4dp"
+                                android:text="7 giorni" />
+
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_marginStart="8dp"
+                                android:src="@drawable/baseline_chevron_right_24"
+                                app:tint="@color/secondary_text" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <!-- Hidden Checkbox for backward compatibility with existing save/restore logic -->
+                    <com.google.android.material.checkbox.MaterialCheckBox
+                        android:id="@+id/mForever"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:visibility="gone" />
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Save Button -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="16dp"
+                android:orientation="vertical">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/button_save"
+                    style="@style/PositiveButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:text="@string/Salva"
+                    android:textSize="16sp"
+                    app:icon="@drawable/baseline_done_24"
+                    app:iconTint="@android:color/white"
+                    app:iconGravity="textStart"
+                    app:iconPadding="8dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <FrameLayout
+        android:id="@+id/ad_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom" />
+
+</LinearLayout>

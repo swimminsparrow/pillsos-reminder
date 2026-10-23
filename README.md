@@ -122,8 +122,8 @@
 
 Clone the repository:
 ```bash
-git clone https://github.com/swimminsparrow/avvertimi.git
-cd avvertimi
+git clone https://github.com/swimminsparrow/pillsos-reminder
+cd pillsos-reminder
 ```
 
 To compile the **100% Free / F-Droid** build:

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="alarmDurationEntries" translatable="false">
+        <item>1</item>
+        <item>5</item>
+        <item>10</item>
+        <item>15</item>
+        <item>20</item>
+    </string-array>
+    <string-array name="alarmDurationValues" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
+    <string-array name="appLanguageEntries" translatable="false">
+        <item>System Default</item>
+        <item>English</item>
+        <item>Italiano</item>
+        <item>Español</item>
+        <item>Português</item>
+        <item>Français</item>
+        <item>Polski</item>
+        <item>Русский</item>
+        <item>中文 (简体)</item>
+        <item>日本語</item>
+        <item>বাংলা</item>
+        <item>Napoletano</item>
+        <item>Deutsch</item>
+        <item>हिन्दी</item>
+        <item>العربية</item>
+        <item>Bahasa Indonesia</item>
+        <item>Türkçe</item>
+        <item>한국어</item>
+        <item>Українська</item>
+        <item>Sicilianu</item>
+        <item>Romanesco</item>
+    </string-array>
+    <string-array name="appLanguageValues" translatable="false">
+        <item>DEFAULT</item>
+        <item>en</item>
+        <item>it</item>
+        <item>es</item>
+        <item>pt</item>
+        <item>fr</item>
+        <item>pl</item>
+        <item>ru</item>
+        <item>zh</item>
+        <item>ja</item>
+        <item>bn</item>
+        <item>nap</item>
+        <item>de</item>
+        <item>hi</item>
+        <item>ar</item>
+        <item>in</item>
+        <item>tr</item>
+        <item>ko</item>
+        <item>uk</item>
+        <item>scn</item>
+        <item>rom</item>
+    </string-array>
+
+    <string-array name="alarmSoundModeEntries">
+        <item>@string/alarm_sound_mode_max</item>
+        <item>@string/alarm_sound_mode_system</item>
+    </string-array>
+    <string-array name="alarmSoundModeValues" translatable="false">
+        <item>max_volume</item>
+        <item>system</item>
+    </string-array>
+</resources>

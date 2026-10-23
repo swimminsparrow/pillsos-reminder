@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fall_alert_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_fall_alert_gradient"
+    android:fitsSystemWindows="true"
+    android:keepScreenOn="true">
+
+    <!-- Top Section: Alert Icon, Title, Explanatory subtitle -->
+    <LinearLayout
+        android:id="@+id/ll_fall_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="48dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingHorizontal="24dp">
+
+        <FrameLayout
+            android:layout_width="88dp"
+            android:layout_height="88dp"
+            android:background="@drawable/bg_badge_destructive"
+            android:backgroundTint="#40E74C3C">
+
+            <ImageView
+                android:layout_width="52dp"
+                android:layout_height="52dp"
+                android:layout_gravity="center"
+                android:contentDescription="@string/fall_alert_title"
+                android:src="@drawable/ic_fall_detection_24"
+                app:tint="#FF5E57" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/tv_fall_title"
+            style="@style/TextAppearance.PillSOS.FallAlertTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:text="@string/fall_alert_title" />
+
+        <TextView
+            android:id="@+id/tv_fall_subtitle"
+            style="@style/TextAppearance.PillSOS.FallAlertSubtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="@string/fall_alert_subtitle" />
+    </LinearLayout>
+
+    <!-- Center Section: Countdown Display -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_countdown_seconds"
+            style="@style/TextAppearance.PillSOS.FallAlertCountdown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="30" />
+    </LinearLayout>
+
+    <!-- Bottom Section: Primary "I'M OK" & Secondary "SEND SOS NOW" -->
+    <LinearLayout
+        android:id="@+id/ll_fall_bottom_controls"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="36dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingHorizontal="24dp">
+
+        <!-- Primary Action: Big Emerald Button "STO BENE / ANNULLA" -->
+        <LinearLayout
+            android:id="@+id/btn_fall_cancel"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:background="@drawable/bg_fall_cancel_btn"
+            android:clickable="true"
+            android:elevation="6dp"
+            android:focusable="true"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_marginEnd="10dp"
+                android:contentDescription="@null"
+                android:src="@drawable/baseline_done_24"
+                app:tint="#FFFFFF" />
+
+            <TextView
+                style="@style/TextAppearance.PillSOS.FallAlertCancelBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/fall_alert_cancel_btn" />
+        </LinearLayout>
+
+        <!-- Secondary Action: "INVIA SOS ADESSO" -->
+        <LinearLayout
+            android:id="@+id/btn_fall_send_now"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_fall_sos_now_btn"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/iv_fall_send_now"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginEnd="8dp"
+                android:contentDescription="@null"
+                android:src="@drawable/baseline_sos_24"
+                app:tint="#FF5E57" />
+
+            <TextView
+                android:id="@+id/tv_fall_send_now"
+                style="@style/TextAppearance.PillSOS.FallAlertSendNowBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/fall_alert_send_now_btn" />
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

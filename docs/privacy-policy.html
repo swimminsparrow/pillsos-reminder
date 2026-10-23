@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - PillSOS</title>
+    <meta name="description"
+        content="Privacy Policy for PillSOS - 100% private, local-first medication reminders and encrypted emergency SOS network.">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --surface: #ffffff;
+            --background: #f8fafc;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --border: #e2e8f0;
+            --card-bg: #ffffff;
+            --badge-bg: #dbeafe;
+            --badge-text: #1e40af;
+            --tag-foss: #dcfce7;
+            --tag-foss-text: #166534;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --primary: #3b82f6;
+                --primary-dark: #60a5fa;
+                --surface: #0f172a;
+                --background: #020617;
+                --text-main: #f8fafc;
+                --text-muted: #94a3b8;
+                --border: #1e293b;
+                --card-bg: #0f172a;
+                --badge-bg: #1e293b;
+                --badge-text: #93c5fd;
+                --tag-foss: #064e3b;
+                --tag-foss-text: #86efac;
+            }
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--background);
+            color: var(--text-main);
+            line-height: 1.65;
+            padding: 24px 16px;
+        }
+
+        .container {
+            max-width: 820px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            padding: 32px 0 24px;
+            margin-bottom: 24px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background-color: var(--badge-bg);
+            color: var(--badge-text);
+            padding: 6px 14px;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        h1 {
+            font-size: 2.25rem;
+            font-weight: 800;
+            letter-spacing: -0.025em;
+            margin-bottom: 8px;
+            color: var(--text-main);
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+        }
+
+        .last-updated {
+            display: inline-block;
+            margin-top: 12px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .highlights {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .highlight-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+        }
+
+        .highlight-icon {
+            font-size: 1.75rem;
+            margin-bottom: 8px;
+        }
+
+        .highlight-card h3 {
+            font-size: 1rem;
+            margin-bottom: 4px;
+        }
+
+        .highlight-card p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        section {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 24px;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 1.35rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        p {
+            margin-bottom: 12px;
+            color: var(--text-muted);
+        }
+
+        p:last-child {
+            margin-bottom: 0;
+        }
+
+        ul {
+            list-style: disc;
+            margin-left: 24px;
+            margin-bottom: 12px;
+            color: var(--text-muted);
+        }
+
+        li {
+            margin-bottom: 6px;
+        }
+
+        .note-box {
+            background-color: var(--badge-bg);
+            border-left: 4px solid var(--primary);
+            padding: 12px 16px;
+            border-radius: 6px;
+            margin: 14px 0;
+            font-size: 0.9rem;
+            color: var(--text-main);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+            font-size: 0.9rem;
+        }
+
+        th,
+        td {
+            text-align: left;
+            padding: 10px 12px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            background-color: var(--badge-bg);
+            color: var(--text-main);
+            font-weight: 600;
+        }
+
+        a {
+            color: var(--primary);
+            text-decoration: underline;
+        }
+
+        footer {
+            text-align: center;
+            padding: 32px 0 16px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border);
+            margin-top: 32px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <header>
+            <div class="logo-badge">💊 PillSOS</div>
+            <h1>Privacy Policy</h1>
+            <p class="subtitle">Complete transparency on data privacy, local storage, and end-to-end encryption.</p>
+            <span class="last-updated">Last Updated: October 2026</span>
+        </header>
+
+        <div class="highlights">
+            <div class="highlight-card">
+                <div class="highlight-icon">🚫</div>
+                <h3>Zero Accounts</h3>
+                <p>No email, no phone number, no password, and no profiling.</p>
+            </div>
+            <div class="highlight-card">
+                <div class="highlight-icon">🔒</div>
+                <h3>Local-First Data</h3>
+                <p>All reminders, photos, and contacts stay strictly on your device.</p>
+            </div>
+            <div class="highlight-card">
+                <div class="highlight-icon">🛡️</div>
+                <h3>AES-256 E2EE</h3>
+                <p>All emergency SOS alerts are encrypted on-device before transit.</p>
+            </div>
+            <div class="highlight-card">
+                <div class="highlight-icon">📍</div>
+                <h3>Zero Location Tracking</h3>
+                <p>No GPS or location permissions are requested or monitored.</p>
+            </div>
+        </div>
+
+        <section>
+            <h2>1. Overview & Core Philosophy</h2>
+            <p>
+                <strong>PillSOS</strong> is designed with a strict <strong>Privacy-by-Design</strong> philosophy.
+                Unlike traditional health and reminder applications, PillSOS does not maintain user databases, does not
+                track your physical movements, and does not require an account or registration.
+            </p>
+            <p>
+                We believe that sensitive medical and personal safety data belongs solely to you and the people you
+                choose to trust.
+            </p>
+        </section>
+
+        <section>
+            <h2>2. Information We Do NOT Collect</h2>
+            <ul>
+                <li><strong>No Personal Identifiers:</strong> We do not collect names, email addresses, phone numbers,
+                    or social media accounts.</li>
+                <li><strong>No Location Tracking:</strong> The application does not request or access GPS location
+                    permissions (<code>ACCESS_FINE_LOCATION</code> or <code>ACCESS_COARSE_LOCATION</code>).</li>
+                <li><strong>No Telemetry or Behavioral Profiling:</strong> We do not log, track, or sell your app
+                    interactions, browsing habits, or alarm frequencies.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>3. Information Stored Locally on Your Device</h2>
+            <p>All application operational data is stored locally in your device's private SQLite database and encrypted
+                preferences:</p>
+            <ul>
+                <li><strong>Medication Reminders:</strong> Drug names, treatment dosages, reminder times, and treatment
+                    durations.</li>
+                <li><strong>Local Pill Photos:</strong> Photos taken to help identify pill packages or shapes remain
+                    entirely in your device's private sandbox.</li>
+                <li><strong>SOS Contacts:</strong> Nicknames, profile thumbnails, and cryptographic public topic IDs of
+                    family members or caregivers you explicitly pair with.</li>
+                <li><strong>Alarm History:</strong> Timestamps of alarms taken, snoozed, or missed.</li>
+            </ul>
+            <div class="note-box">
+                <strong>Full User Control:</strong> You can edit or delete any alarm, contact, or history entry at any
+                time. Uninstalling the app permanently purges all local databases and keys.
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Private SOS Emergency Network & End-to-End Encryption (E2EE)</h2>
+            <p>
+                PillSOS includes an emergency SOS network allowing paired devices to send and receive high-priority
+                alerts and "I'm OK" status updates.
+            </p>
+            <ul>
+                <li><strong>Client-Side Cryptography (AES-256):</strong> All outgoing SOS emergency alerts and status
+                    messages are encrypted on your device using AES-256 with a unique symmetric key before ever being
+                    transmitted over the network.</li>
+                <li><strong>Mutual PIN Handshake:</strong> Pairing between two devices requires entering a temporary
+                    6-digit PIN and requires explicit confirmation (approval) by the recipient. No unverified
+                    connections are permitted.</li>
+                <li><strong>Zero Server Access to Content:</strong> Even when relayed across the internet, the alert
+                    messages are encrypted ciphertext. Nobody—including the relay server operator—has the technical
+                    capability to decrypt or read your alerts.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>5. Network Relay Infrastructure (ntfy.sh)</h2>
+            <p>
+                To deliver real-time emergency notifications between devices without maintaining proprietary centralized
+                servers, the app uses lightweight pub/sub push relays (by default, <a href="https://ntfy.sh"
+                    target="_blank" rel="noopener">ntfy.sh</a>, with support for self-hosted instances).
+            </p>
+            <ul>
+                <li><strong>EU Data Residency & GDPR:</strong> The public relay server at <code>ntfy.sh</code> is
+                    operated and hosted in Germany (European Union, Hetzner Online GmbH), fully compliant with European
+                    Union data localization and GDPR privacy standards.</li>
+                <li><strong>Zero-Knowledge Transport:</strong> Because message payloads are encrypted client-side using
+                    AES-GCM prior to transmission, the relay server acts purely as a zero-knowledge encrypted pipe and
+                    has no technical means to inspect, access, or decrypt alert contents.</li>
+                <li><strong>Technical Connection Metadata:</strong> When transmitting encrypted alerts, standard
+                    technical metadata (device IP address, timestamp, HTTP request headers) is processed by the relay
+                    server solely as necessary for TCP/IP network routing.</li>
+                <li><strong>Pseudonymous Channel Names:</strong> Channels are addressed via cryptographically random
+                    UUIDs (128 bits of entropy) rather than human names, phone numbers, or email addresses.</li>
+                <li><strong>Short Data Retention (TTL):</strong> Alerts and pairing packets are configured with a
+                    transient Time-to-Live (TTL) between 1 minute and 12 hours, after which they are automatically
+                    purged by the relay broker.</li>
+                <li><strong>Self-Hosting Support:</strong> Users and organizations seeking total data sovereignty may
+                    specify their own private self-hosted <code>ntfy</code> server URL in the application settings.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>6. Sensor Data & Automatic Fall Detection</h2>
+            <p>
+                PillSOS provides an optional Fall Detection feature to protect elderly or vulnerable individuals:
+            </p>
+            <ul>
+                <li><strong>Accelerometer Access:</strong> The app utilizes the device's accelerometer sensor in the
+                    background to monitor rapid deceleration and impact patterns indicative of a physical fall.</li>
+                <li><strong>Real-Time In-Memory Processing:</strong> Raw accelerometer sensor readings are processed
+                    locally in volatile device memory and are <strong>never stored, logged, or uploaded</strong> to any
+                    server.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>7. Medical & Life-Safety Disclaimer (Non-Medical Device)</h2>
+            <p>
+                <strong>PillSOS is a personal reminder and peer notification utility, NOT a certified medical
+                    device.</strong>
+            </p>
+            <ul>
+                <li><strong>Not a Medical Device (EU MDR 2017/745):</strong> PillSOS is not registered, evaluated, or
+                    certified as a medical device or diagnostic instrument under Regulation (EU) 2017/745 or FDA
+                    guidelines. It is designed solely as a personal schedule and memory support aid.</li>
+                <li><strong>No Substitute for Emergency Services:</strong> The mutual SOS network and automated fall
+                    detection features are best-effort peer-to-peer notification tools. They do not dispatch or connect
+                    to public emergency services (such as 112, 999, or 911) and do not guarantee emergency response. In
+                    life-threatening emergencies, always dial official emergency services directly.</li>
+                <li><strong>Delivery Disclaimer:</strong> Notification delivery depends on mobile carrier data, battery
+                    optimization policies, Wi-Fi connectivity, and third-party relay availability. The developer cannot
+                    guarantee instantaneous or uninterrupted message delivery.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>8. Device Permissions Used</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Permission</th>
+                        <th>Purpose</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>SCHEDULE_EXACT_ALARM</code> / <code>USE_EXACT_ALARM</code></td>
+                        <td>To trigger medication alarms at the exact minute, even during Android Doze mode.</td>
+                    </tr>
+                    <tr>
+                        <td><code>POST_NOTIFICATIONS</code></td>
+                        <td>To display alarm alerts, ongoing protection status, and emergency SOS notifications.</td>
+                    </tr>
+                    <tr>
+                        <td><code>FOREGROUND_SERVICE</code></td>
+                        <td>To maintain active fall detection and receive emergency alerts when the app is in the
+                            background.</td>
+                    </tr>
+                    <tr>
+                        <td><code>VIBRATE</code> & <code>WAKE_LOCK</code></td>
+                        <td>To alert the user during high-priority emergencies and wake the screen for alarms.</td>
+                    </tr>
+                    <tr>
+                        <td><code>CAMERA</code> / Media Access</td>
+                        <td>Optional: To allow photographing pill packages or setting a contact avatar thumbnail.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>9. Distribution Flavors & Advertising Disclosures</h2>
+            <p>PillSOS is published in two distribution builds:</p>
+            <ul>
+                <li>
+                    <strong>F-Droid / FOSS Flavor (<code>free</code>):</strong>
+                    100% Free and Open Source Software. Contains zero proprietary Google libraries, zero advertisements,
+                    and zero trackers.
+                </li>
+                <li>
+                    <strong>Google Play Flavor (<code>nonfree</code>):</strong>
+                    Includes optional Google Mobile Ads (AdMob) to support continuous open-source maintenance.
+                    Google AdMob may collect and process device identifiers (such as the Google Advertising ID) and
+                    performance diagnostics in accordance with
+                    <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google's Privacy
+                        Policy</a>.
+                </li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>10. Data Retention & Permanent Deletion</h2>
+            <ul>
+                <li><strong>Deleting Data:</strong> You can delete any contact, alarm, or history log directly within
+                    the app settings.</li>
+                <li><strong>Revoking SOS Pairs:</strong> Tapping "Disconnect" immediately removes the peer's topic and
+                    cryptographic keys from your device.</li>
+                <li><strong>App Removal:</strong> Completely uninstalling PillSOS permanently removes all local SQLite
+                    databases, encryption keys, and SharedPreferences from your device.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>11. Contact & Support</h2>
+            <p>
+                If you have any questions, feedback, or concerns regarding this Privacy Policy or your data security,
+                please contact the developer via our official repository:
+            </p>
+            <p>
+                <strong>Project Repository:</strong> <a href="https://github.com/swimminsparrow/pillsos-reminder"
+                    target="_blank" rel="noopener">github.com/swimminsparrow/pillsos-reminder</a><br>
+                <strong>Developer:</strong> swimminsparrow
+            </p>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 PillSOS (swimminsparrow). Open Source under GPLv3 License.</p>
+        </footer>
+    </div>
+
+</body>
+
+</html>

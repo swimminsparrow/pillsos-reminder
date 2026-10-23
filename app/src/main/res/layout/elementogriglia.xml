@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cardElemento"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="12dp"
+    android:layout_marginVertical="6dp"
+    app:cardBackgroundColor="@android:color/white"
+    app:cardCornerRadius="18dp"
+    app:cardElevation="2dp"
+    app:strokeColor="#E8ECE9"
+    app:strokeWidth="1dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="14dp">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/mFoto"
+            android:layout_width="76dp"
+            android:layout_height="76dp"
+            android:padding="2dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/default_pill"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/CircleImageStyle"
+            app:strokeColor="#E0E0E0"
+            app:strokeWidth="1.5dp" />
+
+        <TextView
+            android:id="@+id/textnome"
+            style="@style/TextAppearance.PillSOS.CardHeader"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/mFoto"
+            app:layout_constraintTop_toTopOf="@id/mFoto"
+            tools:text="Clenil" />
+
+        <TextView
+            android:id="@+id/el_days"
+            style="@style/TextAppearance.PillSOS.ListItemSubtitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/textnome"
+            app:layout_constraintTop_toBottomOf="@id/textnome"
+            tools:text="Lun, Mar" />
+
+        <TextView
+            android:id="@+id/textView5"
+            style="@style/TextAppearance.PillSOS.ListItemSubtitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/textnome"
+            app:layout_constraintTop_toBottomOf="@id/el_days"
+            tools:text="03:12" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrierTopSection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="mFoto,textView5" />
+
+        <!-- Next Alarm Tonal Pill Container (Option A) -->
+        <LinearLayout
+            android:id="@+id/rel1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_next_alarm_pill"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="14dp"
+            android:paddingVertical="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/barrierTopSection">
+
+            <ImageView
+                android:id="@+id/alarmIcon"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_notifications_bell_24"
+                app:tint="@color/defaultColor" />
+
+            <TextView
+                android:id="@+id/el_t4"
+                style="@style/TextAppearance.PillSOS.PillLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@string/sub7" />
+
+            <TextView
+                android:id="@+id/mTextNextAlarm"
+                style="@style/TextAppearance.PillSOS.PillValue"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
+                android:gravity="end"
+                tools:text="Mar 03:12" />
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/rel1" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>
+

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph_onboarding"
+    app:startDestination="@id/nav_onboarding_step_1">
+    <fragment
+        android:id="@+id/nav_onboarding_step_1"
+        android:name="swimminsparrow.ricordamelo.ui.onboarding.OnboardingStepOneFragment"
+        android:label="@string/title_activity_primo_avvio" />
+
+    <fragment
+        android:id="@+id/nav_photo_picker"
+        android:name="swimminsparrow.ricordamelo.ui.images.PhotoPickerFragment"
+        android:label="@string/dialog_t_2" />
+
+    <fragment
+        android:id="@+id/nav_photo_cropper"
+        android:name="swimminsparrow.ricordamelo.ui.images.PhotoCropFragment"
+        android:label="@string/dialog_t_2" />
+
+    <fragment
+        android:id="@+id/nav_onboarding_step_2"
+        android:name="swimminsparrow.ricordamelo.ui.onboarding.PrimoAvvio2"
+        android:label="@string/onboarding_notifications_title" />
+</navigation>

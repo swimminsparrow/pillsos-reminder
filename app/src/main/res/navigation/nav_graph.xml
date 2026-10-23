@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/nav_ricordamelo">
+
+    <!-- ─── Bottom bar tabs ─────────────────────────── -->
+
+    <fragment
+        android:id="@+id/nav_ricordamelo"
+        android:name="swimminsparrow.ricordamelo.ui.alarms.AlarmsFragment"
+        android:label="@string/app_name" />
+
+    <fragment
+        android:id="@+id/nav_sos"
+        android:name="swimminsparrow.ricordamelo.ui.sos.SosFragment"
+        android:label="@string/sos_emergency_network" />
+
+    <!-- ─── Drawer items ────────────────────────────── -->
+
+    <fragment
+        android:id="@+id/nav_settings"
+        android:name="swimminsparrow.ricordamelo.ui.settings.SettingsFragment"
+        android:label="@string/menu_settings" />
+
+    <fragment
+        android:id="@+id/nav_help"
+        android:name="swimminsparrow.ricordamelo.ui.help.HelpFragment"
+        android:label="@string/menu_help" />
+
+    <!-- ─── Detail screens (no bar shown) ───────────── -->
+
+    <fragment
+        android:id="@+id/nav_nuovo_ricordamelo"
+        android:name="swimminsparrow.ricordamelo.ui.alarms.NewAlarmFragment"
+        android:label="@string/new_alarm_title">
+        <argument
+            android:name="CambiaTextview"
+            app:argType="boolean"
+            android:defaultValue="false" />
+        <argument
+            android:name="position"
+            app:argType="integer"
+            android:defaultValue="-1" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_sos_history"
+        android:name="swimminsparrow.ricordamelo.ui.sos.SOSMessageHistoryFragment"
+        android:label="Cronologia Messaggi" />
+
+</navigation>

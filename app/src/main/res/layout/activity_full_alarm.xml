@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/full_alarm_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_full_alarm_gradient"
+    android:fitsSystemWindows="true"
+    android:keepScreenOn="true">
+
+    <!-- Top Section: Time, Date, Pill Info -->
+    <LinearLayout
+        android:id="@+id/ll_top_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="56dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingHorizontal="24dp">
+
+        <TextClock
+            android:id="@+id/tc_alarm_clock"
+            style="@style/TextAppearance.PillSOS.FullAlarmTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:format12Hour="HH:mm"
+            android:format24Hour="HH:mm"
+            tools:text="18:08" />
+
+        <TextView
+            android:id="@+id/tv_alarm_title"
+            style="@style/TextAppearance.PillSOS.FullAlarmTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            tools:text="Farmaco" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_alarm_pill_photo"
+            android:layout_width="135dp"
+            android:layout_height="135dp"
+            android:layout_marginTop="24dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/default_pill"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"
+            app:strokeColor="#70FFFFFF"
+            app:strokeWidth="3dp" />
+
+        <TextView
+            android:id="@+id/tv_alarm_dose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textColor="#B0FFFFFF"
+            android:textSize="16sp"
+            android:visibility="gone"
+            tools:text="1 compressa"
+            tools:visibility="visible" />
+    </LinearLayout>
+
+    <!-- Bottom Section: Snooze Bar & Dismiss Button -->
+    <LinearLayout
+        android:id="@+id/ll_bottom_controls"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="44dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingHorizontal="24dp">
+
+        <!-- Circular Dismiss (✕) Container with explicit label -->
+        <LinearLayout
+            android:id="@+id/btn_alarm_dismiss_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="36dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:id="@+id/btn_alarm_dismiss"
+                android:layout_width="108dp"
+                android:layout_height="108dp"
+                android:background="@drawable/bg_circular_dismiss_button"
+                android:clickable="true"
+                android:focusable="true">
+
+                <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center"
+                    android:contentDescription="@string/alarm_dismiss"
+                    android:src="@drawable/ic_close_white_24dp" />
+            </FrameLayout>
+
+            <TextView
+                style="@style/TextAppearance.PillSOS.FullAlarmDismiss"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/alarm_dismiss"
+                tools:text="Stuta" />
+        </LinearLayout>
+
+        <!-- Capsule Snooze Button -->
+        <TextView
+            android:id="@+id/btn_alarm_snooze"
+            style="@style/TextAppearance.PillSOS.FullAlarmSnooze"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:background="@drawable/bg_pill_snooze_button"
+            android:clickable="true"
+            android:elevation="4dp"
+            android:focusable="true"
+            android:gravity="center"
+            tools:text="Ritarda di 15 min" />
+    </LinearLayout>
+
+</RelativeLayout>

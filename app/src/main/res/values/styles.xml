@@ -1,0 +1,340 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/defaultColor</item>
+        <item name="colorPrimaryDark">@color/defaultColor</item>
+        <item name="android:statusBarColor">@color/defaultColor</item>
+        <item name="android:navigationBarColor">@color/defaultColor</item>
+        <item name="android:textColorPrimary">@color/primary_text</item>
+        <item name="android:textColorSecondary">@color/secondary_text</item>
+        <item name="android:fontFamily">sans-serif</item>
+
+        <item name="android:windowBackground">@color/defaultColor</item>
+        <item name="android:windowContentTransitions">true</item>
+    </style>
+
+    <style name="CustomBottomNavIndicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:color">#26FFFFFF</item>
+    </style>
+
+    
+    <style name="GreenTimePickerTheme" parent="android:Theme.Material.Light.Dialog">
+        <item name="android:colorAccent">@color/defaultColorDark</item>
+    </style>
+
+    <style name="CircleImageStyle">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+        <item name="android:foreground">@drawable/circle_ripple</item>
+    </style>
+
+    <!-- Standard Unified Button Styles -->
+
+    <!-- Positive Button: Solid Green Fill + White Text (e.g. SPARTI) -->
+    <style name="PositiveButton" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">@color/defaultColor</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">14sp</item>
+        <item name="cornerRadius">24dp</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:paddingStart">20dp</item>
+        <item name="android:paddingEnd">20dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:minHeight">48dp</item>
+    </style>
+
+    <!-- Negative Button: Outlined Red Border + Red Text (e.g. DISCONNETTI) -->
+    <style name="NegativeButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="backgroundTint">@android:color/white</item>
+        <item name="android:textColor">#D32F2F</item>
+        <item name="android:textSize">14sp</item>
+        <item name="strokeColor">#D32F2F</item>
+        <item name="strokeWidth">1.5dp</item>
+        <item name="cornerRadius">24dp</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:paddingStart">20dp</item>
+        <item name="android:paddingEnd">20dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:minHeight">48dp</item>
+    </style>
+
+    <!-- Neutral Button: Outlined Light Gray Border + Green Text (e.g. COPIA) -->
+    <style name="NeutralButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="backgroundTint">@android:color/white</item>
+        <item name="android:textColor">@color/defaultColor</item>
+        <item name="android:textSize">14sp</item>
+        <item name="strokeColor">@color/defaultColor</item>
+        <item name="strokeWidth">1.5dp</item>
+        <item name="cornerRadius">24dp</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:paddingStart">20dp</item>
+        <item name="android:paddingEnd">20dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:minHeight">48dp</item>
+    </style>
+
+
+
+
+
+    <!-- Standard Unified Text Appearances (Accessible & Armocromatic) -->
+    <style name="TextAppearance.PillSOS.ScreenTitle" parent="TextAppearance.MaterialComponents.Headline5">
+        <item name="android:textColor">@color/primary_text</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+
+    <style name="TextAppearance.PillSOS.SectionTitle" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="android:textColor">@color/primary_text</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.PillSOS.CardHeader" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="android:textColor">@color/primary_text</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.PillSOS.Body" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:textColor">@color/secondary_text</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:lineSpacingExtra">2dp</item>
+    </style>
+
+    <style name="TextAppearance.PillSOS.ListItemTitle" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="android:textColor">@color/primary_text</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.PillSOS.ListItemSubtitle" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="android:textColor">@color/secondary_text</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:lineSpacingExtra">2dp</item>
+    </style>
+
+
+    <style name="TextAppearance.PillSOS.PillLabel" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textColor">@color/defaultColor</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.PillSOS.PillValue" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textColor">@color/defaultColorDark</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.PillSOS.Caption" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textColor">@color/secondary_text</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="DayPillChip" parent="Widget.MaterialComponents.Chip.Filter">
+        <item name="chipCornerRadius">20dp</item>
+        <item name="chipMinHeight">40dp</item>
+        <item name="chipBackgroundColor">@color/sel_pill_chip_bg</item>
+        <item name="chipStrokeColor">@color/sel_pill_chip_stroke</item>
+        <item name="chipStrokeWidth">1.5dp</item>
+        <item name="android:textColor">@color/sel_pill_chip_text</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="checkedIcon">@drawable/baseline_done_24</item>
+        <item name="checkedIconTint">@android:color/white</item>
+        <item name="checkedIconVisible">true</item>
+        <item name="chipIconVisible">false</item>
+        <item name="rippleColor">#334CAF50</item>
+        <item name="ensureMinTouchTargetSize">false</item>
+        <item name="chipStartPadding">12dp</item>
+        <item name="chipEndPadding">12dp</item>
+    </style>
+
+    <!-- Standardized Day Capsule Button in New Alarm -->
+    <style name="Widget.PillSOS.CapsuleDayButton" parent="Widget.AppCompat.Button">
+        <item name="android:layout_height">42dp</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="android:minHeight">0dp</item>
+        <item name="android:paddingStart">32dp</item>
+        <item name="android:paddingEnd">14dp</item>
+    </style>
+
+    <!-- Standardized Toolbar Title -->
+    <style name="TextAppearance.PillSOS.ToolbarTitle" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- Standardized Segmented Control Label -->
+    <style name="TextAppearance.PillSOS.SegmentedLabel" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textSize">13sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <!-- Standardized Badge Label -->
+    <style name="TextAppearance.PillSOS.Badge" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textSize">13sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- Destructive List Item Title -->
+    <style name="TextAppearance.PillSOS.ListItemTitle.Destructive" parent="TextAppearance.PillSOS.ListItemTitle">
+        <item name="android:textColor">#D32F2F</item>
+    </style>
+
+    <!-- Standardized PIN Digit Display / Input Box -->
+    <style name="Widget.PillSOS.PinBox" parent="">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">52dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_margin">3dp</item>
+        <item name="android:background">@drawable/bg_pin_box</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/primary_text</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <!-- Full Alarm Screen Typography -->
+    <style name="TextAppearance.PillSOS.FullAlarmTime" parent="">
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">82sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="TextAppearance.PillSOS.FullAlarmTitle" parent="">
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">30sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="TextAppearance.PillSOS.FullAlarmSnooze" parent="">
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:letterSpacing">0.03</item>
+    </style>
+
+    <style name="TextAppearance.PillSOS.FullAlarmDismiss" parent="">
+        <item name="android:textColor">#F0FFFFFF</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:letterSpacing">0.08</item>
+    </style>
+
+    <!-- Fall Alert Screen Typography -->
+    <style name="TextAppearance.PillSOS.FallAlertTitle" parent="">
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="TextAppearance.PillSOS.FallAlertSubtitle" parent="">
+        <item name="android:textColor">#D0FFFFFF</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:lineSpacingExtra">3dp</item>
+    </style>
+
+    <style name="TextAppearance.PillSOS.FallAlertCountdown" parent="">
+        <item name="android:textColor">#FF5E57</item>
+        <item name="android:textSize">84sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="TextAppearance.PillSOS.FallAlertCancelBtn" parent="">
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:letterSpacing">0.04</item>
+    </style>
+
+    <style name="TextAppearance.PillSOS.FallAlertSendNowBtn" parent="">
+        <item name="android:textColor">#FF5E57</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:letterSpacing">0.04</item>
+    </style>
+
+    <!-- Custom Snackbar Typography -->
+    <style name="TextAppearance.PillSOS.SnackbarMessage" parent="">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:lineSpacingExtra">2dp</item>
+    </style>
+
+    <style name="TextAppearance.PillSOS.SnackbarAction" parent="">
+        <item name="android:textColor">#A7F3D0</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <!-- Splash Screen Typography -->
+    <style name="TextAppearance.PillSOS.SplashTitle" parent="">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">32sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:letterSpacing">0.02</item>
+    </style>
+
+    <style name="TextAppearance.PillSOS.SplashSubtitle" parent="">
+        <item name="android:textColor">#D8EEDF</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <!-- Full-screen Emergency Fall Alert Theme -->
+    <style name="Theme.PillSOS.FallAlert" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:windowBackground">#0F0303</item>
+        <item name="android:statusBarColor">#2A0808</item>
+        <item name="android:navigationBarColor">#0F0303</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar">false</item>
+    </style>
+
+    <!-- Full-screen Alarm Theme -->
+    <style name="Theme.PillSOS.FullAlarm" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:windowBackground">#061608</item>
+        <item name="android:statusBarColor">#061608</item>
+        <item name="android:navigationBarColor">#1B4918</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar">false</item>
+    </style>
+
+</resources>
+

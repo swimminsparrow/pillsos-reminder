@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph_photopicker"
+    app:startDestination="@id/nav_photo_picker">
+    <fragment
+        android:id="@+id/nav_photo_picker"
+        android:name="swimminsparrow.ricordamelo.ui.images.PhotoPickerFragment"
+        android:label="@string/dialog_t_2" />
+
+    <fragment
+        android:id="@+id/nav_photo_cropper"
+        android:name="swimminsparrow.ricordamelo.ui.images.PhotoCropFragment"
+        android:label="@string/crop_1" />
+</navigation>

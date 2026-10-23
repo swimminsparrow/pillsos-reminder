@@ -1,0 +1,120 @@
+apply plugin: 'com.android.application'
+
+// --- PillSOS Secret & Open-Source Fallback Loader ---
+def targetGs = file("google-services.json")
+if (!targetGs.exists()) {
+    def secretGs = rootProject.file("secrets/google-services.json")
+    def realGs = file("google-services.json.real")
+    def exampleGs = file("google-services.json.example")
+    if (secretGs.exists()) {
+        targetGs.bytes = secretGs.bytes
+    } else if (realGs.exists()) {
+        targetGs.bytes = realGs.bytes
+    } else if (exampleGs.exists()) {
+        targetGs.bytes = exampleGs.bytes
+    }
+}
+
+def secretsPropsFile = rootProject.file("secrets/secrets.properties")
+def localPropsFile = rootProject.file("local.properties")
+def secretProperties = new Properties()
+
+if (secretsPropsFile.exists()) {
+    secretsPropsFile.withInputStream { secretProperties.load(it) }
+} else if (localPropsFile.exists()) {
+    localPropsFile.withInputStream { secretProperties.load(it) }
+}
+
+def admobAppId = secretProperties.getProperty("admob.app.id", "ca-app-pub-3940256099942544~3347511713")
+def admobBannerId = secretProperties.getProperty("admob.banner.id", "ca-app-pub-3940256099942544/6300978111")
+
+android {
+    compileSdk 36
+    defaultConfig {
+        applicationId 'swimminsparrow.ricordamelo'
+        minSdkVersion 26
+        versionName '3.0'
+        versionCode 94
+        targetSdk 36
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildFeatures {
+        buildConfig true
+        resValues true
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
+
+    packagingOptions {
+        resources {
+
+        }
+    }
+
+
+    flavorDimensions "distribution"
+    productFlavors {
+        free {
+            dimension "distribution"
+            manifestPlaceholders = [admobAppId: ""]
+            resValue "string", "bannerInferiore", ""
+        }
+        nonfree {
+            dimension "distribution"
+            manifestPlaceholders = [admobAppId: admobAppId]
+            resValue "string", "bannerInferiore", admobBannerId
+        }
+    }
+    namespace 'swimminsparrow.ricordamelo'
+}
+
+repositories {
+    maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
+    maven { url 'https://jitpack.io' }
+    mavenCentral()
+    mavenLocal()
+}
+
+dependencies {
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.13.0'
+    implementation 'androidx.core:core:1.17.0'
+    implementation 'androidx.preference:preference:1.2.1'
+    implementation 'androidx.localbroadcastmanager:localbroadcastmanager:1.1.0'
+    implementation "androidx.navigation:navigation-fragment:2.9.7"
+    implementation "androidx.navigation:navigation-ui:2.9.7"
+    implementation('com.vanniktech:android-image-cropper:4.7.0')
+
+    implementation 'com.github.jkwiecien:EasyImage:3.2.0'
+
+    implementation 'androidx.security:security-crypto:1.1.0-alpha06'
+    implementation 'androidx.work:work-runtime:2.9.1'
+    implementation 'com.google.guava:guava:31.1-android'
+
+    nonfreeImplementation 'com.google.android.gms:play-services-ads:23.6.0'
+
+    // Testing
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.mockito:mockito-core:5.11.0'
+    testImplementation 'org.robolectric:robolectric:4.14.1'
+    testImplementation 'androidx.test:core:1.6.1'
+    testImplementation 'androidx.test.ext:junit:1.2.1'
+
+    androidTestImplementation 'androidx.test.ext:junit:1.2.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
+    androidTestImplementation 'androidx.test:runner:1.6.2'
+    androidTestImplementation 'androidx.test:rules:1.6.1'
+}
+apply plugin: 'com.google.gms.google-services'
+

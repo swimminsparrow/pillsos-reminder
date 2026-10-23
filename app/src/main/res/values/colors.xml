@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Modern Forest Emerald Core Palette -->
+    <color name="defaultColor">#1E6F3E</color>
+    <color name="defaultColorDark">#124324</color>
+    <color name="button_text_color">#FFFFFF</color>
+
+    <!-- Typography & Neutral Surfaces -->
+    <color name="bg_screen">#F4F7F4</color>
+    <color name="primary_text">#124324</color>
+    <color name="secondary_text">#4B5563</color>
+    <color name="disabled_text">#331E6F3E</color>
+    <color name="black_overlay">#66000000</color>
+
+    <!-- Destructive / Alert Red -->
+    <color name="redButton">#BE3131</color>
+    <color name="redButtonPressed">#9C2828</color>
+    <color name="red_elemento_griglia">#D50000</color>
+
+    <!-- Semantic Aliases -->
+    <color name="dialog_primary">@color/defaultColor</color>
+    <color name="dialog_primary_dark">@color/defaultColorDark</color>
+    <color name="greenBackground">@color/defaultColor</color>
+    <color name="darkgreenBackground">@color/defaultColorDark</color>
+    <color name="greenButton">@color/defaultColor</color>
+    <color name="greenButtonAccent">@color/defaultColorDark</color>
+
+    <!-- "Sto Bene" Banner Palette -->
+    <color name="im_ok_banner_bg">#F2F8F4</color>
+    <color name="im_ok_banner_stroke">#C8E6C9</color>
+    <color name="im_ok_banner_badge">#E0F2E9</color>
+
+</resources>

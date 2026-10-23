@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_ricordamelo"
+        android:icon="@drawable/icon"
+        android:title="@string/menu_alarms"/>
+
+    <item
+        android:id="@+id/nav_sos"
+        android:icon="@drawable/baseline_sos_24"
+        android:title="@string/sos_emergency_network"/>
+
+</menu>
