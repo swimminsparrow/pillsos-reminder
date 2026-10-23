@@ -1,6 +1,8 @@
 <div align="center">
 
-  <img src="resources/design/ic_launcher-playstore.png" width="128" height="128" alt="PillSOS Logo" style="border-radius: 28px;" />
+<p align="center">
+  <img src="resources/design/ic_launcher-playstore.png" width="128" height="128" alt="PillSOS Logo" />
+</p>
 
   # 💊 PillSOS - Pill Reminder and SOS Manager
   **Your assistant for therapy management, and private SOS emergency protection between loved ones.**
