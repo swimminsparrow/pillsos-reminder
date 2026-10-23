@@ -1,0 +1,85 @@
+name: Build and Publish Release APKs
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Build & Release APKs
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: Set up JDK 25
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '25'
+          cache: 'gradle'
+
+      - name: Grant Execute Permission for Gradle Wrapper
+        run: chmod +x gradlew
+
+      - name: Build Free & NonFree Release APKs
+        run: ./gradlew assembleFreeRelease assembleNonfreeRelease --stacktrace
+
+      - name: Sign APKs
+        run: |
+          set -e
+          TAG_NAME="${GITHUB_REF_NAME:-v3.0}"
+
+          # Setup Keystore
+          if [ -n "${{ secrets.SIGNING_KEYSTORE_BASE64 }}" ]; then
+            echo "Using production signing keystore from GitHub Secrets"
+            echo "${{ secrets.SIGNING_KEYSTORE_BASE64 }}" | base64 -d > release.keystore
+            KS_FILE="release.keystore"
+            KS_PASS="${{ secrets.KEYSTORE_PASSWORD }}"
+            KEY_ALIAS="${{ secrets.KEY_ALIAS }}"
+            KEY_PASS="${{ secrets.KEY_PASSWORD }}"
+          else
+            echo "Generating self-signed release key for GitHub distribution"
+            keytool -genkey -v -keystore release.keystore -alias pillsos -keyalg RSA -keysize 2048 -validity 10000 \
+              -storepass pillsos123 -keypass pillsos123 -dname "CN=PillSOS, OU=OpenSource, O=PillSOS, C=IT"
+            KS_FILE="release.keystore"
+            KS_PASS="pillsos123"
+            KEY_ALIAS="pillsos"
+            KEY_PASS="pillsos123"
+          fi
+
+          APKSIGNER=$(find $ANDROID_HOME/build-tools -name apksigner | sort -V | tail -n 1)
+          echo "Using apksigner at: $APKSIGNER"
+
+          # 1. Sign Free Flavor APK
+          FREE_SRC=$(find app/build/outputs/apk/free/release -name "*.apk" | head -n 1)
+          echo "Signing Free APK: $FREE_SRC"
+          $APKSIGNER sign --ks "$KS_FILE" --ks-pass "pass:$KS_PASS" --ks-key-alias "$KEY_ALIAS" --key-pass "pass:$KEY_PASS" \
+            --out "PillSOS-${TAG_NAME}-free.apk" "$FREE_SRC"
+
+          # 2. Sign NonFree (Google Play) Flavor APK
+          NONFREE_SRC=$(find app/build/outputs/apk/nonfree/release -name "*.apk" | head -n 1)
+          echo "Signing NonFree APK: $NONFREE_SRC"
+          $APKSIGNER sign --ks "$KS_FILE" --ks-pass "pass:$KS_PASS" --ks-key-alias "$KEY_ALIAS" --key-pass "pass:$KEY_PASS" \
+            --out "PillSOS-${TAG_NAME}-googleplay.apk" "$NONFREE_SRC"
+
+          ls -lh PillSOS-*.apk
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            PillSOS-*-free.apk
+            PillSOS-*-googleplay.apk
+          generate_release_notes: true
+          draft: false
+          prerelease: false
