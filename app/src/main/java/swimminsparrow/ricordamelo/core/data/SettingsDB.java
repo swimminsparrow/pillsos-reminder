@@ -17,6 +17,7 @@ import androidx.security.crypto.MasterKey;
 import java.io.File;
 import java.security.SecureRandom;
 
+import swimminsparrow.ricordamelo.core.utils.ImageUtils;
 import swimminsparrow.ricordamelo.core.utils.SpockLogger;
 import swimminsparrow.ricordamelo.core.utils.StorageUtils;
 import swimminsparrow.ricordamelo.R;
@@ -122,6 +123,9 @@ public class SettingsDB {
     public void setVibrationMode(boolean vibro) {
         SharedPreferences.Editor edit = databasePreferences.edit();
         edit.putBoolean("vibroMode", vibro);
+        if (databasePreferences.contains("d_alarm_sound_mode")) {
+            edit.putString("d_alarm_sound_mode", vibro ? SOUND_MODE_MAX_VOLUME : SOUND_MODE_SYSTEM);
+        }
         edit.apply();
     }
 
@@ -203,7 +207,7 @@ public class SettingsDB {
             File file = StorageUtils.getAvatarImage(context);
 
             Bitmap bitmap = (file != null && file.exists() && file.length() > 0)
-                    ? BitmapFactory.decodeFile(file.getAbsolutePath())
+                    ? ImageUtils.loadBitmapWithExifRotation(file, 256)
                     : null;
 
             return bitmap != null

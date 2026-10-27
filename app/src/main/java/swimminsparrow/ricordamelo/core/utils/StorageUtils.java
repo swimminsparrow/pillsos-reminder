@@ -38,7 +38,7 @@ public class StorageUtils {
         try {
             File file = getAvatarImage(c);
             if (file != null && file.exists() && file.length() > 0) {
-                Bitmap original = BitmapFactory.decodeFile(file.getAbsolutePath());
+                Bitmap original = ImageUtils.loadBitmapWithExifRotation(file, 96);
                 if (original != null) {
                     Bitmap resized = Bitmap.createScaledBitmap(original, 96, 96, true);
                     ByteArrayOutputStream baos = new ByteArrayOutputStream();

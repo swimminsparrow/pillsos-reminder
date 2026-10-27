@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import swimminsparrow.ricordamelo.core.utils.ImageUtils;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -113,7 +114,7 @@ public class NewAlarmFragment extends Fragment {
                             return;
 
                         farmaco.setImagePath(path);
-                        Bitmap datiFoto = BitmapFactory.decodeFile(path);
+                        Bitmap datiFoto = ImageUtils.loadBitmapWithExifRotation(new File(path), 600);
                         if (datiFoto != null) {
                             mFoto.setImageBitmap(datiFoto);
                         }
@@ -339,7 +340,10 @@ public class NewAlarmFragment extends Fragment {
         if (imgPath != null && !imgPath.isEmpty() && !"null".equalsIgnoreCase(imgPath)) {
             File imgFile = new File(imgPath);
             if (imgFile.exists()) {
-                mFoto.setImageBitmap(BitmapFactory.decodeFile(imgPath));
+                Bitmap preview = ImageUtils.loadBitmapWithExifRotation(imgFile, 600);
+                if (preview != null) {
+                    mFoto.setImageBitmap(preview);
+                }
             }
         }
 

@@ -17,12 +17,15 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationManagerCompat;
+import androidx.core.view.WindowCompat;
 
 import java.io.File;
 
 import swimminsparrow.ricordamelo.R;
+import swimminsparrow.ricordamelo.core.utils.ImageUtils;
 import swimminsparrow.ricordamelo.core.data.SettingsDB;
 import swimminsparrow.ricordamelo.core.data.dao.FarmacoDao;
 import swimminsparrow.ricordamelo.core.data.models.Farmaco;
@@ -43,6 +46,7 @@ public class FullAlarmActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        EdgeToEdge.enable(this);
         super.onCreate(savedInstanceState);
 
         // Turn on screen and display over keyguard/lockscreen
@@ -200,20 +204,16 @@ public class FullAlarmActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON
         );
 
-        getWindow().setStatusBarColor(android.graphics.Color.parseColor("#061608"));
-        getWindow().setNavigationBarColor(android.graphics.Color.parseColor("#1B4918"));
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            getWindow().setNavigationBarContrastEnforced(false);
-            getWindow().setStatusBarContrastEnforced(false);
+        if (Build.VERSION.SDK_INT < 35) {
+            getWindow().setStatusBarColor(android.graphics.Color.parseColor("#061608"));
+            getWindow().setNavigationBarColor(android.graphics.Color.parseColor("#1B4918"));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                getWindow().setNavigationBarContrastEnforced(false);
+                getWindow().setStatusBarContrastEnforced(false);
+            }
         }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            getWindow().setDecorFitsSystemWindows(false);
-        } else {
-            getWindow().getDecorView().setSystemUiVisibility(
-                    View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-            );
-        }
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
     }
 
     private void loadPillImage(String imagePath) {
@@ -227,7 +227,7 @@ public class FullAlarmActivity extends AppCompatActivity {
             }
             if (imgFile.exists()) {
                 try {
-                    Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+                    Bitmap myBitmap = ImageUtils.loadBitmapWithExifRotation(imgFile, 600);
                     if (myBitmap != null) {
                         ivPhoto.setImageBitmap(myBitmap);
                         return;

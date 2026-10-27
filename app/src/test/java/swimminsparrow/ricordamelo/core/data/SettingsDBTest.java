@@ -19,6 +19,8 @@ public class SettingsDBTest {
     @Before
     public void setUp() {
         context = ApplicationProvider.getApplicationContext();
+        context.getSharedPreferences("databasePreferences", Context.MODE_PRIVATE).edit().clear().commit();
+        context.getSharedPreferences("personalInfo", Context.MODE_PRIVATE).edit().clear().commit();
         settingsDB = SettingsDB.getInstance(context);
     }
 

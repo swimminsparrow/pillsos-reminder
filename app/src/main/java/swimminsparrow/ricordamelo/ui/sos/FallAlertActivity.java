@@ -7,7 +7,9 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.WindowCompat;
 
 import swimminsparrow.ricordamelo.R;
 import swimminsparrow.ricordamelo.core.protection.FallAlertController;
@@ -28,6 +30,7 @@ public class FallAlertActivity extends AppCompatActivity implements FallAlertCon
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        EdgeToEdge.enable(this);
         super.onCreate(savedInstanceState);
 
         setupLockscreenFlags();
@@ -125,20 +128,16 @@ public class FallAlertActivity extends AppCompatActivity implements FallAlertCon
                 WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD
         );
 
-        getWindow().setStatusBarColor(android.graphics.Color.parseColor("#2A0808"));
-        getWindow().setNavigationBarColor(android.graphics.Color.parseColor("#0F0303"));
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            getWindow().setNavigationBarContrastEnforced(false);
-            getWindow().setStatusBarContrastEnforced(false);
+        if (Build.VERSION.SDK_INT < 35) {
+            getWindow().setStatusBarColor(android.graphics.Color.parseColor("#2A0808"));
+            getWindow().setNavigationBarColor(android.graphics.Color.parseColor("#0F0303"));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                getWindow().setNavigationBarContrastEnforced(false);
+                getWindow().setStatusBarContrastEnforced(false);
+            }
         }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            getWindow().setDecorFitsSystemWindows(false);
-        } else {
-            getWindow().getDecorView().setSystemUiVisibility(
-                    View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-            );
-        }
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
     }
 
     @Override

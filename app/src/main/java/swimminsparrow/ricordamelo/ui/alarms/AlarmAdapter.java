@@ -3,6 +3,7 @@ package swimminsparrow.ricordamelo.ui.alarms;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import swimminsparrow.ricordamelo.core.utils.ImageUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -167,7 +168,7 @@ public class AlarmAdapter extends BaseAdapter {
 
         if (file.exists()) {
             try {
-                Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
+                Bitmap bitmap = ImageUtils.loadBitmapWithExifRotation(file, 200);
                 if (bitmap != null) {
                     imageView.setImageBitmap(bitmap);
                 } else {
