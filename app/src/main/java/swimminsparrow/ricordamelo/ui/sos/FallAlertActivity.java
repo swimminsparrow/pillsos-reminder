@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.WindowCompat;
 
@@ -30,7 +29,6 @@ public class FallAlertActivity extends AppCompatActivity implements FallAlertCon
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        EdgeToEdge.enable(this);
         super.onCreate(savedInstanceState);
 
         setupLockscreenFlags();
@@ -131,10 +129,11 @@ public class FallAlertActivity extends AppCompatActivity implements FallAlertCon
         if (Build.VERSION.SDK_INT < 35) {
             getWindow().setStatusBarColor(android.graphics.Color.parseColor("#2A0808"));
             getWindow().setNavigationBarColor(android.graphics.Color.parseColor("#0F0303"));
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                getWindow().setNavigationBarContrastEnforced(false);
-                getWindow().setStatusBarContrastEnforced(false);
-            }
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            getWindow().setNavigationBarContrastEnforced(false);
+            getWindow().setStatusBarContrastEnforced(false);
         }
 
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);

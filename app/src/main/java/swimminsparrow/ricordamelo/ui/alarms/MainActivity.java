@@ -37,19 +37,16 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        androidx.activity.EdgeToEdge.enable(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && Build.VERSION.SDK_INT < 35) {
-            getWindow().addFlags(android.view.WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            int defaultGreen = androidx.core.content.ContextCompat.getColor(this, R.color.defaultColor);
-            getWindow().setStatusBarColor(defaultGreen);
-            getWindow().setNavigationBarColor(defaultGreen);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                getWindow().setNavigationBarContrastEnforced(false);
-                getWindow().setStatusBarContrastEnforced(false);
-            }
+        getWindow().addFlags(android.view.WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        int defaultGreen = androidx.core.content.ContextCompat.getColor(this, R.color.defaultColor);
+        getWindow().setStatusBarColor(defaultGreen);
+        getWindow().setNavigationBarColor(defaultGreen);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            getWindow().setNavigationBarContrastEnforced(false);
+            getWindow().setStatusBarContrastEnforced(false);
         }
 
         setupNavigator();

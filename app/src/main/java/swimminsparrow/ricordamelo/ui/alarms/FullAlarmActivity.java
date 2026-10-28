@@ -17,7 +17,6 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.view.WindowCompat;
@@ -46,7 +45,6 @@ public class FullAlarmActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        EdgeToEdge.enable(this);
         super.onCreate(savedInstanceState);
 
         // Turn on screen and display over keyguard/lockscreen
@@ -218,10 +216,11 @@ public class FullAlarmActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT < 35) {
             getWindow().setStatusBarColor(android.graphics.Color.parseColor("#061608"));
             getWindow().setNavigationBarColor(android.graphics.Color.parseColor("#1B4918"));
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                getWindow().setNavigationBarContrastEnforced(false);
-                getWindow().setStatusBarContrastEnforced(false);
-            }
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            getWindow().setNavigationBarContrastEnforced(false);
+            getWindow().setStatusBarContrastEnforced(false);
         }
 
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
