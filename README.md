@@ -29,6 +29,7 @@
   <br />
   <p align="center">
     <i>Available as <b>100% Free & Open Source Software (FOSS)</b> on F-Droid and on Google Play Store.</i>
+    <b>Note: Available soon on F-Droid</b>
   </p>
 
 </div>
