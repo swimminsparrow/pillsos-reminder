@@ -282,6 +282,11 @@ public class AlarmRinger {
                 swimminsparrow.ricordamelo.PillSOS.getTtsManager(context.getApplicationContext()).stopRepeating();
             } catch (Exception ignored) {}
         }
+
+        if (eventListener != null) {
+            AlarmEventListener listener = eventListener;
+            new Handler(Looper.getMainLooper()).post(listener::onAlarmAutoDismissed);
+        }
     }
 
     public synchronized boolean isRinging() {

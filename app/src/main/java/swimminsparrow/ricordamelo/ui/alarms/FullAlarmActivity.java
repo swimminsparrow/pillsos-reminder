@@ -64,19 +64,21 @@ public class FullAlarmActivity extends AppCompatActivity {
 
         View btnDismiss = findViewById(R.id.btn_alarm_dismiss);
         View dismissContainer = findViewById(R.id.btn_alarm_dismiss_container);
+        View tvDismiss = findViewById(R.id.tv_alarm_dismiss);
 
         populateAlarmDetails();
         updateSnoozeText();
 
-        // Dismiss Action (X) - wire both circle and container
+        // Dismiss Action (X) - wire circle, container, and text label
         if (btnDismiss != null) btnDismiss.setOnClickListener(v -> dismissAlarm());
         if (dismissContainer != null) dismissContainer.setOnClickListener(v -> dismissAlarm());
+        if (tvDismiss != null) tvDismiss.setOnClickListener(v -> dismissAlarm());
 
         // Snooze Action
         btnSnooze.setOnClickListener(v -> snoozeAlarm());
 
         // Connect to AlarmRinger (handles looping sound, continuous vibration, and duration timeout)
-        swimminsparrow.ricordamelo.core.utils.AlarmRinger.getInstance().setAlarmEventListener(this::finishAndRemoveTask);
+        swimminsparrow.ricordamelo.core.utils.AlarmRinger.getInstance().setAlarmEventListener(this::finishSafely);
         swimminsparrow.ricordamelo.core.utils.AlarmRinger.getInstance().start(this, alarmId);
     }
 
@@ -100,6 +102,9 @@ public class FullAlarmActivity extends AppCompatActivity {
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
+        if (isFinishing() || isDestroyed()) {
+            return;
+        }
         setIntent(intent);
         if (intent != null) {
             alarmId = intent.getIntExtra("ID", -1);
@@ -112,6 +117,12 @@ public class FullAlarmActivity extends AppCompatActivity {
     private void updateSnoozeText() {
         if (btnSnooze != null) {
             btnSnooze.setText(getString(R.string.snooze_format, snoozeMinutes));
+        }
+    }
+
+    private void finishSafely() {
+        if (!isFinishing() && !isDestroyed()) {
+            finish();
         }
     }
 
@@ -149,7 +160,7 @@ public class FullAlarmActivity extends AppCompatActivity {
         dismissIntent.putExtra("ID", alarmId);
         sendBroadcast(dismissIntent);
 
-        finishAndRemoveTask();
+        finishSafely();
     }
 
     private void snoozeAlarm() {
@@ -173,7 +184,7 @@ public class FullAlarmActivity extends AppCompatActivity {
         snoozeIntent.putExtra("snooze_minutes", snoozeMinutes);
         sendBroadcast(snoozeIntent);
 
-        finishAndRemoveTask();
+        finishSafely();
     }
 
     @Override

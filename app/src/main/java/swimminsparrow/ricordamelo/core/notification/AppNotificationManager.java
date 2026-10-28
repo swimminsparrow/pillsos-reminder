@@ -570,16 +570,22 @@ public class AppNotificationManager {
         notification.flags |= Notification.FLAG_NO_CLEAR | Notification.FLAG_ONGOING_EVENT;
         safeNotify(context, id, notification);
 
-        // Directly launch FullAlarmActivity
+        // When screen is locked or off, setFullScreenIntent handles displaying FullAlarmActivity
+        // natively and avoids duplicate activity launch race conditions. Only launch directly if
+        // device is unlocked/interactive and app is already in the foreground.
         try {
-            android.app.Activity currentActivity = swimminsparrow.ricordamelo.PillSOS.getCurrentActivity();
-            if (currentActivity != null && !currentActivity.isFinishing()) {
-                currentActivity.startActivity(fullScreenIntent);
-            } else {
-                context.startActivity(fullScreenIntent);
+            android.app.KeyguardManager km = (android.app.KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
+            android.os.PowerManager pm = (android.os.PowerManager) context.getSystemService(Context.POWER_SERVICE);
+            boolean isScreenLockedOrOff = (km != null && km.isKeyguardLocked()) || (pm != null && !pm.isInteractive());
+
+            if (!isScreenLockedOrOff) {
+                android.app.Activity currentActivity = swimminsparrow.ricordamelo.PillSOS.getCurrentActivity();
+                if (currentActivity != null && !currentActivity.isFinishing()) {
+                    currentActivity.startActivity(fullScreenIntent);
+                }
             }
         } catch (Exception e) {
-            SpockLogger.info(TAG, "Direct startActivity failed, fullScreenIntent will handle it: " + e.getMessage());
+            SpockLogger.info(TAG, "Direct startActivity check failed, fullScreenIntent will handle it: " + e.getMessage());
         }
     }
 }
