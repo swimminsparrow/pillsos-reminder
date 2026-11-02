@@ -44,6 +44,7 @@ public class FallAlertController {
     private static FallAlertController instance;
 
     private boolean isAlerting = false;
+    private boolean isActivityInForeground = false;
     private int secondsRemaining = COUNTDOWN_SECONDS;
     private CountDownTimer countDownTimer;
     private MediaPlayer mediaPlayer;
@@ -69,6 +70,14 @@ public class FallAlertController {
         return secondsRemaining;
     }
 
+    public synchronized void setActivityInForeground(boolean inForeground) {
+        this.isActivityInForeground = inForeground;
+    }
+
+    public synchronized boolean isActivityInForeground() {
+        return isActivityInForeground;
+    }
+
     public synchronized void setAlertListener(AlertListener listener) {
         this.listener = listener;
     }
@@ -81,6 +90,7 @@ public class FallAlertController {
 
         this.appContext = context.getApplicationContext();
         isAlerting = true;
+        isActivityInForeground = false;
         secondsRemaining = COUNTDOWN_SECONDS;
         SpockLogger.info(TAG, "Starting Fall Detection Pre-Alarm countdown: " + COUNTDOWN_SECONDS + "s");
 
@@ -111,20 +121,14 @@ public class FallAlertController {
             SpockLogger.error(TAG, "Error announcing fall detection via TTS: " + e.getMessage());
         }
 
-        // 3. Post Notification & Full Screen Intent via AppNotificationManager
-        PendingIntent fullScreenPending = AppNotificationManager.getInstance()
-                .showFallPreAlarmNotification(appContext, COUNTDOWN_SECONDS);
-
-
-        // 4. Trigger FallAlertActivity launch across all device states.
+        // 3. Trigger FallAlertActivity launch across all device states.
         //
         // Android Background Activity Launch (BAL) strategy:
         //   1. Foreground: Direct startActivity() from currentActivity (exempt from BAL).
         //   2. Overlay Permission: If SYSTEM_ALERT_WINDOW is granted, the app is 100% exempt from BAL,
         //      allowing immediate full-screen takeover directly over other open apps.
-        //   3. Locked / Screen Off: Direct startActivity() is attempted, and the notification's
-        //      setFullScreenIntent (with creator MODE_BACKGROUND_ACTIVITY_START_ALLOWED) wakes the display
-        //      and surfaces FallAlertActivity over the lock screen.
+        //   3. Locked / Screen Off: Direct startActivity() is attempted, waking the display
+        //      and surfacing FallAlertActivity over the lock screen.
         //   4. Background without Overlay Permission (unlocked): Notification displays as a high-priority
         //      Heads-Up banner so the user can immediately tap "Sto bene" or "Invia SOS".
 
@@ -162,12 +166,15 @@ public class FallAlertController {
                     appContext.startActivity(fullScreenIntent);
                     SpockLogger.info(TAG, "Device is locked/sleeping — started FallAlertActivity directly");
                 } catch (Exception e) {
-                    SpockLogger.info(TAG, "Direct launch when locked failed; notification fullScreenIntent will handle it: " + e.getMessage());
+                    SpockLogger.error(TAG, "Direct launch when locked failed: " + e.getMessage());
                 }
             } else {
-                SpockLogger.info(TAG, "App in background without overlay permission — notification will alert the user");
+                SpockLogger.info(TAG, "App in background without overlay permission — notification fallback will alert the user");
             }
         }
+
+        // 4. Post Notification if FallAlertActivity does not appear
+        AppNotificationManager.getInstance().showFallPreAlarmNotification(appContext, COUNTDOWN_SECONDS);
 
 
         // 5. Start 30-Second Countdown Timer on Main Thread (updates Activity UI without notification spam)
@@ -182,6 +189,12 @@ public class FallAlertController {
                     synchronized (FallAlertController.this) {
                         if (listener != null) {
                             listener.onTick(secondsRemaining);
+                        }
+                    }
+                    // If FallAlertActivity is not in foreground, keep heads-up notification active and refreshed
+                    if (!isActivityInForeground() && isAlerting()) {
+                        if (secondsRemaining % 5 == 0) {
+                            AppNotificationManager.getInstance().refreshFallPreAlarmHeadsUpNotification(appContext, secondsRemaining);
                         }
                     }
                 }
@@ -207,6 +220,7 @@ public class FallAlertController {
 
         stopTimerAndMedia();
         isAlerting = false;
+        isActivityInForeground = false;
 
         Context appContext = context.getApplicationContext();
 
@@ -228,6 +242,7 @@ public class FallAlertController {
 
         stopTimerAndMedia();
         isAlerting = false;
+        isActivityInForeground = false;
 
         Context appContext = context.getApplicationContext();
 
@@ -327,7 +342,7 @@ public class FallAlertController {
         try {
             vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
             if (vibrator != null && vibrator.hasVibrator()) {
-                long[] pattern = new long[]{0, 500, 250, 500, 750};
+                long[] pattern = new long[]{0, 600, 1500, 600, 3500};
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     vibrator.vibrate(VibrationEffect.createWaveform(pattern, 0));
                 } else {

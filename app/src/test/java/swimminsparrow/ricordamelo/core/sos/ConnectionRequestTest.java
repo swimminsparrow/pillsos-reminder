@@ -66,7 +66,7 @@ public class ConnectionRequestTest {
         ConnectionRequest fresh = new ConnectionRequest("1", "A", "t1", "k1", "", now);
         assertFalse(fresh.isExpired());
 
-        ConnectionRequest expired = new ConnectionRequest("2", "B", "t2", "k2", "", now - 125000);
+        ConnectionRequest expired = new ConnectionRequest("2", "B", "t2", "k2", "", now - 305000);
         assertTrue(expired.isExpired());
     }
 }

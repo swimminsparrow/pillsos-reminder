@@ -1,10 +1,8 @@
 package swimminsparrow.ricordamelo.core.sos;
 
 import android.app.Activity;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -15,10 +13,6 @@ import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.util.Log;
 import android.widget.Toast;
-
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
-import androidx.core.content.ContextCompat;
 
 import org.json.JSONObject;
 
@@ -31,9 +25,9 @@ import java.net.URL;
 import swimminsparrow.ricordamelo.R;
 import swimminsparrow.ricordamelo.config.Constants;
 import swimminsparrow.ricordamelo.core.data.SettingsDB;
+import swimminsparrow.ricordamelo.core.notification.AppNotificationManager;
 import swimminsparrow.ricordamelo.core.utils.CryptoUtils;
 import swimminsparrow.ricordamelo.ui.BaseActivity;
-import swimminsparrow.ricordamelo.ui.alarms.MainActivity;
 import swimminsparrow.ricordamelo.ui.common.Dialogs.DialogBuilder;
 
 public class ConnectionRequestManager {
@@ -43,10 +37,20 @@ public class ConnectionRequestManager {
 
     public static final int NOTIFICATION_ID_CONNECTION_REQ = 1007;
     public static final int NOTIFICATION_ID_PAIRING_WAIT = 1008;
-    public static final long CONNECTION_REQUEST_VALIDITY_MS = 120000L; // 120 seconds validity window
+    public static final long CONNECTION_REQUEST_VALIDITY_MS = 300000L; // 5 minutes validity window
 
     private static boolean isListeningActive = false;
+    private static volatile boolean isPairingActive = false;
     private static Thread listenThread = null;
+    private static volatile HttpURLConnection activeConn = null;
+
+    public static void setPairingActive(boolean active) {
+        isPairingActive = active;
+    }
+
+    public static boolean isPairingActive() {
+        return isPairingActive;
+    }
     private static boolean isApprovalDialogShowing = false;
     private static DialogBuilder activeApprovalDialog = null;
     private static ConnectionRequest activePendingRequest = null;
@@ -75,148 +79,32 @@ public class ConnectionRequestManager {
 
     public static void cancelConnectionNotification(Context context) {
         if (context == null) return;
-        try {
-            NotificationManagerCompat.from(context).cancel(NOTIFICATION_ID_CONNECTION_REQ);
-        } catch (Exception ignored) {}
+        AppNotificationManager.getInstance().cancelConnectionRequestNotification(context);
     }
 
     public static void postConnectionRequestNotification(Context context, ConnectionRequest request) {
         if (context == null || request == null) return;
-        try {
-            String channelId = Constants.SOS_CHANNEL_ID;
-            String title = context.getString(R.string.sos_connection_request_title);
-            String message = context.getString(R.string.sos_connection_request_desc, request.name);
-
-            Intent contentIntent = new Intent(context, MainActivity.class);
-            contentIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            request.toIntent(contentIntent);
-
-            int flags = PendingIntent.FLAG_UPDATE_CURRENT;
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                flags |= PendingIntent.FLAG_IMMUTABLE;
-            }
-
-            PendingIntent pendingIntent = PendingIntent.getActivity(context, NOTIFICATION_ID_CONNECTION_REQ, contentIntent, flags);
-
-            Intent approveIntent = new Intent(context, ConnectionRequestActionReceiver.class);
-            approveIntent.setAction(ConnectionRequestActionReceiver.ACTION_APPROVE);
-            request.toIntent(approveIntent);
-            PendingIntent approvePendingIntent = PendingIntent.getBroadcast(context, NOTIFICATION_ID_CONNECTION_REQ + 1, approveIntent, flags);
-
-            Intent rejectIntent = new Intent(context, ConnectionRequestActionReceiver.class);
-            rejectIntent.setAction(ConnectionRequestActionReceiver.ACTION_REJECT);
-            request.toIntent(rejectIntent);
-            PendingIntent rejectPendingIntent = PendingIntent.getBroadcast(context, NOTIFICATION_ID_CONNECTION_REQ + 2, rejectIntent, flags);
-
-            Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-            long[] vibPattern = new long[]{0, 400, 200, 400};
-
-            NotificationCompat.Builder builder = new NotificationCompat.Builder(context, channelId)
-                    .setSmallIcon(R.drawable.icon)
-                    .setContentTitle(title)
-                    .setContentText(message)
-                    .setStyle(new NotificationCompat.BigTextStyle().bigText(message))
-                    .setPriority(NotificationCompat.PRIORITY_MAX)
-                    .setCategory(NotificationCompat.CATEGORY_CALL)
-                    .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
-                    .setSound(soundUri)
-                    .setVibrate(vibPattern)
-                    .setContentIntent(pendingIntent)
-                    .setAutoCancel(true)
-                    .addAction(R.drawable.ic_check_circle_24, context.getString(R.string.btn_approve), approvePendingIntent)
-                    .addAction(R.drawable.ic_close_white_24dp, context.getString(R.string.btn_reject), rejectPendingIntent);
-
-            if (ContextCompat.checkSelfPermission(context, android.Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED
-                    || Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
-                NotificationManagerCompat.from(context).notify(NOTIFICATION_ID_CONNECTION_REQ, builder.build());
-            }
-        } catch (Exception e) {
-            Log.e(TAG, "Error posting connection request notification", e);
-        }
+        AppNotificationManager.getInstance().showConnectionRequestNotification(context, request);
     }
 
     public static void postWaitingForApprovalNotification(Context context, String targetName, String reqId) {
         if (context == null) return;
-        try {
-            String channelId = Constants.SERVICE_CHANNEL_ID;
-            String title = context.getString(R.string.sos_connecting_notif_title);
-            String message = context.getString(R.string.sos_waiting_for_approval_notif, targetName != null ? targetName : "");
-
-            int flags = PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE;
-
-            Intent contentIntent = new Intent(context, MainActivity.class);
-            contentIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            PendingIntent contentPendingIntent = PendingIntent.getActivity(context, NOTIFICATION_ID_PAIRING_WAIT, contentIntent, flags);
-
-            NotificationCompat.Builder builder = new NotificationCompat.Builder(context, channelId)
-                    .setSmallIcon(R.drawable.icon)
-                    .setContentTitle(title)
-                    .setContentText(message)
-                    .setStyle(new NotificationCompat.BigTextStyle().bigText(message))
-                    .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                    .setBadgeIconType(NotificationCompat.BADGE_ICON_NONE)
-                    .setOngoing(true)
-                    .setProgress(0, 0, true)
-                    .setContentIntent(contentPendingIntent);
-
-            if (ContextCompat.checkSelfPermission(context, android.Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED
-                    || Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
-                NotificationManagerCompat.from(context).notify(NOTIFICATION_ID_PAIRING_WAIT, builder.build());
-            }
-        } catch (Exception e) {
-            Log.e(TAG, "Error posting waiting notification", e);
-        }
+        AppNotificationManager.getInstance().showWaitingForApprovalNotification(context, targetName);
     }
 
     public static void cancelWaitingNotification(Context context) {
         if (context == null) return;
-        try {
-            NotificationManagerCompat.from(context).cancel(NOTIFICATION_ID_PAIRING_WAIT);
-            PinPairingManager.stopApprovalListening();
-        } catch (Exception ignored) {}
+        AppNotificationManager.getInstance().cancelWaitingNotification(context);
     }
 
     public static void postApprovalResultNotification(Context context, String title, String message) {
         if (context == null) return;
-        try {
-            String channelId = Constants.SOS_CHANNEL_ID;
-
-            Intent contentIntent = new Intent(context, MainActivity.class);
-            contentIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-            int flags = PendingIntent.FLAG_UPDATE_CURRENT;
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                flags |= PendingIntent.FLAG_IMMUTABLE;
-            }
-            PendingIntent contentPendingIntent = PendingIntent.getActivity(context, NOTIFICATION_ID_PAIRING_WAIT + 2, contentIntent, flags);
-
-            Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-            long[] vibPattern = new long[]{0, 300, 150, 300};
-
-            NotificationCompat.Builder builder = new NotificationCompat.Builder(context, channelId)
-                    .setSmallIcon(R.drawable.icon)
-                    .setContentTitle(title)
-                    .setContentText(message)
-                    .setStyle(new NotificationCompat.BigTextStyle().bigText(message))
-                    .setPriority(NotificationCompat.PRIORITY_MAX)
-                    .setCategory(NotificationCompat.CATEGORY_MESSAGE)
-                    .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
-                    .setSound(soundUri)
-                    .setVibrate(vibPattern)
-                    .setAutoCancel(true)
-                    .setContentIntent(contentPendingIntent);
-
-            if (ContextCompat.checkSelfPermission(context, android.Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED
-                    || Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
-                NotificationManagerCompat.from(context).notify(NOTIFICATION_ID_PAIRING_WAIT, builder.build());
-            }
-        } catch (Exception e) {
-            Log.e(TAG, "Error posting result notification", e);
-        }
+        AppNotificationManager.getInstance().showApprovalResultNotification(context, title, message);
     }
 
     public static void acceptRequest(Context context, ConnectionRequest request) {
         if (context == null || request == null) return;
+        SettingsDB.getInstance(context).clearPendingConnectionRequest();
         cancelConnectionNotification(context);
         dismissActiveApprovalDialog();
 
@@ -238,6 +126,7 @@ public class ConnectionRequestManager {
 
     public static void rejectRequest(Context context, ConnectionRequest request) {
         if (context == null || request == null) return;
+        SettingsDB.getInstance(context).clearPendingConnectionRequest();
         cancelConnectionNotification(context);
         dismissActiveApprovalDialog();
 
@@ -265,6 +154,12 @@ public class ConnectionRequestManager {
     public static synchronized void startListening(Context context) {
         if (context == null) return;
         final Context appContext = context.getApplicationContext();
+
+        // Never open connection to ntfy.sh without configured contacts unless user is actively in pairing mode
+        if (!SOSContactsManager.hasConfiguredContacts(appContext) && !isPairingActive) {
+            return;
+        }
+
         String myUuid = SettingsDB.getInstance(appContext).getUserUUID();
         if (myUuid == null || myUuid.isEmpty()) return;
 
@@ -283,6 +178,7 @@ public class ConnectionRequestManager {
 
                     URL url = new URL(Constants.getNtfyTopicUrl(endpoint));
                     conn = (HttpURLConnection) url.openConnection();
+                    activeConn = conn;
                     swimminsparrow.ricordamelo.core.utils.ForceIPv4SSLSocketFactory.applyTo(conn);
                     conn.setRequestMethod("GET");
                     conn.setRequestProperty("Accept", "text/event-stream");
@@ -336,7 +232,12 @@ public class ConnectionRequestManager {
                 } catch (Exception e) {
                     Log.d(TAG, "Connection request stream disconnected, reconnecting...");
                 } finally {
-                    if (conn != null) conn.disconnect();
+                    if (conn != null) {
+                        try {
+                            conn.disconnect();
+                        } catch (Exception ignored) {}
+                    }
+                    activeConn = null;
                 }
 
                 if (isListeningActive) {
@@ -349,8 +250,14 @@ public class ConnectionRequestManager {
         listenThread.start();
     }
 
-    public static void stopListening() {
+    public static synchronized void stopListening() {
         isListeningActive = false;
+        if (activeConn != null) {
+            try {
+                activeConn.disconnect();
+            } catch (Exception ignored) {}
+            activeConn = null;
+        }
         if (listenThread != null) {
             listenThread.interrupt();
             listenThread = null;
@@ -360,6 +267,9 @@ public class ConnectionRequestManager {
     public static void notifyRequestReceived(Context context, ConnectionRequest request) {
         if (context == null || request == null) return;
         try {
+            // Persist pending request so user can approve/reject even if notification is swiped away
+            SettingsDB.getInstance(context).savePendingConnectionRequest(request);
+
             Intent intent = new Intent(ACTION_CONNECTION_REQUEST_RECEIVED);
             intent.setPackage(context.getPackageName());
             request.toIntent(intent);
@@ -376,9 +286,26 @@ public class ConnectionRequestManager {
 
     public static void checkPendingRequests(Activity activity) {
         if (activity == null || activity.isFinishing() || activity.isDestroyed() || isApprovalDialogShowing) return;
+
+        // Check locally saved pending request in SettingsDB first (e.g. if notification was swiped away)
+        ConnectionRequest localPending = SettingsDB.getInstance(activity).getPendingConnectionRequest();
+        if (localPending != null) {
+            if (localPending.isExpired()) {
+                Log.d(TAG, "Locally saved pending request is expired, clearing: " + localPending.reqId);
+                SettingsDB.getInstance(activity).clearPendingConnectionRequest();
+                SOSContactsManager.markRequestHandled(activity, localPending.topic, localPending.timestamp);
+                cancelConnectionNotification(activity);
+            } else {
+                showApprovalDialog(activity, localPending);
+                return;
+            }
+        }
+
+        if (!SOSContactsManager.hasConfiguredContacts(activity) && !isPairingActive) return;
         PinPairingManager.checkForConnectionRequests(activity, req -> {
             if (activity == null || activity.isFinishing() || activity.isDestroyed() || isApprovalDialogShowing) return;
             if (req.isExpired()) {
+                SettingsDB.getInstance(activity).clearPendingConnectionRequest();
                 SOSContactsManager.markRequestHandled(activity, req.topic, req.timestamp);
                 cancelConnectionNotification(activity);
                 return;
@@ -389,6 +316,7 @@ public class ConnectionRequestManager {
 
     private static void handleAlreadyConnected(Context context, ConnectionRequest req) {
         if (context == null || req == null) return;
+        SettingsDB.getInstance(context).clearPendingConnectionRequest();
         SOSContact existing = SOSContactsManager.getContactByTopic(context, req.topic);
         long addedTs = existing != null ? existing.getAddedTimestamp() : req.timestamp;
         SOSContact updated = new SOSContact(
@@ -428,13 +356,17 @@ public class ConnectionRequestManager {
         }
 
         if (req.isExpired()) {
+            SettingsDB.getInstance(activity).clearPendingConnectionRequest();
             SOSContactsManager.markRequestHandled(activity, req.topic, req.timestamp);
             cancelConnectionNotification(activity);
             Toast.makeText(activity, R.string.sos_request_expired, Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if (SOSContactsManager.isRequestHandled(activity, req.topic, req.timestamp)) return;
+        if (SOSContactsManager.isRequestHandled(activity, req.topic, req.timestamp)) {
+            SettingsDB.getInstance(activity).clearPendingConnectionRequest();
+            return;
+        }
 
         isApprovalDialogShowing = true;
         activePendingRequest = req;
@@ -450,6 +382,7 @@ public class ConnectionRequestManager {
             synchronized (ConnectionRequestManager.class) {
                 if (activePendingRequest != null && activePendingRequest.reqId != null && activePendingRequest.reqId.equals(req.reqId)) {
                     Log.d(TAG, "Request validity expired, auto-dismissing approval dialog: " + req.reqId);
+                    SettingsDB.getInstance(activity).clearPendingConnectionRequest();
                     SOSContactsManager.markRequestHandled(activity, req.topic, req.timestamp);
                     dismissActiveApprovalDialog();
                     if (!activity.isFinishing() && !activity.isDestroyed()) {

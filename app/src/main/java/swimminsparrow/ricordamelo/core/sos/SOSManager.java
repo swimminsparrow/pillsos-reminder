@@ -16,7 +16,9 @@ public class SOSManager {
     public static void startServices(Context context) {
         if (context == null) return;
         ProtectionService.sync(context);
-        ConnectionRequestManager.startListening(context);
+        if (SOSContactsManager.hasConfiguredContacts(context)) {
+            ConnectionRequestManager.startListening(context);
+        }
     }
 
     public static boolean sendImOkMessage(Context context, String message, boolean notifyUser) {

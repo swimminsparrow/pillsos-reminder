@@ -33,6 +33,9 @@
 
     <queries>
         <package android:name="swimminsparrow.ricordamelo" />
+        <intent>
+            <action android:name="android.intent.action.TTS_SERVICE" />
+        </intent>
     </queries>
 
     <supports-screens
@@ -97,7 +100,13 @@
             android:taskAffinity=".fallalert"
             android:launchMode="standard" />
 
-        <receiver android:name=".services.NotificationDismissReceiver" />
+        <receiver
+            android:name=".services.NotificationDismissReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="swimminsparrow.ricordamelo.ACTION_DISMISS_ALARM" />
+            </intent-filter>
+        </receiver>
         <receiver android:name=".services.FallAlertReceiver" android:exported="false" />
         <receiver
             android:name=".core.sos.ConnectionRequestActionReceiver"
@@ -119,7 +128,13 @@
             </intent-filter>
         </receiver>
 
-        <receiver android:name=".services.SnoozeReceiver" />
+        <receiver
+            android:name=".services.SnoozeReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="swimminsparrow.ricordamelo.ACTION_SNOOZE_ALARM" />
+            </intent-filter>
+        </receiver>
         <receiver android:name=".services.MissedAlarmReceiver" />
 
         <service

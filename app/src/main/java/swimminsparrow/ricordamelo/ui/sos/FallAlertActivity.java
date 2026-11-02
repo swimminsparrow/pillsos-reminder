@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.core.view.WindowInsetsControllerCompat;
 
 import swimminsparrow.ricordamelo.R;
 import swimminsparrow.ricordamelo.core.protection.FallAlertController;
@@ -22,6 +24,11 @@ import swimminsparrow.ricordamelo.core.utils.SpockLogger;
 public class FallAlertActivity extends AppCompatActivity implements FallAlertController.AlertListener {
 
     private static final String TAG = "FallAlertActivity";
+    private static volatile boolean isVisible = false;
+
+    public static boolean isActivityVisible() {
+        return isVisible;
+    }
 
     private TextView tvCountdown;
     private View btnCancel;
@@ -89,6 +96,14 @@ public class FallAlertActivity extends AppCompatActivity implements FallAlertCon
         }
 
         controller.setAlertListener(this);
+
+        // Intercept back gesture / press: prevent accidental dismissal and attempt to keep activity in foreground or present persistent heads-up
+        getOnBackPressedDispatcher().addCallback(this, new androidx.activity.OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                attemptRelaunchOrShowHeadsUp();
+            }
+        });
     }
 
     @Override
@@ -105,11 +120,22 @@ public class FallAlertActivity extends AppCompatActivity implements FallAlertCon
     @Override
     protected void onResume() {
         super.onResume();
+        isVisible = true;
         setupLockscreenFlags();
         FallAlertController controller = FallAlertController.getInstance();
+        controller.setActivityInForeground(true);
+        swimminsparrow.ricordamelo.core.notification.AppNotificationManager.getInstance().cancelFallNotificationFallback();
+        swimminsparrow.ricordamelo.core.notification.AppNotificationManager.getInstance().cancelFallAlertNotification(this);
         if (tvCountdown != null) {
             tvCountdown.setText(String.valueOf(controller.getSecondsRemaining()));
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        isVisible = false;
+        FallAlertController.getInstance().setActivityInForeground(false);
     }
 
     private void setupLockscreenFlags() {
@@ -137,6 +163,23 @@ public class FallAlertActivity extends AppCompatActivity implements FallAlertCon
         }
 
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
+        applyImmersiveMode();
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus) {
+            applyImmersiveMode();
+        }
+    }
+
+    private void applyImmersiveMode() {
+        WindowInsetsControllerCompat controller = WindowCompat.getInsetsController(getWindow(), getWindow().getDecorView());
+        if (controller != null) {
+            controller.hide(WindowInsetsCompat.Type.systemBars());
+            controller.setSystemBarsBehavior(WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
+        }
     }
 
     @Override
@@ -159,7 +202,59 @@ public class FallAlertActivity extends AppCompatActivity implements FallAlertCon
     }
 
     @Override
+    protected void onStop() {
+        super.onStop();
+        FallAlertController controller = FallAlertController.getInstance();
+        if (controller.isAlerting()) {
+            swimminsparrow.ricordamelo.core.notification.AppNotificationManager.getInstance()
+                    .refreshFallPreAlarmHeadsUpNotification(getApplicationContext(),
+                            controller.getSecondsRemaining());
+        }
+    }
+
+    @Override
+    protected void onUserLeaveHint() {
+        super.onUserLeaveHint();
+        attemptRelaunchOrShowHeadsUp();
+    }
+
+    @Override
+    public void onBackPressed() {
+        attemptRelaunchOrShowHeadsUp();
+    }
+
+    private void attemptRelaunchOrShowHeadsUp() {
+        FallAlertController controller = FallAlertController.getInstance();
+        if (!controller.isAlerting()) {
+            finishAndRemoveTask();
+            return;
+        }
+
+        // 1. Try to bring/relaunch FallAlertActivity into foreground
+        try {
+            Intent intent = new Intent(this, FallAlertActivity.class);
+            intent.addFlags(
+                    Intent.FLAG_ACTIVITY_NEW_TASK |
+                    Intent.FLAG_ACTIVITY_SINGLE_TOP |
+                    Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
+            );
+            startActivity(intent);
+            SpockLogger.info(TAG, "Attempted to relaunch FallAlertActivity into foreground");
+        } catch (Exception e) {
+            SpockLogger.info(TAG, "Cannot directly relaunch FallAlertActivity: " + e.getMessage());
+        }
+
+        // 2. If activity cannot stay in foreground (or goes to background),
+        // present the persistent heads-up notification
+        swimminsparrow.ricordamelo.core.notification.AppNotificationManager.getInstance()
+                .refreshFallPreAlarmHeadsUpNotification(getApplicationContext(),
+                        controller.getSecondsRemaining());
+    }
+
+    @Override
     protected void onDestroy() {
+        isVisible = false;
+        FallAlertController.getInstance().setActivityInForeground(false);
         FallAlertController.getInstance().setAlertListener(null);
         super.onDestroy();
     }

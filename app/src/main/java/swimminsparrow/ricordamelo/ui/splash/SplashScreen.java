@@ -7,12 +7,8 @@ import android.view.animation.DecelerateInterpolator;
 
 import swimminsparrow.ricordamelo.R;
 import swimminsparrow.ricordamelo.core.data.SettingsDB;
-import swimminsparrow.ricordamelo.core.sos.SOSManager;
-import swimminsparrow.ricordamelo.core.utils.CheckPermissionsHandler;
-import swimminsparrow.ricordamelo.core.utils.PermissionCallback;
 import swimminsparrow.ricordamelo.core.utils.StorageUtils;
 import swimminsparrow.ricordamelo.ui.BaseActivity;
-import swimminsparrow.ricordamelo.ui.common.Dialogs.DialogBuilder;
 import swimminsparrow.ricordamelo.ui.onboarding.OnboardingActivity;
 
 public class SplashScreen extends BaseActivity {
@@ -82,6 +78,14 @@ public class SplashScreen extends BaseActivity {
         StorageUtils.isProjectDirsExisting(SplashScreen.this);
         SettingsDB.getInstance(getApplicationContext())
                 .setAppLaunchTime(SettingsDB.getInstance(getApplicationContext()).getAppLaunchTime() + 1);
+
+        // If device has no TTS engine installed (e.g. AOSP emulator / pure de-Googled ROM),
+        // auto-disable TTS mode in settings so the app does not declare voice as active.
+        if (!swimminsparrow.ricordamelo.core.utils.TTSManager.isTTSEngineInstalled(this)) {
+            if (SettingsDB.getInstance(getApplicationContext()).getTTSMode()) {
+                SettingsDB.getInstance(getApplicationContext()).setTTSMode(false);
+            }
+        }
 
         if (!SettingsDB.getInstance(getApplicationContext()).getPrimoAvvio()) {
             Intent intent = new Intent(SplashScreen.this, OnboardingActivity.class);

@@ -18,7 +18,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -31,9 +30,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import swimminsparrow.ricordamelo.R;
+import swimminsparrow.ricordamelo.core.ntfy.NtfyManager;
 import swimminsparrow.ricordamelo.core.sos.ConnectionRequestManager;
 import swimminsparrow.ricordamelo.core.sos.SOSContact;
 import swimminsparrow.ricordamelo.core.sos.SOSContactsManager;
+import swimminsparrow.ricordamelo.ui.common.Dialogs.DialogBuilder;
 
 public class SosFragment extends Fragment {
 
@@ -130,7 +131,7 @@ public class SosFragment extends Fragment {
         ssb.append(partB);
         formatSubHeaders(ssb, startBDesc, ssb.length(), titleColor);
 
-        new swimminsparrow.ricordamelo.ui.common.Dialogs.DialogBuilder(context, swimminsparrow.ricordamelo.ui.common.Dialogs.DialogBuilder.Type.INFO)
+        new DialogBuilder(context, DialogBuilder.Type.INFO)
                 .setIcon(R.drawable.baseline_help_24)
                 .setTitleText(getString(R.string.faq_sos))
                 .setContentText(ssb)
@@ -193,14 +194,14 @@ public class SosFragment extends Fragment {
             getActivity().setTitle(R.string.sos_emergency_network);
         }
         loadContacts();
-        if (getActivity() != null) {
+        if (getActivity() != null && swimminsparrow.ricordamelo.core.sos.SOSContactsManager.hasConfiguredContacts(getActivity())) {
             ConnectionRequestManager.checkPendingRequests(getActivity());
         }
         if (getContext() != null && !allContacts.isEmpty()) {
             String myUuid = swimminsparrow.ricordamelo.core.data.SettingsDB.getInstance(requireContext()).getUserUUID();
             if (myUuid != null) {
                 swimminsparrow.ricordamelo.core.ntfy.NtfyManager ntfy =
-                        swimminsparrow.ricordamelo.core.ntfy.NtfyManager.getInstance(requireContext(), myUuid);
+                        NtfyManager.getInstance(requireContext(), myUuid);
                 for (SOSContact c : allContacts) {
                     if (c.getTopic() != null) {
                         ntfy.pingContact(c.getTopic());

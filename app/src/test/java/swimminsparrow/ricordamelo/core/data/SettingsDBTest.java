@@ -54,25 +54,28 @@ public class SettingsDBTest {
     }
 
     @Test
-    public void testSilentAndVibrationModes() {
-        settingsDB.setSilentMode(true);
-        assertTrue(settingsDB.getSilentMode());
-        settingsDB.setSilentMode(false);
-        assertFalse(settingsDB.getSilentMode());
-
-        settingsDB.setVibrationMode(true);
-        assertTrue(settingsDB.getVibrationMode());
-        settingsDB.setVibrationMode(false);
-        assertFalse(settingsDB.getVibrationMode());
+    public void testAlarmSoundMode() {
+        assertTrue("Default sound mode must be max volume", settingsDB.isMaxVolumeMode());
+        settingsDB.setAlarmSoundMode(SettingsDB.SOUND_MODE_SYSTEM);
+        assertFalse(settingsDB.isMaxVolumeMode());
+        assertEquals(SettingsDB.SOUND_MODE_SYSTEM, settingsDB.getAlarmSoundMode());
+        settingsDB.setAlarmSoundMode(SettingsDB.SOUND_MODE_MAX_VOLUME);
+        assertTrue(settingsDB.isMaxVolumeMode());
+        assertEquals(SettingsDB.SOUND_MODE_MAX_VOLUME, settingsDB.getAlarmSoundMode());
     }
 
     @Test
-    public void testAlarmSoundMode() {
-        assertTrue(settingsDB.isMaxVolumeMode());
-        settingsDB.setAlarmSoundMode(SettingsDB.SOUND_MODE_SYSTEM);
-        assertFalse(settingsDB.isMaxVolumeMode());
-        settingsDB.setAlarmSoundMode(SettingsDB.SOUND_MODE_MAX_VOLUME);
-        assertTrue(settingsDB.isMaxVolumeMode());
+    public void testVolumeOverrideState() {
+        assertFalse(settingsDB.isVolumeOverridden());
+        settingsDB.savePreOverrideVolumes(5, 7);
+        assertTrue(settingsDB.isVolumeOverridden());
+        assertEquals(5, settingsDB.getSavedAlarmVolume());
+        assertEquals(7, settingsDB.getSavedRingVolume());
+
+        settingsDB.clearVolumeOverrideState();
+        assertFalse(settingsDB.isVolumeOverridden());
+        assertEquals(-1, settingsDB.getSavedAlarmVolume());
+        assertEquals(-1, settingsDB.getSavedRingVolume());
     }
 
     @Test
@@ -110,5 +113,29 @@ public class SettingsDBTest {
 
         // Verify higher sensitivity slider value produces lower G threshold
         assertTrue(highSensThreshold < lowSensThreshold);
+    }
+
+    @Test
+    public void testPendingConnectionRequestPersistence() {
+        assertNull(settingsDB.getPendingConnectionRequest());
+
+        long now = System.currentTimeMillis();
+        swimminsparrow.ricordamelo.core.sos.ConnectionRequest request =
+                new swimminsparrow.ricordamelo.core.sos.ConnectionRequest("req_123", "Mario Rossi", "topic_mario", "key_secret", "avatar_b64", now);
+
+        settingsDB.savePendingConnectionRequest(request);
+
+        swimminsparrow.ricordamelo.core.sos.ConnectionRequest retrieved = settingsDB.getPendingConnectionRequest();
+        assertNotNull(retrieved);
+        assertEquals("req_123", retrieved.reqId);
+        assertEquals("Mario Rossi", retrieved.name);
+        assertEquals("topic_mario", retrieved.topic);
+        assertEquals("key_secret", retrieved.key);
+        assertEquals("avatar_b64", retrieved.avatar);
+        assertEquals(now, retrieved.timestamp);
+        assertFalse(retrieved.isExpired());
+
+        settingsDB.clearPendingConnectionRequest();
+        assertNull(settingsDB.getPendingConnectionRequest());
     }
 }

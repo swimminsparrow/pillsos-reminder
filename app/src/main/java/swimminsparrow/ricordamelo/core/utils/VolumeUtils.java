@@ -8,8 +8,8 @@ import swimminsparrow.ricordamelo.core.data.SettingsDB;
 public class VolumeUtils {
 
     /**
-     * Overrides alarm and ring volume streams to maximum if silent mode is disabled.
-     * Saves the pre-override volume levels so they can be restored later.
+     * Overrides alarm and ring volume streams to maximum if max volume mode is enabled.
+     * Saves the pre-override volume levels in SettingsDB so they can be restored later.
      */
     public static synchronized void overrideVolumeToMax(Context context) {
         overrideVolumeToMax(context, false);
@@ -17,13 +17,13 @@ public class VolumeUtils {
 
     /**
      * Overrides alarm and ring volume streams to maximum.
-     * If forceEvenIfSilent is true, forces volume to max even if silent mode is enabled (emergency use).
+     * If forceEvenIfSilent is true, forces volume to max even if in system mode (emergency use).
      */
     public static synchronized void overrideVolumeToMax(Context context, boolean forceEvenIfSilent) {
         if (context == null) return;
-        
+
         SettingsDB settingsDB = SettingsDB.getInstance(context);
-        if (!forceEvenIfSilent && settingsDB.getSilentMode()) {
+        if (!forceEvenIfSilent && !settingsDB.isMaxVolumeMode()) {
             return;
         }
 
@@ -44,7 +44,7 @@ public class VolumeUtils {
 
             int maxRingVol = audioManager.getStreamMaxVolume(AudioManager.STREAM_RING);
             audioManager.setStreamVolume(AudioManager.STREAM_RING, maxRingVol, 0);
-            
+
             SpockLogger.info("VolumeUtils", "Volume overridden to max - Alarm: " + maxAlarmVol + ", Ring: " + maxRingVol);
         } catch (SecurityException e) {
             SpockLogger.error(VolumeUtils.class, "Cannot change volume due to Do Not Disturb policy: " + e.getMessage());
@@ -79,7 +79,7 @@ public class VolumeUtils {
                     int targetRingVol = Math.min(savedRingVol, maxRingVol);
                     audioManager.setStreamVolume(AudioManager.STREAM_RING, targetRingVol, 0);
                 }
-                
+
                 SpockLogger.info("VolumeUtils", "Restored volume levels - Alarm: " + savedAlarmVol + ", Ring: " + savedRingVol);
             } catch (SecurityException e) {
                 SpockLogger.error(VolumeUtils.class, "Cannot restore volume due to Do Not Disturb policy: " + e.getMessage());

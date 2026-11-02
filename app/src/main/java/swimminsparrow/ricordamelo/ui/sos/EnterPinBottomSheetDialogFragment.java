@@ -367,4 +367,13 @@ public class EnterPinBottomSheetDialogFragment extends BaseBottomSheetDialogFrag
         }
         builder.show();
     }
+
+    @Override
+    public void onDismiss(@NonNull android.content.DialogInterface dialog) {
+        super.onDismiss(dialog);
+        if (getContext() != null && !swimminsparrow.ricordamelo.core.sos.SOSContactsManager.hasConfiguredContacts(getContext())) {
+            ConnectionRequestManager.stopListening();
+            PinPairingManager.stopApprovalListening();
+        }
+    }
 }

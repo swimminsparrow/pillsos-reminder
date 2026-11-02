@@ -25,6 +25,7 @@ import swimminsparrow.ricordamelo.core.data.models.Farmaco;
 import android.content.Context;
 import swimminsparrow.ricordamelo.core.utils.AppExecutors;
 import swimminsparrow.ricordamelo.ui.common.CommonSnackbar;
+import swimminsparrow.ricordamelo.ui.common.Dialogs.DialogBuilder;
 import swimminsparrow.ricordamelo.ui.common.Dialogs.DialogContoAllaRovescia;
 
 
@@ -173,7 +174,7 @@ public class AlarmsFragment extends Fragment {
         if (getContext() == null) return;
         SettingsDB settingsDB = SettingsDB.getInstance(requireContext());
         if (!settingsDB.isImOkExplained()) {
-            new swimminsparrow.ricordamelo.ui.common.Dialogs.DialogBuilder(requireContext(), swimminsparrow.ricordamelo.ui.common.Dialogs.DialogBuilder.Type.APPROVAL)
+            new DialogBuilder(requireContext(), DialogBuilder.Type.APPROVAL)
                     .setIcon(R.drawable.ic_favorite_24)
                     .setTitleText(getString(R.string.im_ok))
                     .setContentText(getString(R.string.im_ok_dialog_description))
@@ -196,7 +197,7 @@ public class AlarmsFragment extends Fragment {
         if (sent) {
             CommonSnackbar.showWithIcon(getActivity(), getString(R.string.im_ok_sent), R.drawable.baseline_done_24);
         } else {
-            new swimminsparrow.ricordamelo.ui.common.Dialogs.DialogBuilder(requireContext(), swimminsparrow.ricordamelo.ui.common.Dialogs.DialogBuilder.Type.WARNING)
+            new DialogBuilder(requireContext(), DialogBuilder.Type.WARNING)
                     .setTitleText(getString(R.string.no_connected_contacts_title))
                     .setContentText(getString(R.string.no_connected_contacts_msg))
                     .show();

@@ -5,12 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import swimminsparrow.ricordamelo.R;
-import swimminsparrow.ricordamelo.core.data.SettingsDB;
-import swimminsparrow.ricordamelo.core.data.dao.FarmacoDao;
-import swimminsparrow.ricordamelo.core.data.models.Farmaco;
 import swimminsparrow.ricordamelo.core.notification.AppNotificationManager;
-import swimminsparrow.ricordamelo.core.sos.SOSManager;
 import swimminsparrow.ricordamelo.core.utils.SpockLogger;
 
 public class ReminderReceiver extends BroadcastReceiver {
@@ -30,7 +25,7 @@ public class ReminderReceiver extends BroadcastReceiver {
                 int id = intent.getIntExtra("ID", -1);
                 String orario = intent.getStringExtra("Orario");
                 if (swimminsparrow.ricordamelo.core.utils.AlarmRinger.getInstance().isRinging()) {
-                    AppNotificationManager.getInstance().showAlarmNotification(context, id, orario);
+                    AppNotificationManager.getInstance().snoozeAlarm(context, id, orario, 15);
                 }
                 return;
             } else if (ACTION_SOS_NOTIFICATION_SWIPED.equals(action)) {
@@ -40,6 +35,13 @@ public class ReminderReceiver extends BroadcastReceiver {
                     String message = intent.getStringExtra("message");
                     AppNotificationManager.getInstance().showSosAlert(context, username, topic, message != null ? message : "");
                 }
+                return;
+            }
+
+            // Handle incoming SOS alert trigger (e.g. from test or external dispatch)
+            if (intent.getBooleanExtra("is_sos_alert", false)) {
+                String testMessage = context.getString(swimminsparrow.ricordamelo.R.string.sos_simulated_alert_msg);
+                AppNotificationManager.getInstance().showSosAlert(context, "Mariomoto (Test)", "test_topic", testMessage);
                 return;
             }
         }

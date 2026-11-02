@@ -102,6 +102,8 @@
     <string name="alarm_dismiss">Turn Off</string>
     <string name="snooze">Snooze</string>
     <string name="snooze_format">Snooze for %d min</string>
+    <string name="alarm_snoozed_title">%s (Snoozed)</string>
+    <string name="alarm_snoozed_body">Will ring again at %1$s (%2$d min)</string>
     <string name="rotate">Rotate</string>
     <string name="empty_name_error">Please enter a name!</string>
     <string name="buy_me_a_coffee">Would you like to buy me a coffee?</string>
@@ -133,6 +135,10 @@
     <string name="set_cat_about">About &amp; Support</string>
     <string name="tts_title">Speak Alarm Name</string>
     <string name="tts_summary">Speaks the alarm name out loud when it rings</string>
+    <string name="tts_summary_not_installed">Text-to-Speech engine not installed</string>
+    <string name="tts_dialog_missing_title">Text-to-Speech Not Available</string>
+    <string name="tts_dialog_missing_desc">No Text-to-Speech engine was found on your device (common on AOSP emulators or de-Googled ROMs). To enable voice announcements, install a TTS engine such as eSpeak NG or RHVoice from F-Droid, or Google Speech Services.</string>
+    <string name="tts_dialog_open_settings">TTS Settings</string>
     <string name="fall_detection_title">Fall Detection (Experimental)</string>
     <string name="fall_detection_summary">Use accelerometer to detect falls and send an emergency alert</string>
     <string name="fall_sensitivity_title">Fall Sensitivity</string>
@@ -317,7 +323,10 @@ PillSOS is a personal reminder and peer aid, NOT a certified medical device or l
     <string name="sos_connecting_notif_title">SOS Connection</string>
     <string name="sos_waiting_approval_hint">The contact must approve the request on their device. You\'ll receive a notification when they respond.</string>
     <string name="sos_peer_not_paired_toast">%1$s is no longer connected on the other device.</string>
-    <string name="sos_channel_name">SOS &amp; Connection Requests</string>
+    <string name="sos_channel_name">SOS Messages &amp; Updates</string>
+    <string name="notification_channel_reminders">Medication Reminders</string>
+    <string name="notification_channel_sos_emergency">Received SOS Emergencies</string>
+    <string name="notification_channel_service">Background Protection Service</string>
     <string name="fall_alert_subtitle_no_contacts">No SOS contacts configured. If you need help, call emergency services.</string>
     <string name="fall_alert_call_emergency_btn">Call 112</string>
     <string name="fall_detected_no_contacts_title">Fall Detected</string>
@@ -343,4 +352,15 @@ PillSOS is a personal reminder and peer aid, NOT a certified medical device or l
     <string name="alarm_sound_mode_system">Follow system settings</string>
     <string name="sos_simulated_alert_msg">🚨 ALARM: this is a SIMULATION of an SOS request. You can ignore this message!</string>
     <string name="fall_detected_tts_announcement">Pill SOS detected a fall. If you do not respond, an SOS will be sent to your contacts in 30 seconds</string>
+
+    <!-- Test Notification Chooser -->
+    <string name="test_notification_dialog_title">Test Notifications</string>
+    <string name="test_notif_pill_alarm">💊 Medication Reminder (In 5s)</string>
+    <string name="test_notif_sos_alert">🚨 Received SOS Siren (In 5s)</string>
+    <string name="test_notif_fall_alert">🏃‍♂️ Fall Pre-Alarm (In 5s)</string>
+    <string name="test_notif_pairing_req">🤝 SOS Connection Request (Immediate)</string>
+    <string name="test_notif_im_ok">🟢 \"I\'m OK\" Check-in (Immediate)</string>
+    <string name="test_notif_delivered">📤 SOS Delivery Status (Immediate)</string>
+    <string name="test_notif_scheduled_toast">Firing in 5 seconds! Lock your phone or exit the app to test.</string>
+    <string name="test_notif_sent_toast">Notification posted to notification shade!</string>
 </resources>

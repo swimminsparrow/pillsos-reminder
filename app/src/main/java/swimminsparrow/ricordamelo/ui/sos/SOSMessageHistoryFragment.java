@@ -32,6 +32,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.imageview.ShapeableImageView;
+
+import swimminsparrow.ricordamelo.core.data.SettingsDB;
+import swimminsparrow.ricordamelo.core.ntfy.NtfyManager;
+import swimminsparrow.ricordamelo.core.utils.NetworkUtils;
 import swimminsparrow.ricordamelo.ui.common.CommonSnackbar;
 
 import java.util.List;
@@ -43,6 +47,7 @@ import swimminsparrow.ricordamelo.core.sos.SOSContact;
 import swimminsparrow.ricordamelo.core.sos.SOSContactsManager;
 import swimminsparrow.ricordamelo.core.utils.AppExecutors;
 import swimminsparrow.ricordamelo.core.sos.SOSManager;
+import swimminsparrow.ricordamelo.ui.common.Dialogs.DialogBuilder;
 
 public class SOSMessageHistoryFragment extends Fragment {
 
@@ -175,8 +180,8 @@ public class SOSMessageHistoryFragment extends Fragment {
             CommonSnackbar.showWithIcon(getActivity(), getString(R.string.test_sos_sent), R.drawable.baseline_done_24);
             loadHistory();
         } else {
-            new swimminsparrow.ricordamelo.ui.common.Dialogs.DialogBuilder(requireContext(),
-                    swimminsparrow.ricordamelo.ui.common.Dialogs.DialogBuilder.Type.WARNING)
+            new DialogBuilder(requireContext(),
+                    DialogBuilder.Type.WARNING)
                     .setTitleText(getString(R.string.sos_no_connected_contacts_title))
                     .setContentText(getString(R.string.sos_no_connected_contacts_desc))
                     .show();
@@ -187,8 +192,8 @@ public class SOSMessageHistoryFragment extends Fragment {
         if (getContext() == null || topic == null)
             return;
         String contactDisplayName = (name != null && !name.trim().isEmpty()) ? name : "";
-        new swimminsparrow.ricordamelo.ui.common.Dialogs.DialogBuilder(requireContext(),
-                swimminsparrow.ricordamelo.ui.common.Dialogs.DialogBuilder.Type.DESTRUCTIVE)
+        new DialogBuilder(requireContext(),
+                DialogBuilder.Type.DESTRUCTIVE)
                 .setTitleText(getString(R.string.sos_clear_history_title))
                 .setContentText(getString(R.string.sos_clear_history_confirm, contactDisplayName))
                 .setConfirmText(getString(R.string.btn_clear))
@@ -205,8 +210,8 @@ public class SOSMessageHistoryFragment extends Fragment {
     private void handleDisconnect() {
         if (!isAdded() || getContext() == null || topic == null)
             return;
-        new swimminsparrow.ricordamelo.ui.common.Dialogs.DialogBuilder(requireContext(),
-                swimminsparrow.ricordamelo.ui.common.Dialogs.DialogBuilder.Type.DESTRUCTIVE)
+        new DialogBuilder(requireContext(),
+                DialogBuilder.Type.DESTRUCTIVE)
                 .setTitleText(getString(R.string.sos_disconnect_complete_title))
                 .setContentText(getString(R.string.sos_disconnect_complete_desc))
                 .setConfirmText(getString(R.string.sos_disconnect_btn))
@@ -232,7 +237,7 @@ public class SOSMessageHistoryFragment extends Fragment {
 
     private void showDisconnectToast() {
         if (getContext() == null) return;
-        boolean online = swimminsparrow.ricordamelo.core.utils.NetworkUtils.isNetworkAvailable(requireContext());
+        boolean online = NetworkUtils.isNetworkAvailable(requireContext());
         int resId = online ? R.string.sos_contact_disconnected_toast : R.string.sos_contact_disconnected_offline_toast;
         Toast.makeText(requireContext(), resId, Toast.LENGTH_SHORT).show();
     }
@@ -282,11 +287,11 @@ public class SOSMessageHistoryFragment extends Fragment {
         loadHistory();
         if (getContext() != null) {
             if (topic != null) {
-                swimminsparrow.ricordamelo.core.ntfy.NtfyManager.getInstance(requireContext(), topic).startReceiving();
+                NtfyManager.getInstance(requireContext(), topic).startReceiving();
             }
-            String myUuid = swimminsparrow.ricordamelo.core.data.SettingsDB.getInstance(requireContext()).getUserUUID();
+            String myUuid = SettingsDB.getInstance(requireContext()).getUserUUID();
             if (myUuid != null && !myUuid.isEmpty()) {
-                swimminsparrow.ricordamelo.core.ntfy.NtfyManager.getInstance(requireContext(), myUuid).startReceiving();
+                NtfyManager.getInstance(requireContext(), myUuid).startReceiving();
             }
             IntentFilter filter = new IntentFilter(SOSContactsManager.ACTION_SOS_CONTACTS_UPDATED);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {

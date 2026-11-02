@@ -20,6 +20,8 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.core.view.WindowInsetsControllerCompat;
 
 import java.io.File;
 
@@ -29,8 +31,6 @@ import swimminsparrow.ricordamelo.core.data.SettingsDB;
 import swimminsparrow.ricordamelo.core.data.dao.FarmacoDao;
 import swimminsparrow.ricordamelo.core.data.models.Farmaco;
 import swimminsparrow.ricordamelo.core.utils.SpockLogger;
-import swimminsparrow.ricordamelo.services.NotificationDismissReceiver;
-import swimminsparrow.ricordamelo.services.SnoozeReceiver;
 
 public class FullAlarmActivity extends AppCompatActivity {
 
@@ -38,6 +38,12 @@ public class FullAlarmActivity extends AppCompatActivity {
     private String alarmOrario = "";
     private static final int DEFAULT_SNOOZE_MINUTES = 15;
     private int snoozeMinutes = DEFAULT_SNOOZE_MINUTES;
+    private boolean isDismissing = false;
+    private static volatile int activeVisibleAlarmId = -1;
+
+    public static boolean isAlarmVisible(int id) {
+        return activeVisibleAlarmId != -1 && (id == -1 || activeVisibleAlarmId == id);
+    }
 
     private TextView tvTitle;
     private ImageView ivPhoto;
@@ -53,7 +59,11 @@ public class FullAlarmActivity extends AppCompatActivity {
         setContentView(R.layout.activity_full_alarm);
 
         alarmId = getIntent().getIntExtra("ID", -1);
+        if (alarmId == -1) {
+            alarmId = swimminsparrow.ricordamelo.core.utils.AlarmRinger.getInstance().getActiveAlarmId();
+        }
         alarmOrario = getIntent().getStringExtra("Orario");
+        isDismissing = false;
 
 
         tvTitle = findViewById(R.id.tv_alarm_title);
@@ -74,6 +84,14 @@ public class FullAlarmActivity extends AppCompatActivity {
 
         // Snooze Action
         btnSnooze.setOnClickListener(v -> snoozeAlarm());
+
+        // Intercept back gesture / press to auto-snooze for 5 minutes and show countdown notification
+        getOnBackPressedDispatcher().addCallback(this, new androidx.activity.OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                autoSnoozeAlarm(5);
+            }
+        });
 
         // Connect to AlarmRinger (handles looping sound, continuous vibration, and duration timeout)
         swimminsparrow.ricordamelo.core.utils.AlarmRinger.getInstance().setAlarmEventListener(this::finishSafely);
@@ -103,12 +121,38 @@ public class FullAlarmActivity extends AppCompatActivity {
         if (isFinishing() || isDestroyed()) {
             return;
         }
+        isDismissing = false;
         setIntent(intent);
         if (intent != null) {
             alarmId = intent.getIntExtra("ID", -1);
+            if (alarmId == -1) {
+                alarmId = swimminsparrow.ricordamelo.core.utils.AlarmRinger.getInstance().getActiveAlarmId();
+            }
             alarmOrario = intent.getStringExtra("Orario");
             populateAlarmDetails();
             swimminsparrow.ricordamelo.core.utils.AlarmRinger.getInstance().start(this, alarmId);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        isDismissing = false;
+        activeVisibleAlarmId = alarmId;
+        swimminsparrow.ricordamelo.core.notification.AppNotificationManager.getInstance().cancelNotificationFallback();
+        swimminsparrow.ricordamelo.core.notification.AppNotificationManager.getInstance().cancelNotificationOnly(this, alarmId);
+        new Handler(Looper.getMainLooper()).postDelayed(() -> {
+            if (!isFinishing() && !isDestroyed()) {
+                swimminsparrow.ricordamelo.core.notification.AppNotificationManager.getInstance().cancelNotificationOnly(this, alarmId);
+            }
+        }, 300);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (activeVisibleAlarmId == alarmId) {
+            activeVisibleAlarmId = -1;
         }
     }
 
@@ -120,84 +164,78 @@ public class FullAlarmActivity extends AppCompatActivity {
 
     private void finishSafely() {
         if (!isFinishing() && !isDestroyed()) {
-            finish();
+            finishAndRemoveTask();
         }
     }
 
     private void dismissAlarm() {
-        SpockLogger.info(getClass().getSimpleName(), "Dismissing alarm " + alarmId + " from FullScreenActivity");
-        
-        swimminsparrow.ricordamelo.core.utils.AlarmRinger.getInstance().stop(this);
-
-        // 1. Immediately cancel the notification from NotificationManager
-        try {
-            NotificationManagerCompat nm = NotificationManagerCompat.from(this);
-            if (alarmId != -1) {
-                nm.cancel(alarmId);
-            } else {
-                nm.cancel(swimminsparrow.ricordamelo.config.Constants.TEST_ALARM_NOTIFICATION_ID);
-            }
-        } catch (Exception ignored) {}
-
-        // 2. Restore volumes if overridden
-        swimminsparrow.ricordamelo.core.utils.VolumeUtils.restoreVolume(this);
-
-        // 3. Cancel any pending missed alarm
-        try {
-            Intent missedIntent = new Intent(this, swimminsparrow.ricordamelo.services.MissedAlarmReceiver.class);
-            android.app.PendingIntent missedPending = swimminsparrow.ricordamelo.core.utils.PendingIntentHelper.getBroadcast(
-                    this, alarmId, missedIntent, true);
-            android.app.AlarmManager alarmManager = (android.app.AlarmManager) getSystemService(Context.ALARM_SERVICE);
-            if (alarmManager != null) {
-                alarmManager.cancel(missedPending);
-            }
-        } catch (Exception ignored) {}
-
-        // 4. Send broadcast to NotificationDismissReceiver as additional safety
-        Intent dismissIntent = new Intent(this, NotificationDismissReceiver.class);
-        dismissIntent.putExtra("ID", alarmId);
-        sendBroadcast(dismissIntent);
-
+        if (isDismissing) {
+            return;
+        }
+        isDismissing = true;
+        SpockLogger.info(getClass().getSimpleName(), "Dismissing alarm " + alarmId + " from FullAlarmActivity");
+        swimminsparrow.ricordamelo.core.notification.AppNotificationManager.getInstance().dismissAlarm(this, alarmId);
         finishSafely();
     }
 
     private void snoozeAlarm() {
-        SpockLogger.info(getClass().getSimpleName(), "Snoozing alarm " + alarmId + " for " + snoozeMinutes + " mins from FullScreenActivity");
+        if (isDismissing) {
+            return;
+        }
+        isDismissing = true;
+        SpockLogger.info(getClass().getSimpleName(), "Snoozing alarm " + alarmId + " for " + snoozeMinutes + " mins from FullAlarmActivity");
+        swimminsparrow.ricordamelo.core.notification.AppNotificationManager.getInstance().snoozeAlarm(this, alarmId, alarmOrario, snoozeMinutes);
+        finishSafely();
+    }
 
-        swimminsparrow.ricordamelo.core.utils.AlarmRinger.getInstance().stop(this);
-
-        // Immediately cancel the current notification
-        try {
-            NotificationManagerCompat nm = NotificationManagerCompat.from(this);
-            if (alarmId != -1) {
-                nm.cancel(alarmId);
-            } else {
-                nm.cancel(swimminsparrow.ricordamelo.config.Constants.TEST_ALARM_NOTIFICATION_ID);
-            }
-        } catch (Exception ignored) {}
-
-        Intent snoozeIntent = new Intent(this, SnoozeReceiver.class);
-        snoozeIntent.putExtra("ID", alarmId);
-        snoozeIntent.putExtra("Orario", alarmOrario);
-        snoozeIntent.putExtra("snooze_minutes", snoozeMinutes);
-        sendBroadcast(snoozeIntent);
-
+    private void autoSnoozeAlarm(int minutes) {
+        if (isDismissing || isFinishing()) {
+            return;
+        }
+        isDismissing = true;
+        SpockLogger.info(getClass().getSimpleName(), "Auto-snoozing alarm " + alarmId + " for " + minutes + " mins via Home/Back");
+        swimminsparrow.ricordamelo.core.notification.AppNotificationManager.getInstance().snoozeAlarm(this, alarmId, alarmOrario, minutes);
         finishSafely();
     }
 
     @Override
+    protected void onUserLeaveHint() {
+        super.onUserLeaveHint();
+        if (!isDismissing && !isFinishing()) {
+            autoSnoozeAlarm(5);
+        }
+    }
+
+    @Override
     public void onBackPressed() {
-        // Pressing back behaves like Home: moves activity to background without dismissing the alarm
-        moveTaskToBack(true);
+        if (!isDismissing && !isFinishing()) {
+            autoSnoozeAlarm(5);
+        }
     }
 
     @Override
     protected void onDestroy() {
-        swimminsparrow.ricordamelo.core.utils.AlarmRinger.getInstance().setAlarmEventListener(null);
-        if (isFinishing()) {
-            swimminsparrow.ricordamelo.core.utils.AlarmRinger.getInstance().stop(this);
+        if (activeVisibleAlarmId == alarmId) {
+            activeVisibleAlarmId = -1;
         }
+        swimminsparrow.ricordamelo.core.utils.AlarmRinger.getInstance().setAlarmEventListener(null);
         super.onDestroy();
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus) {
+            applyImmersiveMode();
+        }
+    }
+
+    private void applyImmersiveMode() {
+        WindowInsetsControllerCompat controller = WindowCompat.getInsetsController(getWindow(), getWindow().getDecorView());
+        if (controller != null) {
+            controller.hide(WindowInsetsCompat.Type.systemBars());
+            controller.setSystemBarsBehavior(WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
+        }
     }
 
     private void setupLockscreenFlags() {
@@ -224,6 +262,7 @@ public class FullAlarmActivity extends AppCompatActivity {
         }
 
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
+        applyImmersiveMode();
     }
 
     private void loadPillImage(String imagePath) {

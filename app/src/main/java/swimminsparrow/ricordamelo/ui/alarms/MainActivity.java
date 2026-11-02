@@ -24,6 +24,7 @@ import swimminsparrow.ricordamelo.AdsManager;
 import swimminsparrow.ricordamelo.R;
 import swimminsparrow.ricordamelo.core.data.SettingsDB;
 import swimminsparrow.ricordamelo.ui.BaseActivity;
+import swimminsparrow.ricordamelo.ui.common.Dialogs.DialogBuilder;
 import swimminsparrow.ricordamelo.ui.common.IAdsManager;
 import swimminsparrow.ricordamelo.ui.onboarding.WhatsNewBottomSheetDialogFragment;
 import swimminsparrow.ricordamelo.ui.splash.SplashScreen;
@@ -40,10 +41,13 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        getWindow().addFlags(android.view.WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        int defaultGreen = androidx.core.content.ContextCompat.getColor(this, R.color.defaultColor);
-        getWindow().setStatusBarColor(defaultGreen);
-        getWindow().setNavigationBarColor(defaultGreen);
+        if (Build.VERSION.SDK_INT < 35) {
+            getWindow().addFlags(android.view.WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            int defaultGreen = androidx.core.content.ContextCompat.getColor(this, R.color.defaultColor);
+            getWindow().setStatusBarColor(defaultGreen);
+            getWindow().setNavigationBarColor(defaultGreen);
+        }
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             getWindow().setNavigationBarContrastEnforced(false);
             getWindow().setStatusBarContrastEnforced(false);
@@ -92,6 +96,7 @@ public class MainActivity extends BaseActivity {
                     swimminsparrow.ricordamelo.core.sos.ConnectionRequest.fromIntent(intent);
             if (req != null) {
                 if (req.isExpired()) {
+                    swimminsparrow.ricordamelo.core.data.SettingsDB.getInstance(this).clearPendingConnectionRequest();
                     swimminsparrow.ricordamelo.core.sos.SOSContactsManager.markRequestHandled(this, req.topic, req.timestamp);
                     swimminsparrow.ricordamelo.core.sos.ConnectionRequestManager.cancelConnectionNotification(this);
                     android.widget.Toast.makeText(this, R.string.sos_request_expired, android.widget.Toast.LENGTH_SHORT).show();
@@ -153,58 +158,37 @@ public class MainActivity extends BaseActivity {
                 ? farmaco.getNome()
                 : (id == 9999 ? "Test Allarme" : getString(R.string.app_name));
 
-        new swimminsparrow.ricordamelo.ui.common.Dialogs.DialogBuilder(this, swimminsparrow.ricordamelo.ui.common.Dialogs.DialogBuilder.Type.CUSTOM_IMAGE)
+        new DialogBuilder(this, DialogBuilder.Type.CUSTOM_IMAGE)
                 .setTitleText(name)
                 .setContentText(getString(R.string.alarm_dismiss) + " / " + getString(R.string.snooze))
                 .setCustomImage(R.drawable.icon)
                 .setConfirmText(getString(R.string.alarm_dismiss))
                 .setConfirmClickListener(sDialog -> {
-                    swimminsparrow.ricordamelo.core.utils.AlarmRinger.getInstance().stop(this);
-                    androidx.core.app.NotificationManagerCompat.from(this).cancel(id);
-                    swimminsparrow.ricordamelo.core.utils.VolumeUtils.restoreVolume(this);
-                    try {
-                        Intent missedIntent = new Intent(this, swimminsparrow.ricordamelo.services.MissedAlarmReceiver.class);
-                        android.app.PendingIntent missedPending = swimminsparrow.ricordamelo.core.utils.PendingIntentHelper
-                                .getBroadcast(this, id, missedIntent, true);
-                        android.app.AlarmManager am = (android.app.AlarmManager) getSystemService(Context.ALARM_SERVICE);
-                        if (am != null) {
-                            am.cancel(missedPending);
-                        }
-                    } catch (Exception ignored) {}
+                    swimminsparrow.ricordamelo.core.notification.AppNotificationManager.getInstance().dismissAlarm(this, id);
                 })
                 .setCancelText(getString(R.string.snooze))
                 .setCancelClickListener(sDialog -> {
-                    swimminsparrow.ricordamelo.core.utils.AlarmRinger.getInstance().stop(this);
-                    androidx.core.app.NotificationManagerCompat.from(this).cancel(id);
-                    swimminsparrow.ricordamelo.core.utils.VolumeUtils.restoreVolume(this);
-                    try {
-                        Intent missedIntent = new Intent(this, swimminsparrow.ricordamelo.services.MissedAlarmReceiver.class);
-                        android.app.PendingIntent missedPending = swimminsparrow.ricordamelo.core.utils.PendingIntentHelper
-                                .getBroadcast(this, id, missedIntent, true);
-                        android.app.AlarmManager am = (android.app.AlarmManager) getSystemService(Context.ALARM_SERVICE);
-                        if (am != null) {
-                            am.cancel(missedPending);
-                        }
-                    } catch (Exception ignored) {}
-                    Intent snoozeIntent = new Intent(this, swimminsparrow.ricordamelo.services.SnoozeReceiver.class);
-                    snoozeIntent.putExtra("ID", id);
-                    sendBroadcast(snoozeIntent);
+                    swimminsparrow.ricordamelo.core.notification.AppNotificationManager.getInstance().snoozeAlarm(this, id, null, 15);
                 })
                 .show();
     }
 
-    private void showSosAlarmDialog(String sender) {
+    public void showSosAlarmDialog(String sender) {
+        if (sender == null || sender.trim().isEmpty()) {
+            sender = swimminsparrow.ricordamelo.core.notification.AppNotificationManager.getInstance().getActiveSosUsername();
+        }
         String title = (sender != null && !sender.trim().isEmpty()) ? sender.trim() : getString(R.string.sos_detected_title);
-        new swimminsparrow.ricordamelo.ui.common.Dialogs.DialogBuilder(this, swimminsparrow.ricordamelo.ui.common.Dialogs.DialogBuilder.Type.CUSTOM_IMAGE)
+        String message = swimminsparrow.ricordamelo.core.notification.AppNotificationManager.getInstance().getActiveSosMessage();
+        String body = (message != null && !message.trim().isEmpty()) ? message.trim() : getString(R.string.sos_detected_title);
+
+        new DialogBuilder(this, DialogBuilder.Type.CUSTOM_IMAGE)
                 .setTitleText(title)
-                .setContentText(getString(R.string.sos_detected_title))
+                .setContentText(body)
                 .setCustomImage(R.mipmap.ic_launcher_round)
                 .setConfirmText(getString(R.string.alarm_dismiss))
                 .setConfirmClickListener(sDialog -> {
-                    swimminsparrow.ricordamelo.core.utils.AlarmRinger.getInstance().stop(this);
-                    androidx.core.app.NotificationManagerCompat.from(this)
-                            .cancel(swimminsparrow.ricordamelo.core.notification.AppNotificationManager.ID_SOS_ALERT);
-                    swimminsparrow.ricordamelo.core.utils.VolumeUtils.restoreVolume(this);
+                    swimminsparrow.ricordamelo.core.notification.AppNotificationManager.getInstance()
+                            .dismissAlarm(this, swimminsparrow.ricordamelo.core.notification.AppNotificationManager.ID_SOS_ALERT);
                 })
                 .show();
     }

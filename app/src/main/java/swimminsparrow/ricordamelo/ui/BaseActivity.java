@@ -41,20 +41,31 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ConnectionRequestManager.startListening(this);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         isForeground = true;
-        IntentFilter filter = new IntentFilter(ConnectionRequestManager.ACTION_CONNECTION_REQUEST_RECEIVED);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            registerReceiver(connectionRequestReceiver, filter, Context.RECEIVER_NOT_EXPORTED);
-        } else {
-            registerReceiver(connectionRequestReceiver, filter);
+
+        if (swimminsparrow.ricordamelo.core.protection.FallAlertController.getInstance().isAlerting()) {
+            Intent fallIntent = new Intent(this, swimminsparrow.ricordamelo.ui.sos.FallAlertActivity.class);
+            fallIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+            startActivity(fallIntent);
+            return;
         }
-        ConnectionRequestManager.checkPendingRequests(this);
+
+        boolean hasContacts = swimminsparrow.ricordamelo.core.sos.SOSContactsManager.hasConfiguredContacts(this);
+        boolean hasPendingRequest = swimminsparrow.ricordamelo.core.data.SettingsDB.getInstance(this).getPendingConnectionRequest() != null;
+        if (hasContacts || hasPendingRequest) {
+            IntentFilter filter = new IntentFilter(ConnectionRequestManager.ACTION_CONNECTION_REQUEST_RECEIVED);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                registerReceiver(connectionRequestReceiver, filter, Context.RECEIVER_NOT_EXPORTED);
+            } else {
+                registerReceiver(connectionRequestReceiver, filter);
+            }
+            ConnectionRequestManager.checkPendingRequests(this);
+        }
     }
 
     @Override
@@ -64,6 +75,12 @@ public class BaseActivity extends AppCompatActivity {
         try {
             unregisterReceiver(connectionRequestReceiver);
         } catch (Exception ignored) {}
+    }
+
+    @Override
+    protected void onUserLeaveHint() {
+        super.onUserLeaveHint();
+        swimminsparrow.ricordamelo.core.notification.AppNotificationManager.getInstance().handleUserLeaveHint(getApplicationContext());
     }
 
     public void checkCameraPermission(PermissionCallback callback) {

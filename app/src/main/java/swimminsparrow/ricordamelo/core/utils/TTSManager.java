@@ -1,6 +1,9 @@
 package swimminsparrow.ricordamelo.core.utils;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.media.AudioAttributes;
 import android.os.Handler;
 import android.os.Looper;
@@ -8,6 +11,7 @@ import android.speech.tts.TextToSpeech;
 import android.speech.tts.UtteranceProgressListener;
 import android.util.Log;
 
+import java.util.List;
 import java.util.Locale;
 
 public class TTSManager implements TextToSpeech.OnInitListener {
@@ -26,16 +30,41 @@ public class TTSManager implements TextToSpeech.OnInitListener {
     private final Handler handler = new Handler(Looper.getMainLooper());
     private Runnable repeatRunnable = null;
 
+    /**
+     * Checks synchronously if at least one TTS engine is installed on the system.
+     */
+    public static boolean isTTSEngineInstalled(Context context) {
+        if (context == null) return false;
+        try {
+            PackageManager pm = context.getPackageManager();
+            Intent intent = new Intent("android.intent.action.TTS_SERVICE");
+            List<ResolveInfo> engines = pm.queryIntentServices(intent, 0);
+            return engines != null && !engines.isEmpty();
+        } catch (Exception e) {
+            Log.e(TAG, "Error checking TTS engines: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public boolean isLoaded() {
+        return isLoaded;
+    }
+
     public TTSManager(Context context) {
-        tts = new TextToSpeech(context, this);
+        tts = new TextToSpeech(context.getApplicationContext(), this);
     }
 
     @Override
     public void onInit(int status) {
         if (status == TextToSpeech.SUCCESS) {
-            int result = tts.setLanguage(Locale.getDefault());
+            Locale defaultLocale = Locale.getDefault();
+            int result = tts.setLanguage(defaultLocale);
             if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
-                Log.e(TAG, "Language not supported");
+                Log.w(TAG, "Language " + defaultLocale + " not supported or missing data, trying US fallback");
+                result = tts.setLanguage(Locale.US);
+            }
+            if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                Log.e(TAG, "TTS language not supported: " + defaultLocale);
             } else {
                 isLoaded = true;
                 setupAudioAttributes();
@@ -49,7 +78,7 @@ public class TTSManager implements TextToSpeech.OnInitListener {
                 }
             }
         } else {
-            Log.e(TAG, "Initialization failed");
+            Log.e(TAG, "TTS initialization failed with status: " + status);
         }
     }
 

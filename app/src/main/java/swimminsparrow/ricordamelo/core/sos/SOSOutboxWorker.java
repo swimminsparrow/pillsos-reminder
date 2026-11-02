@@ -23,7 +23,7 @@ import swimminsparrow.ricordamelo.config.Constants;
 import swimminsparrow.ricordamelo.core.data.SettingsDB;
 import swimminsparrow.ricordamelo.core.data.dao.SOSOutboxDao;
 import swimminsparrow.ricordamelo.core.data.models.SOSOutboxMessage;
-import swimminsparrow.ricordamelo.core.ntfy.NtfyManager;
+import swimminsparrow.ricordamelo.core.notification.AppNotificationManager;
 import swimminsparrow.ricordamelo.core.ntfy.NtfyMessageType;
 import swimminsparrow.ricordamelo.core.utils.CryptoUtils;
 
@@ -104,7 +104,7 @@ public class SOSOutboxWorker extends Worker {
         }
 
         if (sentCount > 0) {
-            swimminsparrow.ricordamelo.core.notification.AppNotificationManager.getInstance().showOutboxDelivered(context);
+            AppNotificationManager.getInstance().showOutboxDelivered(context);
         }
 
         if (allSent && !dao.hasPendingMessages()) {

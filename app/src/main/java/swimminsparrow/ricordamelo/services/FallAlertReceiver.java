@@ -41,6 +41,13 @@ public class FallAlertReceiver extends BroadcastReceiver {
             } else {
                 FallAlertController.getInstance().confirmAndSendSOS(context);
             }
+        } else if (Constants.ACTION_FALL_NOTIFICATION_SWIPED.equals(action)) {
+            if (FallAlertController.getInstance().isAlerting()) {
+                SpockLogger.info(TAG, "Fall notification was swiped while alerting, refreshing heads-up banner");
+                swimminsparrow.ricordamelo.core.notification.AppNotificationManager.getInstance()
+                        .refreshFallPreAlarmHeadsUpNotification(context,
+                                FallAlertController.getInstance().getSecondsRemaining());
+            }
         }
     }
 }

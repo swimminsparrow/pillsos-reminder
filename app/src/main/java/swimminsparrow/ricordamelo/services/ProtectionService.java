@@ -1,6 +1,5 @@
 package swimminsparrow.ricordamelo.services;
 
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
@@ -26,7 +25,6 @@ import swimminsparrow.ricordamelo.core.protection.FallAlertController;
 import swimminsparrow.ricordamelo.core.protection.FallDetector;
 import swimminsparrow.ricordamelo.core.sos.SOSContact;
 import swimminsparrow.ricordamelo.core.sos.SOSContactsManager;
-import swimminsparrow.ricordamelo.core.sos.SOSManager;
 import swimminsparrow.ricordamelo.core.utils.SpockLogger;
 import swimminsparrow.ricordamelo.ui.alarms.MainActivity;
 
@@ -102,40 +100,48 @@ public class ProtectionService extends Service implements SensorEventListener {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         boolean fallActive = SettingsDB.getInstance(this).getFallDetectionMode();
-
-        // Ensure connection request listener is active
-        swimminsparrow.ricordamelo.core.sos.ConnectionRequestManager.startListening(getApplicationContext());
-
-        // 1. SOS Network: Listen for all paired contacts
         List<SOSContact> contacts = SOSContactsManager.getContacts(getApplicationContext());
-        for (SOSContact c : contacts) {
-            if (c.getTopic() != null && !c.getTopic().isEmpty()) {
-                NtfyManager ntfy = NtfyManager.getInstance(getApplicationContext(), c.getTopic());
-                if (ntfy != null) ntfy.startReceiving();
-            }
-        }
-
-        // 2. SOS Network: Listen on own userUUID
-        String myUuid = SettingsDB.getInstance(getApplicationContext()).getUserUUID();
-        if (myUuid != null && !myUuid.isEmpty() && !contacts.isEmpty()) {
-            NtfyManager ntfy = NtfyManager.getInstance(getApplicationContext(), myUuid);
-            if (ntfy != null) ntfy.startReceiving();
-        }
-
         boolean sosActive = !contacts.isEmpty();
 
-        // 4. If neither module is active, stop self
+        // 1. If neither module is active, stop self immediately
         if (!fallActive && !sosActive) {
             updateSensorState(false);
+            swimminsparrow.ricordamelo.core.sos.ConnectionRequestManager.stopListening();
             stopForeground(true);
             stopSelf();
             return START_NOT_STICKY;
         }
 
-        // 5. Update Fall Detection sensor listener
+        // 2. SOS Network: strictly require configured contacts before starting any networking
+        if (sosActive) {
+            swimminsparrow.ricordamelo.core.sos.ConnectionRequestManager.startListening(getApplicationContext());
+
+            for (SOSContact c : contacts) {
+                if (c.getTopic() != null && !c.getTopic().isEmpty()) {
+                    NtfyManager ntfy = NtfyManager.getInstance(getApplicationContext(), c.getTopic());
+                    if (ntfy != null) ntfy.startReceiving();
+                }
+            }
+
+            String myUuid = SettingsDB.getInstance(getApplicationContext()).getUserUUID();
+            if (myUuid != null && !myUuid.isEmpty()) {
+                NtfyManager ntfy = NtfyManager.getInstance(getApplicationContext(), myUuid);
+                if (ntfy != null) ntfy.startReceiving();
+            }
+        } else {
+            // No contacts: ensure background network listeners are stopped
+            swimminsparrow.ricordamelo.core.sos.ConnectionRequestManager.stopListening();
+            String myUuid = SettingsDB.getInstance(getApplicationContext()).getUserUUID();
+            if (myUuid != null && !myUuid.isEmpty()) {
+                NtfyManager ntfy = NtfyManager.getInstance(getApplicationContext(), myUuid);
+                if (ntfy != null) ntfy.stopReceiving();
+            }
+        }
+
+        // 3. Update Fall Detection sensor listener
         updateSensorState(fallActive);
 
-        // 6. Update notification text and foreground service types
+        // 4. Update notification text and foreground service types
         updateForegroundNotification(fallActive, sosActive);
 
         return START_STICKY;
@@ -266,6 +272,7 @@ public class ProtectionService extends Service implements SensorEventListener {
     public void onDestroy() {
         super.onDestroy();
         updateSensorState(false);
+        swimminsparrow.ricordamelo.core.sos.ConnectionRequestManager.stopListening();
     }
 
     @Nullable

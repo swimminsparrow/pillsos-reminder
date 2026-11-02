@@ -100,6 +100,8 @@
     <string name="alarm_dismiss">Spegni</string>
     <string name="snooze">Ritarda</string>
     <string name="snooze_format">Ritarda di %d min</string>
+    <string name="alarm_snoozed_title">%s (Posticipato)</string>
+    <string name="alarm_snoozed_body">Risuonerà alle %1$s (%2$d min)</string>
     <string name="rotate">Ruota</string>
     <string name="empty_name_error">Inserisci il tuo nome prima di procedere</string>
     <string name="buy_me_a_coffee_description">Se questa applicazione ti aiuta, puoi fare una donazione libera per supportare il progetto.</string>
@@ -130,6 +132,10 @@
     <string name="set_cat_about">Informazioni e Supporto</string>
     <string name="tts_title">Pronuncia nome dell\'allarme</string>
     <string name="tts_summary">Dice a voce il nome dell\'allarme quando suona</string>
+    <string name="tts_summary_not_installed">Motore di sintesi vocale non installato</string>
+    <string name="tts_dialog_missing_title">Sintesi Vocale Non Disponibile</string>
+    <string name="tts_dialog_missing_desc">Nessun motore di sintesi vocale è stato trovato sul tuo dispositivo (comune su emulatori AOSP o ROM prive dei servizi Google). Per abilitare la voce, installa un motore vocale come eSpeak NG o RHVoice da F-Droid, oppure Google Speech Services.</string>
+    <string name="tts_dialog_open_settings">Impostazioni TTS</string>
     <string name="fall_detection_title">Rilevamento Cadute (Sperimentale)</string>
     <string name="fall_detection_summary">Usa l\'accelerometro per rilevare cadute e inviare un SOS.</string>
     <string name="fall_sensitivity_title">Sensibilità Caduta</string>
@@ -316,7 +322,10 @@ PillSOS è uno strumento di supporto personale, NON un dispositivo medico certif
     <string name="sos_connecting_notif_title">Connessione SOS</string>
     <string name="sos_waiting_approval_hint">Il contatto deve approvare la richiesta sul proprio dispositivo. Riceverai una notifica quando risponde.</string>
     <string name="sos_peer_not_paired_toast">%1$s non risulta più collegato sull\'altro dispositivo.</string>
-    <string name="sos_channel_name">SOS e Richieste di connessione</string>
+    <string name="sos_channel_name">Messaggi e Stato SOS</string>
+    <string name="notification_channel_reminders">Promemoria Farmaci</string>
+    <string name="notification_channel_sos_emergency">Allarmi Emergenza SOS Ricevuti</string>
+    <string name="notification_channel_service">Servizio di Protezione in Background</string>
     <string name="fall_alert_subtitle_no_contacts">Nessun contatto SOS configurato. Se hai bisogno d\'aiuto chiama il 112 o contatta i tuoi cari.</string>
     <string name="fall_alert_call_emergency_btn">Chiama 112</string>
     <string name="fall_detected_no_contacts_title">Caduta Rilevata</string>

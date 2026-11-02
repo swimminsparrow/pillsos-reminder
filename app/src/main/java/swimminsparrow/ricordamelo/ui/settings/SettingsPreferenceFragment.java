@@ -142,16 +142,32 @@ public class SettingsPreferenceFragment extends PreferenceFragmentCompat {
             });
         }
 
-        if (gen_tts != null)
-            gen_tts.setChecked(SettingsDB.getInstance(getContext()).getTTSMode());
-        if (gen_fall_detection != null)
-            gen_fall_detection.setChecked(SettingsDB.getInstance(getContext()).getFallDetectionMode());
+        if (gen_tts != null) {
+            boolean engineInstalled = swimminsparrow.ricordamelo.core.utils.TTSManager.isTTSEngineInstalled(getContext());
+            boolean ttsEnabled = SettingsDB.getInstance(getContext()).getTTSMode() && engineInstalled;
+            gen_tts.setChecked(ttsEnabled);
+            if (!engineInstalled) {
+                gen_tts.setSummary(R.string.tts_summary_not_installed);
+            } else {
+                gen_tts.setSummary(R.string.tts_summary);
+            }
 
-        if (gen_tts != null)
             gen_tts.setOnPreferenceChangeListener((preference, newValue) -> {
-                SettingsDB.getInstance(getContext()).setTTSMode((Boolean) newValue);
+                boolean requested = (Boolean) newValue;
+                if (requested && !swimminsparrow.ricordamelo.core.utils.TTSManager.isTTSEngineInstalled(getContext())) {
+                    showTtsMissingDialog();
+                    return false;
+                }
+                SettingsDB.getInstance(getContext()).setTTSMode(requested);
+                if (requested) {
+                    swimminsparrow.ricordamelo.PillSOS.getTtsManager(getContext());
+                }
                 return true;
             });
+        }
+
+        if (gen_fall_detection != null)
+            gen_fall_detection.setChecked(SettingsDB.getInstance(getContext()).getFallDetectionMode());
 
         if (gen_fall_detection != null)
             gen_fall_detection.setOnPreferenceChangeListener((preference, newValue) -> {
@@ -276,6 +292,30 @@ public class SettingsPreferenceFragment extends PreferenceFragmentCompat {
                 return true;
             });
         }
+    }
+
+    private void showTtsMissingDialog() {
+        Context context = getContext();
+        if (context == null) return;
+        new com.google.android.material.dialog.MaterialAlertDialogBuilder(context)
+                .setTitle(R.string.tts_dialog_missing_title)
+                .setIcon(R.drawable.ic_record_voice_over_24)
+                .setMessage(R.string.tts_dialog_missing_desc)
+                .setPositiveButton(R.string.tts_dialog_open_settings, (dialog, which) -> {
+                    try {
+                        Intent intent = new Intent("com.android.settings.TTS_SETTINGS");
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                    } catch (Exception e) {
+                        try {
+                            Intent intent = new Intent(android.provider.Settings.ACTION_SETTINGS);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+                        } catch (Exception ignored) {}
+                    }
+                })
+                .setNegativeButton(android.R.string.cancel, null)
+                .show();
     }
 
     private MediaPlayer previewMediaPlayer;
@@ -486,39 +526,103 @@ public class SettingsPreferenceFragment extends PreferenceFragmentCompat {
             gen_test.setOnPreferenceClickListener(preference -> {
                 Context context = getContext();
                 if (context != null) {
-                    int testId = swimminsparrow.ricordamelo.config.Constants.TEST_ALARM_NOTIFICATION_ID;
-                    // Cancel any previous active test notification
-                    androidx.core.app.NotificationManagerCompat.from(context).cancel(testId);
-
-                    Intent intent = new Intent(context, swimminsparrow.ricordamelo.services.ReminderReceiver.class);
-                    intent.putExtra("ID", testId);
-                    intent.putExtra("Orario", "TEST");
-
-                    PendingIntent pendingIntent = swimminsparrow.ricordamelo.core.utils.PendingIntentHelper
-                            .getBroadcast(context, testId, intent, true);
-
-                    android.app.AlarmManager am = (android.app.AlarmManager) context
-                            .getSystemService(Context.ALARM_SERVICE);
-                    if (am != null) {
-                        am.cancel(pendingIntent); // Cancel any previous scheduled test alarm
-                        long triggerAt = System.currentTimeMillis() + 5000; // 5 secondi
-                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-                            am.setExactAndAllowWhileIdle(android.app.AlarmManager.RTC_WAKEUP, triggerAt,
-                                    pendingIntent);
-                        } else {
-                            am.setExact(android.app.AlarmManager.RTC_WAKEUP, triggerAt, pendingIntent);
-                        }
-                    }
-
-                    DialogBuilder.successDialog(context, getString(R.string.test_alarm_title),
-                            "L\'allarme di prova scatterà tra 5 secondi!\n\n" +
-                            "• A schermo bloccato: blocca subito il telefono con il tasto laterale per vedere la sveglia a schermo intero.\n\n" +
-                            "• A schermo sbloccato: resta sulla home o in un\'altra app per vedere la notifica pop-up in alto (Heads-up banner)!")
-                            .show();
+                    showNotificationTestChooser(context);
                 }
                 return true;
             });
         }
+    }
+
+    private void showNotificationTestChooser(Context context) {
+        String[] options = new String[] {
+                getString(R.string.test_notif_pill_alarm),
+                getString(R.string.test_notif_sos_alert),
+                getString(R.string.test_notif_fall_alert),
+                getString(R.string.test_notif_pairing_req),
+                getString(R.string.test_notif_im_ok),
+                getString(R.string.test_notif_delivered)
+        };
+
+        new com.google.android.material.dialog.MaterialAlertDialogBuilder(context)
+                .setTitle(R.string.test_notification_dialog_title)
+                .setIcon(R.drawable.ic_record_voice_over_24)
+                .setItems(options, (dialog, which) -> {
+                    // Reset any active alarms/sounds first for a clean test
+                    swimminsparrow.ricordamelo.core.utils.AlarmRinger.getInstance().stop(context);
+                    swimminsparrow.ricordamelo.core.protection.FallAlertController.getInstance().cancelAlert(context);
+                    androidx.core.app.NotificationManagerCompat.from(context).cancel(swimminsparrow.ricordamelo.config.Constants.TEST_ALARM_NOTIFICATION_ID);
+                    androidx.core.app.NotificationManagerCompat.from(context).cancel(swimminsparrow.ricordamelo.core.notification.AppNotificationManager.ID_SOS_ALERT);
+                    androidx.core.app.NotificationManagerCompat.from(context).cancel(swimminsparrow.ricordamelo.config.Constants.FALL_ALERT_NOTIFICATION_ID);
+
+                    switch (which) {
+                        case 0: // Medication Reminder (5s delay via AlarmManager)
+                            scheduleAlarmTest(context, false);
+                            break;
+                        case 1: // Received SOS Siren (5s delay via AlarmManager)
+                            scheduleAlarmTest(context, true);
+                            break;
+                        case 2: // Fall Detection Pre-Alarm (5s delay)
+                            new android.os.Handler(android.os.Looper.getMainLooper()).postDelayed(() -> {
+                                swimminsparrow.ricordamelo.core.protection.FallAlertController.getInstance().startAlert(context);
+                            }, 5000);
+                            showTestScheduledDialog(context);
+                            break;
+                        case 3: // Connection Request (Immediate)
+                            swimminsparrow.ricordamelo.core.sos.ConnectionRequest testReq =
+                                    new swimminsparrow.ricordamelo.core.sos.ConnectionRequest("test_req", "Mariomoto", "test_topic", "dummy_key", "", System.currentTimeMillis());
+                            swimminsparrow.ricordamelo.core.notification.AppNotificationManager.getInstance()
+                                    .showConnectionRequestNotification(context, testReq);
+                            android.widget.Toast.makeText(context, R.string.test_notif_sent_toast, android.widget.Toast.LENGTH_SHORT).show();
+                            break;
+                        case 4: // "I'm OK" status message (Immediate)
+                            swimminsparrow.ricordamelo.core.notification.AppNotificationManager.getInstance()
+                                    .showImOk(context, "Mariomoto", "test_topic", "Sto bene! Tutto sotto controllo.");
+                            android.widget.Toast.makeText(context, R.string.test_notif_sent_toast, android.widget.Toast.LENGTH_SHORT).show();
+                            break;
+                        case 5: // SOS Delivery Status (Immediate)
+                            swimminsparrow.ricordamelo.core.notification.AppNotificationManager.getInstance()
+                                    .showOutboxDelivered(context);
+                            android.widget.Toast.makeText(context, R.string.test_notif_sent_toast, android.widget.Toast.LENGTH_SHORT).show();
+                            break;
+                    }
+                })
+                .setNegativeButton(android.R.string.cancel, null)
+                .show();
+    }
+
+    private void scheduleAlarmTest(Context context, boolean isSosAlert) {
+        int testId = swimminsparrow.ricordamelo.config.Constants.TEST_ALARM_NOTIFICATION_ID;
+        Intent intent = new Intent(context, swimminsparrow.ricordamelo.services.ReminderReceiver.class);
+        if (isSosAlert) {
+            intent.putExtra("is_sos_alert", true);
+        } else {
+            intent.putExtra("ID", testId);
+            intent.putExtra("Orario", "TEST");
+        }
+
+        PendingIntent pendingIntent = swimminsparrow.ricordamelo.core.utils.PendingIntentHelper
+                .getBroadcast(context, testId, intent, true);
+
+        android.app.AlarmManager am = (android.app.AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        if (am != null) {
+            am.cancel(pendingIntent);
+            long triggerAt = System.currentTimeMillis() + 5000;
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+                am.setExactAndAllowWhileIdle(android.app.AlarmManager.RTC_WAKEUP, triggerAt, pendingIntent);
+            } else {
+                am.setExact(android.app.AlarmManager.RTC_WAKEUP, triggerAt, pendingIntent);
+            }
+        }
+
+        showTestScheduledDialog(context);
+    }
+
+    private void showTestScheduledDialog(Context context) {
+        DialogBuilder.successDialog(context, getString(R.string.test_alarm_title),
+                getString(R.string.test_notif_scheduled_toast) + "\n\n" +
+                "• A schermo bloccato: premi subito il tasto laterale per spegnere lo schermo e testare l'avviso a schermo intero.\n\n" +
+                "• A schermo sbloccato: premi Home o apri un'altra app per testare il banner Heads-Up in alto!")
+                .show();
     }
 
 

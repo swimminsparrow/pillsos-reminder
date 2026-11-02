@@ -25,6 +25,15 @@ public class MissedAlarmReceiver extends BroadcastReceiver {
         
         SpockLogger.info(TAG, "Missed alarm triggered for ID: " + idRicevuto);
 
+        // Cancel the active ongoing notification from the drawer so it doesn't linger after timeout
+        try {
+            if (idRicevuto != -1) {
+                NotificationManagerCompat.from(context).cancel(idRicevuto);
+            } else {
+                NotificationManagerCompat.from(context).cancel(Constants.TEST_ALARM_NOTIFICATION_ID);
+            }
+        } catch (Exception ignored) {}
+
         // Recover old volume settings if sound was overridden
         VolumeUtils.restoreVolume(context);
 

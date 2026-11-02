@@ -16,15 +16,14 @@ import androidx.security.crypto.MasterKey;
 
 import java.io.File;
 import java.security.SecureRandom;
+import org.json.JSONObject;
 
+import androidx.annotation.Nullable;
+import swimminsparrow.ricordamelo.core.sos.ConnectionRequest;
 import swimminsparrow.ricordamelo.core.utils.ImageUtils;
 import swimminsparrow.ricordamelo.core.utils.SpockLogger;
 import swimminsparrow.ricordamelo.core.utils.StorageUtils;
 import swimminsparrow.ricordamelo.R;
-
-/**
- * @version 82 08/03/2019 Added Gmail Support.
- */
 
 public class SettingsDB {
     private static SettingsDB instance;
@@ -38,6 +37,14 @@ public class SettingsDB {
         this.context = context.getApplicationContext();
         this.databasePreferences = context.getSharedPreferences("databasePreferences", Context.MODE_PRIVATE);
         this.personalInfoPrefs = context.getSharedPreferences("personalInfo", Context.MODE_PRIVATE);
+
+        // Purge legacy redundant keys to avoid confusion
+        if (databasePreferences.contains("silentMode") || databasePreferences.contains("vibroMode")) {
+            databasePreferences.edit()
+                    .remove("silentMode")
+                    .remove("vibroMode")
+                    .apply();
+        }
     }
 
     // Thread-safe getInstance using double-checked locking
@@ -51,8 +58,10 @@ public class SettingsDB {
         } else if (context != null && instance.context != context.getApplicationContext()) {
             synchronized (SettingsDB.class) {
                 instance.context = context.getApplicationContext();
-                instance.databasePreferences = instance.context.getSharedPreferences("databasePreferences", Context.MODE_PRIVATE);
-                instance.personalInfoPrefs = instance.context.getSharedPreferences("personalInfo", Context.MODE_PRIVATE);
+                instance.databasePreferences = instance.context.getSharedPreferences("databasePreferences",
+                        Context.MODE_PRIVATE);
+                instance.personalInfoPrefs = instance.context.getSharedPreferences("personalInfo",
+                        Context.MODE_PRIVATE);
             }
         }
         return instance;
@@ -64,8 +73,6 @@ public class SettingsDB {
     public void setAlarmSoundMode(String mode) {
         SharedPreferences.Editor edit = databasePreferences.edit();
         edit.putString("d_alarm_sound_mode", mode);
-        edit.putBoolean("silentMode", SOUND_MODE_SYSTEM.equals(mode));
-        edit.putBoolean("vibroMode", SOUND_MODE_MAX_VOLUME.equals(mode));
         edit.apply();
     }
 
@@ -75,21 +82,6 @@ public class SettingsDB {
 
     public boolean isMaxVolumeMode() {
         return SOUND_MODE_MAX_VOLUME.equals(getAlarmSoundMode());
-    }
-
-    //added on 23 Jan 2017 for silent mode
-    public void setSilentMode(boolean SilentMode) {
-        SharedPreferences.Editor edit = databasePreferences.edit();
-        edit.putBoolean("silentMode", SilentMode);
-        edit.putString("d_alarm_sound_mode", SilentMode ? SOUND_MODE_SYSTEM : SOUND_MODE_MAX_VOLUME);
-        edit.apply();
-    }
-
-    public Boolean getSilentMode() {
-        if (databasePreferences.contains("d_alarm_sound_mode")) {
-            return SOUND_MODE_SYSTEM.equals(getAlarmSoundMode());
-        }
-        return databasePreferences.getBoolean("silentMode", false);
     }
 
     public boolean isVolumeOverridden() {
@@ -118,22 +110,6 @@ public class SettingsDB {
         edit.remove("preOverrideAlarmVolume");
         edit.remove("preOverrideRingVolume");
         edit.apply();
-    }
-
-    public void setVibrationMode(boolean vibro) {
-        SharedPreferences.Editor edit = databasePreferences.edit();
-        edit.putBoolean("vibroMode", vibro);
-        if (databasePreferences.contains("d_alarm_sound_mode")) {
-            edit.putString("d_alarm_sound_mode", vibro ? SOUND_MODE_MAX_VOLUME : SOUND_MODE_SYSTEM);
-        }
-        edit.apply();
-    }
-
-    public Boolean getVibrationMode() {
-        if (databasePreferences.contains("d_alarm_sound_mode")) {
-            return SOUND_MODE_MAX_VOLUME.equals(getAlarmSoundMode());
-        }
-        return databasePreferences.getBoolean("vibroMode", true);
     }
 
     public void setTTSMode(boolean enabled) {
@@ -166,7 +142,8 @@ public class SettingsDB {
         try {
             if (databasePreferences.contains("d_fall_sensitivity_threshold")) {
                 int val = databasePreferences.getInt("d_fall_sensitivity_threshold", 60);
-                // Inverted mapping: higher slider value -> lower impact threshold G -> higher sensitivity
+                // Inverted mapping: higher slider value -> lower impact threshold G -> higher
+                // sensitivity
                 double threshold = 8.5 - (val * 0.05);
                 return Math.max(2.5, Math.min(8.5, threshold));
             } else if (databasePreferences.contains("d_fall_sensitivity")) {
@@ -174,7 +151,8 @@ public class SettingsDB {
                 int sens = Integer.parseInt(oldVal);
                 return (sens == 2) ? 4.0 : (sens == 0) ? 7.0 : 5.0;
             }
-        } catch (Exception ignored) { }
+        } catch (Exception ignored) {
+        }
         return 5.0;
     }
 
@@ -188,7 +166,8 @@ public class SettingsDB {
             if (context != null) {
                 defaultName = context.getString(R.string.mario);
             }
-        } catch (Exception ignored) { }
+        } catch (Exception ignored) {
+        }
         return personalInfoPrefs.getString("name", defaultName);
     }
 
@@ -198,7 +177,7 @@ public class SettingsDB {
         edit.apply();
     }
 
-    public Drawable getDefaultAvatarImage(){
+    public Drawable getDefaultAvatarImage() {
         return ContextCompat.getDrawable(context, R.drawable.avatar);
     }
 
@@ -239,7 +218,8 @@ public class SettingsDB {
     public static final String DEFAULT_SOUND = "Default";
 
     public Uri getDefaultSoundUri() {
-        return Uri.parse(android.content.ContentResolver.SCHEME_ANDROID_RESOURCE + "://" + context.getPackageName() + "/" + R.raw.notifica);
+        return Uri.parse(android.content.ContentResolver.SCHEME_ANDROID_RESOURCE + "://" + context.getPackageName()
+                + "/" + R.raw.notifica);
     }
 
     /**
@@ -263,7 +243,8 @@ public class SettingsDB {
         } catch (Exception e) {
             setSound(DEFAULT_SOUND);
             actualSound = DEFAULT_SOUND;
-            SpockLogger.info(this.getClass().getSimpleName(), "Sound URI Not Valid: setting default: " + e.getLocalizedMessage());
+            SpockLogger.info(this.getClass().getSimpleName(),
+                    "Sound URI Not Valid: setting default: " + e.getLocalizedMessage());
         }
 
         return actualSound;
@@ -281,7 +262,6 @@ public class SettingsDB {
             return getDefaultSoundUri();
         }
     }
-
 
     public Boolean getRated() {
         return personalInfoPrefs.getBoolean("rated", false);
@@ -313,11 +293,13 @@ public class SettingsDB {
         return databasePreferences.getBoolean("whatsNew" + id, false);
     }
 
-    //added on 11 Set 2017
+    // added on 11 Set 2017
     public void setAlarmDuration(long timeMinutes) {
-        if (timeMinutes < 1) timeMinutes = 10;
-        if (timeMinutes > 20) timeMinutes = 20;
-        //convert time to millis
+        if (timeMinutes < 1)
+            timeMinutes = 10;
+        if (timeMinutes > 20)
+            timeMinutes = 20;
+        // convert time to millis
         long timeMs = timeMinutes * 60 * 1000L;
         SharedPreferences.Editor edit = personalInfoPrefs.edit();
         edit.putLong("alarmDuration", timeMs);
@@ -334,8 +316,6 @@ public class SettingsDB {
         return duration;
     }
 
-
-
     private synchronized SharedPreferences getSecurePrefs() {
         if (securePrefs != null) {
             return securePrefs;
@@ -350,8 +330,7 @@ public class SettingsDB {
                     "secure_sos_prefs",
                     masterKey,
                     EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
-                    EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
-            );
+                    EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM);
             return securePrefs;
         } catch (Exception e) {
             Log.e("SettingsDB", "Security error initializing secure_sos_prefs, attempting recovery", e);
@@ -370,8 +349,7 @@ public class SettingsDB {
                         "secure_sos_prefs",
                         masterKey,
                         EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
-                        EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
-                );
+                        EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM);
                 return securePrefs;
             } catch (Exception ex) {
                 Log.e("SettingsDB", "Recovery failed, falling back to private prefs", ex);
@@ -383,8 +361,9 @@ public class SettingsDB {
 
     public String getSecurePairingKey() {
         SharedPreferences securePrefs = getSecurePrefs();
-        if (securePrefs == null) return null;
-        
+        if (securePrefs == null)
+            return null;
+
         String key = securePrefs.getString("pairing_key", null);
         if (key == null) {
             key = swimminsparrow.ricordamelo.core.utils.CryptoUtils.generateRandomKey();
@@ -392,8 +371,6 @@ public class SettingsDB {
         }
         return key;
     }
-
-
 
     private String generateShortId() {
         String alphabet = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
@@ -407,13 +384,13 @@ public class SettingsDB {
 
     public String getUserUUID() {
         String existing = personalInfoPrefs.getString("userUUID", null);
-        if (existing != null) return existing;
+        if (existing != null)
+            return existing;
 
         String id = generateShortId();
         personalInfoPrefs.edit().putString("userUUID", id).apply();
         return id;
     }
-
 
     public void setAppLaunchTime(int appLaunchTime) {
         SharedPreferences.Editor edit = personalInfoPrefs.edit();
@@ -447,5 +424,43 @@ public class SettingsDB {
 
     public void setImOkExplained(boolean explained) {
         databasePreferences.edit().putBoolean("im_ok_explained", explained).apply();
+    }
+
+    public void savePendingConnectionRequest(@Nullable ConnectionRequest request) {
+        if (request == null) {
+            clearPendingConnectionRequest();
+            return;
+        }
+        try {
+            JSONObject json = new JSONObject();
+            json.put("req_id", request.reqId);
+            json.put("name", request.name);
+            json.put("topic", request.topic);
+            json.put("key", request.key);
+            json.put("avatar", request.avatar);
+            json.put("ts", request.timestamp);
+            databasePreferences.edit().putString("pending_connection_request_json", json.toString()).apply();
+        } catch (Exception e) {
+            SpockLogger.error("SettingsDB", "Error saving pending connection request: " + e.getMessage());
+        }
+    }
+
+    @Nullable
+    public ConnectionRequest getPendingConnectionRequest() {
+        String jsonStr = databasePreferences.getString("pending_connection_request_json", null);
+        if (jsonStr == null || jsonStr.trim().isEmpty()) {
+            return null;
+        }
+        try {
+            JSONObject json = new JSONObject(jsonStr);
+            return ConnectionRequest.fromJson(json, "");
+        } catch (Exception e) {
+            SpockLogger.error("SettingsDB", "Error parsing pending connection request: " + e.getMessage());
+            return null;
+        }
+    }
+
+    public void clearPendingConnectionRequest() {
+        databasePreferences.edit().remove("pending_connection_request_json").apply();
     }
 }

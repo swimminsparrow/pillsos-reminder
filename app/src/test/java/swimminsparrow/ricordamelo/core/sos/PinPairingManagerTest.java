@@ -95,9 +95,18 @@ public class PinPairingManagerTest {
         assertFalse(ConnectionRequestManager.isRequestExpired(now));
         // 30 seconds ago -> not expired
         assertFalse(ConnectionRequestManager.isRequestExpired(now - 30000));
-        // 121 seconds ago -> expired (> 120s)
-        assertTrue(ConnectionRequestManager.isRequestExpired(now - 121000));
+        // 301 seconds ago -> expired (> 300s)
+        assertTrue(ConnectionRequestManager.isRequestExpired(now - 301000));
         // Invalid / empty timestamp -> false
         assertFalse(ConnectionRequestManager.isRequestExpired(0));
+    }
+
+    @Test
+    public void testPairingActiveState() {
+        assertFalse(ConnectionRequestManager.isPairingActive());
+        ConnectionRequestManager.setPairingActive(true);
+        assertTrue(ConnectionRequestManager.isPairingActive());
+        ConnectionRequestManager.setPairingActive(false);
+        assertFalse(ConnectionRequestManager.isPairingActive());
     }
 }

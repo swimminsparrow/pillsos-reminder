@@ -41,6 +41,10 @@ public class PinPairingBottomSheetDialogFragment extends BaseBottomSheetDialogFr
         // Dismiss any stale pending approval dialogs from previous attempts
         ConnectionRequestManager.dismissActiveApprovalDialog();
 
+        // Enable pairing mode and start listening for connection requests during PIN presentation
+        ConnectionRequestManager.setPairingActive(true);
+        ConnectionRequestManager.startListening(requireContext());
+
         // Generate fresh OTP for pairing
         currentOtpRaw = PinPairingManager.generateNewOtp();
         currentOtpFormatted = PinPairingManager.formatPinForDisplay(currentOtpRaw);
@@ -78,6 +82,24 @@ public class PinPairingBottomSheetDialogFragment extends BaseBottomSheetDialogFr
 
         if (btnClose != null) {
             btnClose.setOnClickListener(v -> dismiss());
+        }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ConnectionRequestManager.setPairingActive(false);
+        if (getContext() != null && !swimminsparrow.ricordamelo.core.sos.SOSContactsManager.hasConfiguredContacts(getContext())) {
+            ConnectionRequestManager.stopListening();
+        }
+    }
+
+    @Override
+    public void onDismiss(@NonNull android.content.DialogInterface dialog) {
+        super.onDismiss(dialog);
+        ConnectionRequestManager.setPairingActive(false);
+        if (getContext() != null && !swimminsparrow.ricordamelo.core.sos.SOSContactsManager.hasConfiguredContacts(getContext())) {
+            ConnectionRequestManager.stopListening();
         }
     }
 }
