@@ -12,6 +12,9 @@ import java.util.List;
 
 import swimminsparrow.ricordamelo.core.data.SettingsDB;
 import swimminsparrow.ricordamelo.core.data.dao.SOSMessageDao;
+import swimminsparrow.ricordamelo.core.notification.AppNotificationManager;
+import swimminsparrow.ricordamelo.core.ntfy.NtfyManager;
+import swimminsparrow.ricordamelo.services.ProtectionService;
 
 /**
  * Unified manager for SOS Emergency Contacts.
@@ -185,14 +188,14 @@ public class SOSContactsManager {
         String masterKey = targetContact != null ? targetContact.getKey() : null;
 
         // 2. Publish disconnection signal to remote user with scope "ALL"
-        swimminsparrow.ricordamelo.core.ntfy.NtfyManager.getInstance(context, topic).sendDisconnectionSignal(topic, masterKey, myUuid, "ALL");
+        NtfyManager.getInstance(context, topic).sendDisconnectionSignal(topic, masterKey, myUuid, "ALL");
         if (myUuid != null && !myUuid.equals(topic)) {
-            swimminsparrow.ricordamelo.core.ntfy.NtfyManager.getInstance(context, myUuid).sendDisconnectionSignal(myUuid, masterKey, myUuid, "ALL");
+            NtfyManager.getInstance(context, myUuid).sendDisconnectionSignal(myUuid, masterKey, myUuid, "ALL");
         }
 
         // 3. Complete local removal
         removeContact(context, topic);
-        swimminsparrow.ricordamelo.core.ntfy.NtfyManager.getInstance(context, topic).stopReceiving();
+        NtfyManager.getInstance(context, topic).stopReceiving();
 
         // 4. Sync protection service
         swimminsparrow.ricordamelo.services.ProtectionService.sync(context);
@@ -240,10 +243,10 @@ public class SOSContactsManager {
         boolean removed = removeContact(context, targetTopic);
 
         if (removed) {
-            swimminsparrow.ricordamelo.core.ntfy.NtfyManager.getInstance(context, targetTopic).stopReceiving();
+            NtfyManager.getInstance(context, targetTopic).stopReceiving();
         }
 
-        swimminsparrow.ricordamelo.services.ProtectionService.sync(context);
+        ProtectionService.sync(context);
         notifyContactsChanged(context);
 
         if (removed) {
@@ -255,15 +258,19 @@ public class SOSContactsManager {
     }
 
     public static void handleNameUpdate(Context context, String senderUuid, String streamTopic, String newName) {
-        if (context == null || newName == null || newName.trim().isEmpty()) return;
+        if (context == null || newName == null || newName.trim().isEmpty() || senderUuid == null) return;
+        String myUuid = SettingsDB.getInstance(context).getUserUUID();
+        if (myUuid != null && myUuid.equals(senderUuid)) {
+            Log.d(TAG, "Ignoring self-echoed NAME_UPDATE_SOS in handleNameUpdate");
+            return;
+        }
         Log.d(TAG, "handleNameUpdate senderUuid=" + senderUuid + " streamTopic=" + streamTopic + " newName=" + newName);
 
         String trimmed = newName.trim();
         List<SOSContact> contacts = getContacts(context);
         boolean updated = false;
         for (SOSContact c : contacts) {
-            if ((senderUuid != null && senderUuid.equals(c.getTopic())) ||
-                (streamTopic != null && streamTopic.equals(c.getTopic()))) {
+            if (senderUuid.equals(c.getTopic())) {
                 c.setName(trimmed);
                 updated = true;
             }
@@ -271,6 +278,7 @@ public class SOSContactsManager {
         if (updated) {
             saveContacts(context, contacts);
             Log.d(TAG, "Contact name updated to '" + trimmed + "' for uuid=" + senderUuid);
+            notifyContactsChanged(context);
         }
     }
 
@@ -305,42 +313,7 @@ public class SOSContactsManager {
 
     public static void showDisconnectionNotification(Context context) {
         if (context == null) return;
-        try {
-            int pendingFlags = android.app.PendingIntent.FLAG_UPDATE_CURRENT | android.app.PendingIntent.FLAG_IMMUTABLE;
-
-            android.content.Intent tapIntent = new android.content.Intent(context, swimminsparrow.ricordamelo.ui.alarms.MainActivity.class);
-            tapIntent.putExtra("open_sos", true);
-            tapIntent.putExtra("skip_splash", true);
-            tapIntent.setFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK | android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            android.app.PendingIntent tapPendingIntent = android.app.PendingIntent.getActivity(context, 0, tapIntent, pendingFlags);
-
-            String title = context.getString(swimminsparrow.ricordamelo.R.string.sos_disconnection_title);
-            String body = context.getString(swimminsparrow.ricordamelo.R.string.sos_disconnection_body);
-
-            boolean isSilent = SettingsDB.getInstance(context).getSilentMode();
-            android.net.Uri soundUri = isSilent ? null : SettingsDB.getInstance(context).getSoundUri();
-
-            boolean isVibro = SettingsDB.getInstance(context).getVibrationMode();
-            long[] vibratePattern = isVibro ? new long[]{0, 300, 200, 300} : null;
-
-            androidx.core.app.NotificationCompat.Builder builder = new androidx.core.app.NotificationCompat.Builder(context, swimminsparrow.ricordamelo.config.Constants.SOS_CHANNEL_ID)
-                    .setSmallIcon(swimminsparrow.ricordamelo.R.drawable.icon)
-                    .setContentTitle(title)
-                    .setContentText(body)
-                    .setPriority(androidx.core.app.NotificationCompat.PRIORITY_HIGH)
-                    .setVisibility(androidx.core.app.NotificationCompat.VISIBILITY_PUBLIC)
-                    .setSound(soundUri)
-                    .setVibrate(vibratePattern)
-                    .setContentIntent(tapPendingIntent)
-                    .setAutoCancel(true);
-
-            if (androidx.core.app.ActivityCompat.checkSelfPermission(context, android.Manifest.permission.POST_NOTIFICATIONS)
-                    == android.content.pm.PackageManager.PERMISSION_GRANTED) {
-                androidx.core.app.NotificationManagerCompat.from(context).notify(1004, builder.build());
-            }
-        } catch (Exception e) {
-            Log.e(TAG, "Error showing disconnection notification", e);
-        }
+        AppNotificationManager.getInstance().showDisconnectionNotification(context);
     }
 
     // ─── Helpers ─────────────────────────────────────────────────────────────

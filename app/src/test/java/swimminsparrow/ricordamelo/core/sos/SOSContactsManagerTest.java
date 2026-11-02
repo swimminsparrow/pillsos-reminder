@@ -144,4 +144,46 @@ public class SOSContactsManagerTest {
         assertEquals("Nonna", nContact.getName());
         assertFalse(nContact.getFormattedTimestamp().isEmpty());
     }
+
+    @Test
+    public void testHandleNameUpdate_updatesMatchingContact() {
+        SOSContact c1 = new SOSContact("c1", "Vecchio Nome", "topic_contact_1", "key1", "MUTUAL", 1000L);
+        SOSContactsManager.addContact(context, c1);
+
+        // Remote contact sent name update with their uuid
+        SOSContactsManager.handleNameUpdate(context, "topic_contact_1", "stream_topic", "Nuovo Nome");
+
+        SOSContact updated = SOSContactsManager.getContactByTopic(context, "topic_contact_1");
+        assertNotNull(updated);
+        assertEquals("Nuovo Nome", updated.getName());
+    }
+
+    @Test
+    public void testHandleNameUpdate_ignoresSelfUpdate() {
+        String myUuid = swimminsparrow.ricordamelo.core.data.SettingsDB.getInstance(context).getUserUUID();
+        SOSContact c1 = new SOSContact("c1", "Amico", "topic_amico", "key1", "MUTUAL", 1000L);
+        SOSContactsManager.addContact(context, c1);
+
+        // Echoed update sent by myself
+        SOSContactsManager.handleNameUpdate(context, myUuid, "topic_amico", "Mio Nome");
+
+        SOSContact c = SOSContactsManager.getContactByTopic(context, "topic_amico");
+        assertNotNull(c);
+        // Name should NOT be changed to my name!
+        assertEquals("Amico", c.getName());
+    }
+
+    @Test
+    public void testHandleNameUpdate_doesNotUpdateByStreamTopicAlone() {
+        SOSContact c1 = new SOSContact("c1", "Amico", "topic_amico", "key1", "MUTUAL", 1000L);
+        SOSContactsManager.addContact(context, c1);
+
+        // senderUuid is different from contact topic, even if streamTopic matches contact topic
+        SOSContactsManager.handleNameUpdate(context, "another_sender_uuid", "topic_amico", "Nome Sbagliato");
+
+        SOSContact c = SOSContactsManager.getContactByTopic(context, "topic_amico");
+        assertNotNull(c);
+        // Contact should NOT have its name overwritten
+        assertEquals("Amico", c.getName());
+    }
 }

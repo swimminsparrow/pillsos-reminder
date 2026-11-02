@@ -1,18 +1,7 @@
 package swimminsparrow.ricordamelo.core.ntfy;
 
-import android.Manifest;
-import android.app.PendingIntent;
 import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.media.RingtoneManager;
-import android.net.Uri;
-import android.os.Build;
 import android.util.Log;
-
-import androidx.core.app.ActivityCompat;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
 
 import org.json.JSONObject;
 
@@ -24,14 +13,11 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import swimminsparrow.ricordamelo.R;
-import swimminsparrow.ricordamelo.config.Constants;
 import swimminsparrow.ricordamelo.core.data.SettingsDB;
 import swimminsparrow.ricordamelo.core.notification.AppNotificationManager;
 import swimminsparrow.ricordamelo.core.utils.AppExecutors;
 import swimminsparrow.ricordamelo.core.utils.CryptoUtils;
 import swimminsparrow.ricordamelo.core.utils.NetworkUtils;
-import swimminsparrow.ricordamelo.services.NotificationDismissReceiver;
-import swimminsparrow.ricordamelo.ui.alarms.MainActivity;
 import swimminsparrow.ricordamelo.ui.common.Toaster;
 
 public class NtfyManager {
@@ -280,6 +266,11 @@ public class NtfyManager {
             int lastColon = payload.lastIndexOf(":");
             String newName = lastColon > 0 ? payload.substring(0, lastColon) : payload;
             String senderUuid = lastColon > 0 ? payload.substring(lastColon + 1) : topic;
+            String myUuid = SettingsDB.getInstance(context).getUserUUID();
+            if (myUuid != null && myUuid.equals(senderUuid)) {
+                Log.d(TAG, "Ignoring self-echoed NAME_UPDATE_SOS signal (myUuid=" + myUuid + ")");
+                return;
+            }
             Log.d(TAG, "Received NAME_UPDATE_SOS: name='" + newName + "' uuid='" + senderUuid + "'");
             swimminsparrow.ricordamelo.core.sos.SOSContactsManager.handleNameUpdate(context, senderUuid, topic, newName);
             return;
@@ -289,13 +280,16 @@ public class NtfyManager {
             String sub = decryptedMessage.substring(NtfyMessageType.PING_SOS.getIdentifier().length()).trim();
             String senderUuid = sub;
             String senderKey = null;
+            String senderName = null;
             if (sub.contains(":")) {
-                String[] parts = sub.split(":", 2);
+                String[] parts = sub.split(":", 3);
                 senderUuid = parts[0].trim();
-                senderKey = parts[1].trim();
+                if (parts.length > 1) senderKey = parts[1].trim();
+                if (parts.length > 2) senderName = parts[2].trim();
             }
             String myUuid = SettingsDB.getInstance(context).getUserUUID();
             String myKey = SettingsDB.getInstance(context).getSecurePairingKey();
+            String myName = SettingsDB.getInstance(context).getPersonalName();
             if (myUuid != null && myUuid.equals(senderUuid)) {
                 return;
             }
@@ -306,7 +300,10 @@ public class NtfyManager {
                 if (senderKey != null && !senderKey.isEmpty()) {
                     swimminsparrow.ricordamelo.core.sos.SOSContactsManager.updateContactKey(context, senderUuid, senderKey);
                 }
-                sendDirectSignal(senderUuid, "PONG_SOS:" + myUuid + ":" + myKey, null);
+                if (senderName != null && !senderName.isEmpty()) {
+                    swimminsparrow.ricordamelo.core.sos.SOSContactsManager.handleNameUpdate(context, senderUuid, topic, senderName);
+                }
+                sendDirectSignal(senderUuid, "PONG_SOS:" + myUuid + ":" + myKey + (myName != null ? ":" + myName : ""), null);
             }
             return;
         }
@@ -315,15 +312,24 @@ public class NtfyManager {
             String sub = decryptedMessage.substring(NtfyMessageType.PONG_SOS.getIdentifier().length()).trim();
             String senderUuid = sub;
             String senderKey = null;
+            String senderName = null;
             if (sub.contains(":")) {
-                String[] parts = sub.split(":", 2);
+                String[] parts = sub.split(":", 3);
                 senderUuid = parts[0].trim();
-                senderKey = parts[1].trim();
+                if (parts.length > 1) senderKey = parts[1].trim();
+                if (parts.length > 2) senderName = parts[2].trim();
+            }
+            String myUuid = SettingsDB.getInstance(context).getUserUUID();
+            if (myUuid != null && myUuid.equals(senderUuid)) {
+                return;
             }
             Log.d(TAG, "Received PONG_SOS from " + senderUuid + " -> verified active!");
             swimminsparrow.ricordamelo.core.sos.SOSContactsManager.updatePingTimestamp(context, senderUuid, System.currentTimeMillis());
             if (senderKey != null && !senderKey.isEmpty()) {
                 swimminsparrow.ricordamelo.core.sos.SOSContactsManager.updateContactKey(context, senderUuid, senderKey);
+            }
+            if (senderName != null && !senderName.isEmpty()) {
+                swimminsparrow.ricordamelo.core.sos.SOSContactsManager.handleNameUpdate(context, senderUuid, topic, senderName);
             }
             return;
         }
@@ -619,8 +625,9 @@ public class NtfyManager {
     public void pingContact(String targetTopic) {
         String myUuid = SettingsDB.getInstance(context).getUserUUID();
         String myKey = SettingsDB.getInstance(context).getSecurePairingKey();
+        String myName = SettingsDB.getInstance(context).getPersonalName();
         if (myUuid == null || targetTopic == null || targetTopic.equals(myUuid)) return;
-        sendDirectSignal(targetTopic, "PING_SOS:" + myUuid + (myKey != null ? ":" + myKey : ""), null);
+        sendDirectSignal(targetTopic, "PING_SOS:" + myUuid + (myKey != null ? ":" + myKey : "") + (myName != null ? ":" + myName : ""), null);
     }
 
     private void showSOSNotification(Context context, String username, String message) {
