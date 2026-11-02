@@ -15,6 +15,7 @@ import java.net.URL;
 import swimminsparrow.ricordamelo.R;
 import swimminsparrow.ricordamelo.core.data.SettingsDB;
 import swimminsparrow.ricordamelo.core.notification.AppNotificationManager;
+import swimminsparrow.ricordamelo.core.sos.SOSContactsManager;
 import swimminsparrow.ricordamelo.core.utils.AppExecutors;
 import swimminsparrow.ricordamelo.core.utils.CryptoUtils;
 import swimminsparrow.ricordamelo.core.utils.NetworkUtils;
@@ -68,6 +69,10 @@ public class NtfyManager {
 
     public void startReceiving() {
         if (topic == null || topic.trim().isEmpty()) return;
+        if (context != null && !SOSContactsManager.hasConfiguredContacts(context)) {
+            Log.d(TAG, "Aborting startReceiving: no configured contacts");
+            return;
+        }
         if (isReceivingActive) return;
         isReceivingActive = true;
 
