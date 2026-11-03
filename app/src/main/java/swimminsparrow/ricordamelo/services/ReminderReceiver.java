@@ -10,6 +10,8 @@ import swimminsparrow.ricordamelo.core.utils.SpockLogger;
 
 public class ReminderReceiver extends BroadcastReceiver {
 
+    public static final String ACTION_ALARM_TRIGGER = "swimminsparrow.ricordamelo.ACTION_ALARM_TRIGGER";
+    public static final String ACTION_SNOOZE_TRIGGER = "swimminsparrow.ricordamelo.ACTION_SNOOZE_TRIGGER";
     public static final String ACTION_ALARM_NOTIFICATION_SWIPED = "swimminsparrow.ricordamelo.ACTION_ALARM_NOTIFICATION_SWIPED";
     public static final String ACTION_SOS_NOTIFICATION_SWIPED = "swimminsparrow.ricordamelo.ACTION_SOS_NOTIFICATION_SWIPED";
 

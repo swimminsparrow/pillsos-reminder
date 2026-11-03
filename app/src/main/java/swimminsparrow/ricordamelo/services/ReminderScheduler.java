@@ -112,6 +112,7 @@ public class ReminderScheduler {
                                  long nextTime, int alarmId,
                                  GregorianCalendar whenToFinish) {
         Intent intent = new Intent(context, ReminderReceiver.class);
+        intent.setAction(ReminderReceiver.ACTION_ALARM_TRIGGER);
         intent.putExtra("ID", farmacoId);
         intent.putExtra("Orario", hour + ":" + minute);
         intent.addFlags(Intent.FLAG_RECEIVER_FOREGROUND);
@@ -164,6 +165,7 @@ public class ReminderScheduler {
 
         for (int i = alarmCount; i <= previousCount; i++) {
             Intent intent = new Intent(context, ReminderReceiver.class);
+            intent.setAction(ReminderReceiver.ACTION_ALARM_TRIGGER);
             PendingIntent pendingIntent = buildPendingIntent(context, intent, i,
                     PendingIntent.FLAG_CANCEL_CURRENT);
             try {

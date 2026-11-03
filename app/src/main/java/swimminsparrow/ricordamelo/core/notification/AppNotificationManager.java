@@ -63,6 +63,9 @@ public class AppNotificationManager {
     public static final int ID_PUBLISH_RESULT = 1005;
     public static final int ID_OUTBOX_DELIVERED = 1006;
 
+    public static final String ACTION_SNOOZE_TRIGGER = ReminderReceiver.ACTION_SNOOZE_TRIGGER;
+    public static final int SNOOZE_REQUEST_CODE_BASE = 1000000;
+
     // Schema: Attesa 0ms -> Vibra 800ms -> Pausa 4000ms (sincronizzato con
     // AlarmRinger per ritmo lento e costante)
     public static final long[] VIBRATION_PATTERN = new long[] { 0, 1000, 4000 };
@@ -1092,15 +1095,18 @@ public class AppNotificationManager {
                 am.cancel(missedPending);
 
                 Intent snoozeIntent = new Intent(context, ReminderReceiver.class);
-                PendingIntent snoozePending = PendingIntentHelper.getBroadcast(context, id, snoozeIntent, true);
+                snoozeIntent.setAction(ACTION_SNOOZE_TRIGGER);
+                PendingIntent snoozePending = PendingIntentHelper.getBroadcast(context, SNOOZE_REQUEST_CODE_BASE + id, snoozeIntent, true);
                 am.cancel(snoozePending);
 
                 if (id == -1) {
                     java.util.List<Farmaco> list = FarmacoDao.getInstance(context).getAll();
                     if (list != null) {
                         for (Farmaco f : list) {
-                            PendingIntent sp = PendingIntentHelper.getBroadcast(context, f.getId(), snoozeIntent, true);
+                            PendingIntent sp = PendingIntentHelper.getBroadcast(context, SNOOZE_REQUEST_CODE_BASE + f.getId(), snoozeIntent, true);
                             am.cancel(sp);
+                            PendingIntent mp = PendingIntentHelper.getBroadcast(context, f.getId(), missedIntent, true);
+                            am.cancel(mp);
                         }
                     }
                 }
@@ -1119,11 +1125,13 @@ public class AppNotificationManager {
         AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         if (am != null) {
             Intent snoozeIntent = new Intent(context, ReminderReceiver.class);
+            snoozeIntent.setAction(ACTION_SNOOZE_TRIGGER);
             snoozeIntent.putExtra("ID", id);
             if (orario != null) {
                 snoozeIntent.putExtra("Orario", orario);
             }
-            PendingIntent snoozePending = PendingIntentHelper.getBroadcast(context, id, snoozeIntent, true);
+            snoozeIntent.putExtra("is_snooze", true);
+            PendingIntent snoozePending = PendingIntentHelper.getBroadcast(context, SNOOZE_REQUEST_CODE_BASE + id, snoozeIntent, true);
             long triggerTime = System.currentTimeMillis() + ((long) snoozeMinutes * 60 * 1000);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 am.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerTime, snoozePending);
