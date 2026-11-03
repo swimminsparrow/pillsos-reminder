@@ -38,6 +38,12 @@ public class ReminderScheduler {
                                                  Farmaco farmaco, GregorianCalendar now, int alarmCount) {
         GregorianCalendar whenToFinish = new GregorianCalendar();
         whenToFinish.setTimeInMillis(farmaco.getWhenToFinish());
+        // Ensure the expiration represents the end of the final chosen day (23:59:59.999),
+        // so that all occurrences scheduled on that final day are fully delivered.
+        whenToFinish.set(Calendar.HOUR_OF_DAY, 23);
+        whenToFinish.set(Calendar.MINUTE, 59);
+        whenToFinish.set(Calendar.SECOND, 59);
+        whenToFinish.set(Calendar.MILLISECOND, 999);
 
         for (int j = 0; j < farmaco.getHourSize(); j++) {
             int hour    = Integer.parseInt(farmaco.getHour(j));

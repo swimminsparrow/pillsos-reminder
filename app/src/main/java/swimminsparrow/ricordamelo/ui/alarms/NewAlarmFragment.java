@@ -222,6 +222,10 @@ public class NewAlarmFragment extends Fragment {
     private void setupInitialState() {
         whenToFinish = (GregorianCalendar) GregorianCalendar.getInstance();
         whenToFinish.add(Calendar.DAY_OF_YEAR, 7);
+        whenToFinish.set(Calendar.HOUR_OF_DAY, 23);
+        whenToFinish.set(Calendar.MINUTE, 59);
+        whenToFinish.set(Calendar.SECOND, 59);
+        whenToFinish.set(Calendar.MILLISECOND, 999);
         if (mForever != null) {
             mForever.setChecked(true);
         }
@@ -365,6 +369,10 @@ public class NewAlarmFragment extends Fragment {
         }
         if (!forever) {
             whenToFinish.setTimeInMillis(this.farmaco.getWhenToFinish());
+            whenToFinish.set(Calendar.HOUR_OF_DAY, 23);
+            whenToFinish.set(Calendar.MINUTE, 59);
+            whenToFinish.set(Calendar.SECOND, 59);
+            whenToFinish.set(Calendar.MILLISECOND, 999);
         }
         updateDurationUI(forever);
 
@@ -654,10 +662,13 @@ public class NewAlarmFragment extends Fragment {
                 requireContext(),
                 R.style.GreenTimePickerTheme,
                 (v, year, month, day) -> {
-                    GregorianCalendar now = (GregorianCalendar) GregorianCalendar.getInstance();
-                    whenToFinish.set(year, month, day,
-                            now.get(GregorianCalendar.HOUR_OF_DAY),
-                            now.get(GregorianCalendar.MINUTE));
+                    whenToFinish.set(Calendar.YEAR, year);
+                    whenToFinish.set(Calendar.MONTH, month);
+                    whenToFinish.set(Calendar.DAY_OF_MONTH, day);
+                    whenToFinish.set(Calendar.HOUR_OF_DAY, 23);
+                    whenToFinish.set(Calendar.MINUTE, 59);
+                    whenToFinish.set(Calendar.SECOND, 59);
+                    whenToFinish.set(Calendar.MILLISECOND, 999);
                     updateDateDisplay();
                     isDirty = true;
                 },

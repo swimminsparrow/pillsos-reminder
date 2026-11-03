@@ -98,6 +98,10 @@ public class Farmaco
             GregorianCalendar now          = (GregorianCalendar) GregorianCalendar.getInstance();
             GregorianCalendar finishCal    = new GregorianCalendar();
             finishCal.setTimeInMillis(getWhenToFinish());
+            finishCal.set(Calendar.HOUR_OF_DAY, 23);
+            finishCal.set(Calendar.MINUTE, 59);
+            finishCal.set(Calendar.SECOND, 59);
+            finishCal.set(Calendar.MILLISECOND, 999);
 
             boolean active = now.compareTo(finishCal) <= 0 || isForever();
             if (!active) return 0;
