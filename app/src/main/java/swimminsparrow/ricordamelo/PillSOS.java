@@ -72,6 +72,15 @@ public class PillSOS extends Application {
         } catch (Exception e) {
             android.util.Log.e("PillSOS", "Failed to sync ProtectionService on app init: " + e.getMessage());
         }
+
+        // Ensure alarm schedules are verified and refreshed in background on app startup
+        swimminsparrow.ricordamelo.core.utils.AppExecutors.getInstance().diskIO().execute(() -> {
+            try {
+                swimminsparrow.ricordamelo.services.ReminderScheduler.refreshAlarms(getApplicationContext());
+            } catch (Exception e) {
+                android.util.Log.e("PillSOS", "Failed to refresh alarms on app start: " + e.getMessage());
+            }
+        });
     }
 
     public static TTSManager getTtsManager(Context context) {
