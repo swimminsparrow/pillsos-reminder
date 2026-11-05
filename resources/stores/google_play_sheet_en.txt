@@ -1,39 +1,39 @@
 === ENGLISH (en-US) ===
 Short Description: Protect loved ones: pill reminders, missed alarm alerts & fall SOS.
 Full Description:
-💊 <b>PillSOS — The medication reminder you can't ignore, with SOS protection.</b>
+💊 <b>PillSOS — Medication reminder with voice alarm, SOS, and fall detection.</b>
 
-Whether you are managing a daily treatment, taking vitamins, antibiotics, or simply want to track your pill schedule in total safety, <b>PillSOS</b> is your everyday companion.
-Care for yourself and your loved ones with an automatic medication schedule alarm and emergency SOS alerts.
+Need to remember a medication or therapy routine? 
+Want to be sure a loved one took their medicine on time?
+Need an alert if an elderly or fragile relative suffers a fall? 
+<b>PillSOS</b> is the answer you are looking for.
 
 ───────────────
-✨ <b>WHY PILLSOS IS DIFFERENT</b>
+✨ <b>WHY IS PILLSOS DIFFERENT?</b>
 ───────────────
 
-🔔 <b>FULL-SCREEN ALARM & VOICE PROMPT</b>
-Never miss a dose again! Your screen lights up with an unmissable alert and, if your hands are busy, a voice reads out loudly which medicine you need to take.
+🔔 <b>CLEAR & LOUD ALARMS</b>
+Never miss a dose again! The alarm rings at maximum volume and a voice speaks the name of the medicine to take.
 
-🚨 <b>FALL DETECTION & AUTOMATIC LIFE-SAVING SOS</b>
-If your phone detects a sudden impact or fall, a countdown alarm triggers immediately. If you do not respond in time, an automatic help and emergency request is sent to your contacts.
+🚨 <b>AUTOMATIC MISSED DOSE SOS</b>
+Connect with a loved one, family member, or friend. If the person doesn't confirm taking the pill, you will receive an automatic SOS when the alarm expires.
 
-👨‍👩‍👧 <b>DESIGNED FOR CAREGIVERS & FAMILIES</b>
-The ideal solution for peace of mind and care for parents, grandparents, or loved ones living alone.
+⚠️ <b>FALL DETECTION</b>
+If the phone detects a fall, it sends a request for help to connected contacts.
 
-🤝 <b>CONNECT IN 5 SECONDS</b>
-Want to sync with your trusted contacts? A simple 6-digit code is all it takes: zero accounts, zero sign-ups. If you miss a dose or an SOS alarm triggers, your linked contact receives an alert immediately.
+👨‍👩‍👧 <b>DESIGNED FOR CAREGIVERS AND FAMILIES</b>
+The practical solution for the assistance and peace of mind of parents, grandparents, or loved ones living alone.
+
+🤝 <b>CONNECT WITH ANYONE IN 5 SECONDS</b>
+No Account: just a simple 6-digit code to connect with your loved ones.
 
 💚 <b>THE "I'M OK" BUTTON</b>
-A quick tap to dismiss the alarm and confirm with peace of mind: <i>"All good, I took my medicine and I'm okay!"</i>.
+Send a good morning whenever you want by saying "I'm OK" to all your loved ones.
 
-🌍 <b>MULTI-LANGUAGE & REGIONAL DIALECTS</b>
-Full, accurate translations in over 20 languages—including Neapolitan, Sicilian, and Romanesco—to make everyone feel right at home.
+🌍 <b>MULTI-LANGUAGE & DIALECTS</b>
+Translated into over 20 languages, including Neapolitan, Sicilian, and Romanesco, to always feel right at home.
 
 🔒 <b>TOTAL PRIVACY</b>
-No email, no passwords. Your medication schedules and sensitive health data stay stored exclusively on your phone.
-
-───────────────
-
-<b>Download PillSOS today and go through your day with added peace of mind!</b> 💚
-
+No email, no password. Your reminders are stored offline on your phone. Messages exchanged over the optional SOS network are end-to-end encrypted.
 ─────────────────────
-ℹ️ <i>PillSOS is a reminder and personal safety tool for daily wellness; it is not a medical device and does not replace official emergency services.</i>
+ℹ️ <i>PillSOS is a reminder and safety support app for daily wellness; it is not a medical device and does not replace official emergency services under any circumstances.</i>

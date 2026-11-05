@@ -7,6 +7,8 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
 
+import swimminsparrow.ricordamelo.config.Constants;
+
 public class Farmaco
     {
         
@@ -125,8 +127,8 @@ public class Farmaco
                     candidate.set(Calendar.MILLISECOND, 0);
                     candidate.add(Calendar.DAY_OF_YEAR, dayOffset);
 
-                    // Skip if already in the past
-                    if (candidate.compareTo(now) <= 0) continue;
+                    // Skip if already in the past or currently firing (within grace period)
+                    if (candidate.getTimeInMillis() <= now.getTimeInMillis() + Constants.ALARM_TRIGGER_GRACE_PERIOD_MS) continue;
 
                     // Skip if beyond finish date (and not forever)
                     if (!isForever() && candidate.compareTo(finishCal) > 0) continue;

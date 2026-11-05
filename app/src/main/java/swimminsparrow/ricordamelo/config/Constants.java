@@ -37,6 +37,9 @@ public class Constants {
     public static final String PHOTOS_DIR_PATH = "photos/";
     public static final String AVATAR_FILE_PATH = "me.jpg";
 
+    // ALARM TIMING //
+    public static final long ALARM_TRIGGER_GRACE_PERIOD_MS = 15_000L; // 15s grace window to prevent duplicate triggering
+
     // DONATION / COFFEE LINK //
     public static final String DONATE_URL = "https://buymeacoffee.com/swimminsparrow";
     public static final String PRIVACY_POLICY_URL = "https://swimminsparrow.github.io/pillsos-reminder/privacy-policy.html";

@@ -10,6 +10,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import swimminsparrow.ricordamelo.config.Constants;
 import swimminsparrow.ricordamelo.core.data.SettingsDB;
 import swimminsparrow.ricordamelo.core.data.dao.FarmacoDao;
 import swimminsparrow.ricordamelo.core.data.models.Farmaco;
@@ -69,7 +70,9 @@ public class ReminderScheduler {
         beginTime.set(Calendar.SECOND, 0);
         beginTime.set(Calendar.MILLISECOND, 0);
 
-        if (beginTime.compareTo(now) <= 0)
+        // If beginTime is in the past or within grace period from now,
+        // it is currently ringing / was just triggered -> bump to tomorrow to avoid duplicate triggers.
+        if (beginTime.getTimeInMillis() <= now.getTimeInMillis() + Constants.ALARM_TRIGGER_GRACE_PERIOD_MS)
             beginTime.add(Calendar.DAY_OF_YEAR, 1);
 
         if (farmaco.isForever() || whenToFinish.after(beginTime)) {
@@ -99,7 +102,9 @@ public class ReminderScheduler {
             int currentDayOfWeek = now.get(Calendar.DAY_OF_WEEK) - 1;
             beginTime.add(Calendar.DAY_OF_YEAR, dayIndex - currentDayOfWeek);
 
-            if (!beginTime.after(now))
+            // If beginTime is in the past or within grace period from now,
+            // it is currently ringing / was just triggered -> bump by 7 days to next week.
+            if (beginTime.getTimeInMillis() <= now.getTimeInMillis() + Constants.ALARM_TRIGGER_GRACE_PERIOD_MS)
                 beginTime.add(Calendar.DAY_OF_YEAR, 7);
 
             if (farmaco.isForever() || whenToFinish.after(beginTime)) {

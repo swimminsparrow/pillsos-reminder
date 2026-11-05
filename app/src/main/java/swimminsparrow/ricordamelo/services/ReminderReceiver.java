@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
+import swimminsparrow.ricordamelo.config.Constants;
 import swimminsparrow.ricordamelo.core.notification.AppNotificationManager;
 import swimminsparrow.ricordamelo.core.utils.SpockLogger;
 
@@ -14,6 +15,9 @@ public class ReminderReceiver extends BroadcastReceiver {
     public static final String ACTION_SNOOZE_TRIGGER = "swimminsparrow.ricordamelo.ACTION_SNOOZE_TRIGGER";
     public static final String ACTION_ALARM_NOTIFICATION_SWIPED = "swimminsparrow.ricordamelo.ACTION_ALARM_NOTIFICATION_SWIPED";
     public static final String ACTION_SOS_NOTIFICATION_SWIPED = "swimminsparrow.ricordamelo.ACTION_SOS_NOTIFICATION_SWIPED";
+
+    private static volatile String lastTriggeredKey = "";
+    private static volatile long lastTriggeredTimestamp = 0L;
 
     private Context context;
 
@@ -50,6 +54,16 @@ public class ReminderReceiver extends BroadcastReceiver {
 
         int idRicevuto = intent != null ? intent.getIntExtra("ID", -1) : -1;
         String orario = intent != null ? intent.getStringExtra("Orario") : null;
+
+        long nowMs = System.currentTimeMillis();
+        String currentTriggerKey = idRicevuto + "_" + (orario != null ? orario : "");
+        if (currentTriggerKey.equals(lastTriggeredKey) && (nowMs - lastTriggeredTimestamp) < Constants.ALARM_TRIGGER_GRACE_PERIOD_MS) {
+            SpockLogger.info(this.getClass().getSimpleName(),
+                    "Dropping duplicate rapid alarm trigger {ID: " + idRicevuto + ", Orario: " + orario + "}");
+            return;
+        }
+        lastTriggeredKey = currentTriggerKey;
+        lastTriggeredTimestamp = nowMs;
 
         SpockLogger.info(this.getClass().getSimpleName(),
                 "Alarm received {ID: " + idRicevuto + ", Orario: " + orario + "}");
