@@ -65,6 +65,7 @@ public class AlarmsFragment extends Fragment {
 
         setupImOkBanner();
         setupNotificationWarningBanner();
+        setupBatteryWarningBanner();
         setupOverlayWarningBanner();
 
         if (bannerUpdateListener == null) {
@@ -84,6 +85,29 @@ public class AlarmsFragment extends Fragment {
             ProFeatureManager.getInstance().removeBannerUpdateListener(bannerUpdateListener);
             bannerUpdateListener = null;
         }
+    }
+
+    private void setupBatteryWarningBanner() {
+        View banner = rootView.findViewById(R.id.card_battery_disabled);
+        if (banner != null) {
+            View.OnClickListener clickListener = v -> {
+                swimminsparrow.ricordamelo.core.utils.BatteryOptimizationsHelper.openBatteryOptimizationSettings(requireContext());
+            };
+            banner.setOnClickListener(clickListener);
+            View btnAction = rootView.findViewById(R.id.btn_enable_battery_opt);
+            if (btnAction != null) {
+                btnAction.setOnClickListener(clickListener);
+            }
+        }
+    }
+
+    private void updateBatteryWarningBannerVisibility() {
+        if (rootView == null || getContext() == null) return;
+        View banner = rootView.findViewById(R.id.card_battery_disabled);
+        if (banner == null) return;
+        boolean ignoring = swimminsparrow.ricordamelo.core.utils.BatteryOptimizationsHelper.isIgnoringBatteryOptimizations(requireContext());
+        banner.setVisibility(ignoring ? View.GONE : View.VISIBLE);
+        updateProBannerVisibility();
     }
 
     private void setupOverlayWarningBanner() {
@@ -234,6 +258,7 @@ public class AlarmsFragment extends Fragment {
         loadFarmaciData();
         updateImOkBannerVisibility();
         updateNotificationWarningBannerVisibility();
+        updateBatteryWarningBannerVisibility();
         updateOverlayWarningBannerVisibility();
         updateProBannerVisibility();
     }
@@ -244,9 +269,11 @@ public class AlarmsFragment extends Fragment {
         if (proContainer == null) return;
 
         View notifBanner = rootView.findViewById(R.id.card_notifications_disabled);
+        View batteryBanner = rootView.findViewById(R.id.card_battery_disabled);
         View overlayBanner = rootView.findViewById(R.id.card_overlay_disabled);
 
         boolean hasWarning = (notifBanner != null && notifBanner.getVisibility() == View.VISIBLE)
+                || (batteryBanner != null && batteryBanner.getVisibility() == View.VISIBLE)
                 || (overlayBanner != null && overlayBanner.getVisibility() == View.VISIBLE);
 
         ProFeatureManager.getInstance().updateHomeBanner(requireActivity(), proContainer, hasWarning);

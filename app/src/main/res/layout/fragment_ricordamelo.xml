@@ -27,6 +27,18 @@
             android:layout_marginBottom="4dp"
             android:visibility="gone" />
 
+        <!-- Banner Ottimizzazione Batteria (mostrato solo se ottimizzazione attiva) -->
+        <include
+            android:id="@+id/card_battery_disabled"
+            layout="@layout/card_battery_disabled_banner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="4dp"
+            android:visibility="gone" />
+
         <!-- Banner Visualizzazione Sopra Altre App (mostrato solo se rilevamento cadute attivo e permesso mancante) -->
         <include
             android:id="@+id/card_overlay_disabled"
@@ -82,11 +94,12 @@
     <LinearLayout
         android:id="@+id/emptyMessage"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/layout_top_banners"
+        android:layout_above="@+id/bottom_container"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
-        android:elevation="6dp"
+        android:paddingBottom="32dp"
         android:gravity="center"
         android:orientation="vertical"
         android:visibility="gone">
