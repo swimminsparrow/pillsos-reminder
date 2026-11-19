@@ -3,7 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <!-- General & Profile -->
-    <PreferenceCategory android:title="@string/set_cat_general">
+    <PreferenceCategory
+        android:key="set_cat_general"
+        android:order="10"
+        android:title="@string/set_cat_general">
 
         <ListPreference
             android:defaultValue="DEFAULT"
@@ -28,7 +31,10 @@
     </PreferenceCategory>
 
     <!-- Sound & Notifications -->
-    <PreferenceCategory android:title="@string/set_cat_sound">
+    <PreferenceCategory
+        android:key="set_cat_sound"
+        android:order="20"
+        android:title="@string/set_cat_sound">
 
         <Preference
             android:key="d_8"
@@ -61,7 +67,10 @@
     </PreferenceCategory>
 
     <!-- Emergency & SOS -->
-    <PreferenceCategory android:title="@string/set_cat_emergency">
+    <PreferenceCategory
+        android:key="set_cat_emergency"
+        android:order="30"
+        android:title="@string/set_cat_emergency">
 
 
         <SwitchPreference
@@ -88,6 +97,7 @@
     <!-- Troubleshooting & Diagnostics -->
     <PreferenceCategory
         android:key="set_troubleshooting_tools"
+        android:order="40"
         android:title="@string/set_cat_tools">
 
         <Preference
@@ -105,22 +115,28 @@
     </PreferenceCategory>
 
     <!-- About & Support -->
-    <PreferenceCategory android:title="@string/set_cat_about">
+    <PreferenceCategory
+        android:key="set_cat_about"
+        android:order="60"
+        android:title="@string/set_cat_about">
 
         <Preference
             android:key="d_rate_app"
+            android:order="1"
             android:summary="@string/rateme__dialog_feedback_message"
             android:title="@string/rateme__dialog_first_title"
             android:icon="@drawable/ic_star_rate_24dp" />
 
         <Preference
             android:key="d_coffee"
+            android:order="2"
             android:summary="@string/buy_me_a_coffee_description"
             android:title="@string/buy_me_a_coffee"
             android:icon="@drawable/baseline_coffee_24_green" />
 
         <Preference
             android:key="d_about"
+            android:order="3"
             android:title="@string/about_app_title"
             android:summary=""
             android:icon="@drawable/baseline_info_24" />

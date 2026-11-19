@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
+import swimminsparrow.ricordamelo.ProFeatureManager;
 import swimminsparrow.ricordamelo.ui.rateme.RateMeManager;
 
 import java.util.ArrayList;
@@ -35,8 +36,8 @@ public class AlarmsFragment extends Fragment {
     //  UI   //
     private AlarmAdapter alarmAdapter;
     private GridView griglia;
-
     private View rootView;
+    private Runnable bannerUpdateListener;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -65,6 +66,24 @@ public class AlarmsFragment extends Fragment {
         setupImOkBanner();
         setupNotificationWarningBanner();
         setupOverlayWarningBanner();
+
+        if (bannerUpdateListener == null) {
+            bannerUpdateListener = () -> {
+                if (isAdded()) {
+                    updateProBannerVisibility();
+                }
+            };
+            ProFeatureManager.getInstance().addBannerUpdateListener(bannerUpdateListener);
+        }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (bannerUpdateListener != null) {
+            ProFeatureManager.getInstance().removeBannerUpdateListener(bannerUpdateListener);
+            bannerUpdateListener = null;
+        }
     }
 
     private void setupOverlayWarningBanner() {
@@ -88,6 +107,7 @@ public class AlarmsFragment extends Fragment {
         boolean fallActive = SettingsDB.getInstance(requireContext()).getFallDetectionMode();
         boolean hasOverlay = swimminsparrow.ricordamelo.core.utils.OverlayPermissionHelper.canDrawOverlays(requireContext());
         banner.setVisibility((fallActive && !hasOverlay) ? View.VISIBLE : View.GONE);
+        updateProBannerVisibility();
     }
 
     private void setupNotificationWarningBanner() {
@@ -149,6 +169,7 @@ public class AlarmsFragment extends Fragment {
         if (banner == null) return;
         boolean granted = swimminsparrow.ricordamelo.core.utils.CheckPermissionsHandler.isNotificationGranted(requireContext());
         banner.setVisibility(granted ? View.GONE : View.VISIBLE);
+        updateProBannerVisibility();
     }
 
     private void setupImOkBanner() {
@@ -214,6 +235,21 @@ public class AlarmsFragment extends Fragment {
         updateImOkBannerVisibility();
         updateNotificationWarningBannerVisibility();
         updateOverlayWarningBannerVisibility();
+        updateProBannerVisibility();
+    }
+
+    private void updateProBannerVisibility() {
+        if (rootView == null || getContext() == null || getActivity() == null) return;
+        ViewGroup proContainer = rootView.findViewById(R.id.layout_pro_banner_container);
+        if (proContainer == null) return;
+
+        View notifBanner = rootView.findViewById(R.id.card_notifications_disabled);
+        View overlayBanner = rootView.findViewById(R.id.card_overlay_disabled);
+
+        boolean hasWarning = (notifBanner != null && notifBanner.getVisibility() == View.VISIBLE)
+                || (overlayBanner != null && overlayBanner.getVisibility() == View.VISIBLE);
+
+        ProFeatureManager.getInstance().updateHomeBanner(requireActivity(), proContainer, hasWarning);
     }
 
     private void loadFarmaciData() {

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Nonfree Flavor (Google Play): In-App Purchases & Pro Version Strings -->
+    <string name="pro_upgrade_title">Удалить рекламу (Pro)</string>
+    <string name="pro_upgrade_summary">Отключите рекламу навсегда и поддержите мою работу за %s</string>
+    <string name="pro_unlocked_summary">Версия Pro активна. Спасибо за поддержку PillSOS!</string>
+    <string name="restore_purchases_title">Восстановить покупки</string>
+    <string name="restore_purchases_summary">Восстановите ранее сделанную покупку на этом устройстве</string>
+    <string name="billing_purchase_success">Версия Pro успешно разблокирована!</string>
+    <string name="billing_restore_success">Покупки успешно восстановлены!</string>
+    <string name="pro_banner_title">Перейти на PillSOS Pro</string>
+    <string name="pro_banner_desc">Удалите все рекламные баннеры и поддержите мою работу всего за %s</string>
+    <string name="pro_banner_action">Разблокировать</string>
+</resources>

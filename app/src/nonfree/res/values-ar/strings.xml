@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Nonfree Flavor (Google Play): In-App Purchases & Pro Version Strings -->
+    <string name="pro_upgrade_title">إزالة الإعلانات (برو)</string>
+    <string name="pro_upgrade_summary">احصل على تجربة خالية من الإعلانات إلى الأبد وادعم عملي مقابل %s</string>
+    <string name="pro_unlocked_summary">إصدار برو مفعّل. شكراً لدعمك PillSOS!</string>
+    <string name="restore_purchases_title">استعادة المشتريات</string>
+    <string name="restore_purchases_summary">استعد مشترياتك السابقة على هذا الجهاز</string>
+    <string name="billing_purchase_success">تم تفعيل إصدار برو بنجاح!</string>
+    <string name="billing_restore_success">تمت استعادة المشتريات بنجاح!</string>
+    <string name="pro_banner_title">الترقية إلى PillSOS برو</string>
+    <string name="pro_banner_desc">تخلص من جميع الإعلانات وادعم عملي مقابل %s</string>
+    <string name="pro_banner_action">فتح</string>
+</resources>

@@ -19,12 +19,14 @@ import com.google.android.ump.UserMessagingPlatform;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import swimminsparrow.ricordamelo.core.data.SettingsDB;
 import swimminsparrow.ricordamelo.ui.common.IAdsManager;
 
 public class AdsManager implements IAdsManager {
 
     private AdView adView;
     private final AtomicBoolean isMobileAdsInitializeCalled = new AtomicBoolean(false);
+    private BillingManager.StateListener billingStateListener;
 
     @Override
     public void init(Activity activity, ViewGroup container) {
@@ -34,6 +36,26 @@ public class AdsManager implements IAdsManager {
 
         // Initially hide container until an ad is successfully loaded to avoid awkward blank spacing
         container.setVisibility(View.GONE);
+
+        // If user has unlocked ad-free, completely stop ad loading
+        if (SettingsDB.getInstance(activity).isAdFreeUnlocked()) {
+            return;
+        }
+
+        // Listen for real-time purchase events to remove ads immediately
+        billingStateListener = isPro -> {
+            if (isPro) {
+                activity.runOnUiThread(() -> {
+                    if (adView != null) {
+                        adView.destroy();
+                        adView = null;
+                    }
+                    container.removeAllViews();
+                    container.setVisibility(View.GONE);
+                });
+            }
+        };
+        BillingManager.getInstance().addStateListener(billingStateListener);
 
         // UMP GDPR / EU Consent handling
         ConsentRequestParameters params = new ConsentRequestParameters.Builder()
@@ -84,6 +106,12 @@ public class AdsManager implements IAdsManager {
 
     private void loadBanner(Activity activity, ViewGroup container) {
         if (activity == null || activity.isFinishing() || activity.isDestroyed() || container == null) {
+            return;
+        }
+
+        if (SettingsDB.getInstance(activity).isAdFreeUnlocked()) {
+            container.removeAllViews();
+            container.setVisibility(View.GONE);
             return;
         }
 
@@ -146,6 +174,10 @@ public class AdsManager implements IAdsManager {
 
     @Override
     public void onDestroy() {
+        if (billingStateListener != null) {
+            BillingManager.getInstance().removeStateListener(billingStateListener);
+            billingStateListener = null;
+        }
         if (adView != null) {
             adView.destroy();
             adView = null;

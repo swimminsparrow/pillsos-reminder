@@ -112,6 +112,14 @@ public class SettingsDB {
         edit.apply();
     }
 
+    public boolean isAdFreeUnlocked() {
+        return databasePreferences.getBoolean("ad_free_unlocked", false);
+    }
+
+    public void setAdFreeUnlocked(boolean unlocked) {
+        databasePreferences.edit().putBoolean("ad_free_unlocked", unlocked).apply();
+    }
+
     public void setTTSMode(boolean enabled) {
         SharedPreferences.Editor edit = databasePreferences.edit();
         edit.putBoolean("ttsMode", enabled);

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Nonfree Flavor (Google Play): Stringhe Pro e In-App Purchases -->
+    <string name="pro_upgrade_title">Leva a pubblicità (Pro)</string>
+    <string name="pro_upgrade_summary">Sblocca l\'app senza pubblicità pi sempri e supporta u me travagghiu a %s</string>
+    <string name="pro_unlocked_summary">Virsioni Pro attiva. Grazzii di cori pi supportari PillSOS!</string>
+    <string name="restore_purchases_title">Ripristina l\'accattata</string>
+    <string name="restore_purchases_summary">Ripristina n\'accattu già fattu nta stu telefunu</string>
+    <string name="billing_purchase_success">Virsioni Pro sbluccata cu successu!</string>
+    <string name="billing_restore_success">Accatti ripristinati cu successu!</string>
+    <string name="pro_banner_title">Passa a PillSOS Pro</string>
+    <string name="pro_banner_desc">Leva tutti i banner e supporta u me travagghiu a suli %s</string>
+    <string name="pro_banner_action">Sblocca</string>
+</resources>

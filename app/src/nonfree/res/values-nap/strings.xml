@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Nonfree Flavor (Google Play): Stringhe Pro e In-App Purchases -->
+    <string name="pro_upgrade_title">Leva \'a pubblicità (Pro)</string>
+    <string name="pro_upgrade_summary">Leva \'a pubblicità pe\' sempe e supporta \'o lavoro mio a %s</string>
+    <string name="pro_unlocked_summary">Versione Pro attiva. Grazie \'e core pe\' supportà PillSOS!</string>
+    <string name="restore_purchases_title">Ripristina \'accatto</string>
+    <string name="restore_purchases_summary">Ripristina n\'accatto già fatto ngopp\'a chistu telefono</string>
+    <string name="billing_purchase_success">Versione Pro sbloccata cu\' successo!</string>
+    <string name="billing_restore_success">Accatti ripristinati cu\' successo!</string>
+    <string name="pro_banner_title">Passa a PillSOS Pro</string>
+    <string name="pro_banner_desc">Leva tutte \'e banner e supporta \'o lavoro mio a sulo %s</string>
+    <string name="pro_banner_action">Sblocca</string>
+</resources>

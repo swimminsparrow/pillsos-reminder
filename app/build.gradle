@@ -3,38 +3,37 @@ apply plugin: 'com.android.application'
 // --- PillSOS Secret & Open-Source Fallback Loader ---
 def targetGs = file("google-services.json")
 if (!targetGs.exists()) {
-    def secretGs = rootProject.file("secrets/google-services.json")
-    def realGs = file("google-services.json.real")
-    def exampleGs = file("google-services.json.example")
-    if (secretGs.exists()) {
-        targetGs.bytes = secretGs.bytes
-    } else if (realGs.exists()) {
-        targetGs.bytes = realGs.bytes
-    } else if (exampleGs.exists()) {
-        targetGs.bytes = exampleGs.bytes
+    def fallbackGs = [rootProject.file("secrets/google-services.json"), file("google-services.json.real"), file("google-services.json.example")].find { it.exists() }
+    if (fallbackGs) targetGs.bytes = fallbackGs.bytes
+}
+
+def secrets = new Properties()
+[rootProject.file("local.properties"), rootProject.file("secrets/secrets.properties")].each { f ->
+    if (f.exists()) f.withInputStream { secrets.load(it) }
+}
+
+def getSecret = { Object keys, String defaultVal = "" ->
+    def keyList = (keys instanceof List) ? keys : [keys.toString()]
+    for (k in keyList) {
+        def val = secrets.getProperty(k)?.trim() ?: System.getenv(k.replace('.', '_').toUpperCase())?.trim()
+        if (val) return val
     }
+    return defaultVal
 }
 
-def secretsPropsFile = rootProject.file("secrets/secrets.properties")
-def localPropsFile = rootProject.file("local.properties")
-def secretProperties = new Properties()
-
-if (secretsPropsFile.exists()) {
-    secretsPropsFile.withInputStream { secretProperties.load(it) }
-} else if (localPropsFile.exists()) {
-    localPropsFile.withInputStream { secretProperties.load(it) }
-}
-
-def admobAppId = secretProperties.getProperty("admob.app.id", "ca-app-pub-3940256099942544~3347511713")
-def admobBannerId = secretProperties.getProperty("admob.banner.id", "ca-app-pub-3940256099942544/6300978111")
+def admobAppId      = getSecret("admob.app.id", "ca-app-pub-3940256099942544~3347511713")
+def admobBannerId   = getSecret("admob.banner.id", "ca-app-pub-3940256099942544/6300978111")
+def rcReleaseKey    = getSecret(["revenuecat.key.release", "revenuecat.key", "revenuecat.api.key"], "")
+def rcDebugKey      = getSecret(["revenuecat.key.debug", "revenuecat.api.key.debug"], "test_TSWPTXnfaknGdbVWRYiERPACrNV")
+def defaultProPrice = getSecret(["pro.default.price", "revenuecat.default.price"], "€0.99")
 
 android {
     compileSdk 36
     defaultConfig {
         applicationId 'swimminsparrow.ricordamelo'
         minSdkVersion 26
-        versionName '3.4'
-        versionCode 98
+        versionName '3.5'
+        versionCode 101
         targetSdk 36
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         manifestPlaceholders = [appName: "@string/app_name", admobAppId: ""]
@@ -81,8 +80,12 @@ android {
             dimension "distribution"
             manifestPlaceholders += [admobAppId: admobAppId]
             resValue "string", "bannerInferiore", admobBannerId
+            buildConfigField "String", "DEFAULT_PRO_PRICE", "\"$defaultProPrice\""
+            buildConfigField "String", "REVENUECAT_KEY_DEBUG", "\"$rcDebugKey\""
+            buildConfigField "String", "REVENUECAT_KEY_RELEASE", "\"$rcReleaseKey\""
         }
     }
+
     namespace 'swimminsparrow.ricordamelo'
 }
 
@@ -111,6 +114,7 @@ dependencies {
     implementation 'com.google.guava:guava:31.1-android'
 
     nonfreeImplementation 'com.google.android.gms:play-services-ads:23.6.0'
+    nonfreeImplementation 'com.revenuecat.purchases:purchases:9.29.1'
 
     // Testing
     testImplementation 'junit:junit:4.13.2'

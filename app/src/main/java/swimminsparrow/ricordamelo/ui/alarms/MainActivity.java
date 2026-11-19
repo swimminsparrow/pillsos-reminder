@@ -21,6 +21,7 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import swimminsparrow.ricordamelo.AdsManager;
+import swimminsparrow.ricordamelo.ProFeatureManager;
 import swimminsparrow.ricordamelo.R;
 import swimminsparrow.ricordamelo.core.data.SettingsDB;
 import swimminsparrow.ricordamelo.ui.BaseActivity;
@@ -56,6 +57,7 @@ public class MainActivity extends BaseActivity {
         setupNavigator();
         setupToolbar();
         setupBottomNavigation();
+        ProFeatureManager.getInstance().init(this);
         initAdsProvider();
 
         boolean isAlarmLaunch = getIntent() != null &&
@@ -213,6 +215,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void onDestroy() {
+        ProFeatureManager.getInstance().onDestroy();
         if (adsManager != null) {
             adsManager.onDestroy();
         }
@@ -257,11 +260,12 @@ public class MainActivity extends BaseActivity {
             int destId = navController.getCurrentDestination().getId();
             boolean isTopLevel = (destId == R.id.nav_ricordamelo || destId == R.id.nav_sos);
             MenuItem settings = menu.findItem(R.id.action_settings);
-            MenuItem coffee = menu.findItem(R.id.action_coffee);
             MenuItem help = menu.findItem(R.id.action_help);
+
             if (settings != null) settings.setVisible(isTopLevel);
-            if (coffee != null) coffee.setVisible(isTopLevel);
             if (help != null) help.setVisible(isTopLevel);
+
+            ProFeatureManager.getInstance().setupToolbarMenu(this, menu, isTopLevel);
         }
         return super.onPrepareOptionsMenu(menu);
     }
@@ -274,16 +278,7 @@ public class MainActivity extends BaseActivity {
             return true;
         }
 
-        if (item.getItemId() == R.id.action_coffee) {
-            try {
-                Intent intent = new Intent(Intent.ACTION_VIEW,
-                        Uri.parse(swimminsparrow.ricordamelo.config.Constants.DONATE_URL));
-                startActivity(intent);
-            } catch (Exception e) {
-                android.widget.Toast
-                        .makeText(this, getString(R.string.cannot_open_browser), android.widget.Toast.LENGTH_SHORT)
-                        .show();
-            }
+        if (ProFeatureManager.getInstance().onToolbarItemSelected(this, item)) {
             return true;
         }
 

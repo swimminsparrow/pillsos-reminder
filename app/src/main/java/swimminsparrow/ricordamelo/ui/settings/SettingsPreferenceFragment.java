@@ -16,7 +16,6 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
-import androidx.preference.CheckBoxPreference;
 import androidx.preference.EditTextPreference;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
@@ -30,10 +29,10 @@ import androidx.core.os.LocaleListCompat;
 
 import swimminsparrow.ricordamelo.ui.common.Dialogs.DialogBuilder;
 import swimminsparrow.ricordamelo.BuildConfig;
+import swimminsparrow.ricordamelo.ProFeatureManager;
 import swimminsparrow.ricordamelo.core.utils.BatteryOptimizationsHelper;
 import swimminsparrow.ricordamelo.core.data.SettingsDB;
 import swimminsparrow.ricordamelo.R;
-import swimminsparrow.ricordamelo.config.Constants;
 
 public class SettingsPreferenceFragment extends PreferenceFragmentCompat {
 
@@ -52,7 +51,7 @@ public class SettingsPreferenceFragment extends PreferenceFragmentCompat {
         setupAboutAndCredits();
         setupHealthCheck();
         setupTestAlarm();
-        setupCoffee();
+        ProFeatureManager.getInstance().setupSettingsPreferences(this);
         setupRateApp();
 
         tintPreferenceIcons(getPreferenceScreen());
@@ -633,23 +632,6 @@ public class SettingsPreferenceFragment extends PreferenceFragmentCompat {
             ratePref.setOnPreferenceClickListener(preference -> {
                 if (getActivity() != null) {
                     swimminsparrow.ricordamelo.ui.rateme.RateMeManager.show(getActivity());
-                }
-                return true;
-            });
-        }
-    }
-
-    private void setupCoffee() {
-        Preference gen_coffee = findPreference("d_coffee");
-        if (gen_coffee != null) {
-            gen_coffee.setOnPreferenceClickListener(preference -> {
-                try {
-                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.DONATE_URL));
-                    startActivity(intent);
-                } catch (Exception e) {
-                    android.widget.Toast
-                            .makeText(getContext(), "Impossibile aprire il browser", android.widget.Toast.LENGTH_SHORT)
-                            .show();
                 }
                 return true;
             });

@@ -39,6 +39,17 @@
             android:layout_marginBottom="4dp"
             android:visibility="gone" />
 
+        <!-- Banner Promozionale Versione PRO (popolato dinamicamente solo nel flavor nonfree) -->
+        <FrameLayout
+            android:id="@+id/layout_pro_banner_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="4dp"
+            android:visibility="gone" />
+
         <!-- Mini-banner rapido "Sto Bene" -->
         <include
             android:id="@+id/card_im_ok_banner"

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Nonfree Flavor (Google Play): In-App Purchases & Pro Version Strings -->
+    <string name="pro_upgrade_title">Hapus Iklan (Pro)</string>
+    <string name="pro_upgrade_summary">Buka pengalaman bebas iklan selamanya dan dukung karya saya seharga %s</string>
+    <string name="pro_unlocked_summary">Versi Pro aktif. Terima kasih telah mendukung PillSOS!</string>
+    <string name="restore_purchases_title">Pulihkan Pembelian</string>
+    <string name="restore_purchases_summary">Pulihkan pembelian Anda sebelumnya di perangkat ini</string>
+    <string name="billing_purchase_success">Versi Pro berhasil dibuka!</string>
+    <string name="billing_restore_success">Pembelian berhasil dipulihkan!</string>
+    <string name="pro_banner_title">Tingkatkan ke PillSOS Pro</string>
+    <string name="pro_banner_desc">Hapus semua iklan banner dan dukung karya saya seharga %s</string>
+    <string name="pro_banner_action">Buka</string>
+</resources>
