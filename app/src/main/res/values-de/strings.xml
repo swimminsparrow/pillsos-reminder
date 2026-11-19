@@ -165,8 +165,7 @@
     <string name="onboarding_notifications_title">Benachrichtigungen &amp; Schutz</string>
     <string name="onboarding_notifications_subtitle">Tipps und Einstellungen für höchste Zuverlässigkeit von PillSOS.</string>
     <string name="onboarding_battery_title">Zuverlässigkeit von Weckern &amp; Alarmen</string>
-    <string name="onboarding_battery_desc">Tipp: Um keinen Alarm zu verpassen, stelle sicher, dass die Akkunutzung uneingeschränkt ist.</string>
-    <string name="onboarding_sos_title">SOS-Empfänger verbinden</string>
+    <string name="onboarding_battery_desc">Zuverlässige Alarme auch bei ausgeschaltetem Bildschirm</string>
     <string name="onboarding_sos_desc">Verbinde deine Angehörigen, um SOS und Nachrichten zu senden oder zu empfangen.</string>
     <string name="rate_me_title">Gefällt dir PillSOS?</string>
     <string name="rate_me_desc">Deine Unterstützung hilft uns, die App kostenlos, zuverlässig und aktuell zu halten.</string>
@@ -269,14 +268,12 @@ PillSOS ist Ihr verlässlicher Begleiter für die Medikamenteneinnahme und gegen
 
     <!-- Notification Permission & Warning Banner -->
     <string name="onboarding_perm_notif_title">Medikamentenerinnerungen</string>
-    <string name="onboarding_perm_notif_desc">Erhalten Sie Töne und Alarme zur genauen Uhrzeit, um Ihre Medikamente einzunehmen.</string>
+    <string name="onboarding_perm_notif_desc">Zuverlässige Alarme pünktlich zur Medikamenteneinnahme</string>
     <string name="onboarding_perm_notif_enable">Benachrichtigungen aktivieren</string>
     <string name="onboarding_perm_notif_enabled">Benachrichtigungen aktiviert</string>
     <string name="notifications_disabled_banner_title">Benachrichtigungen deaktiviert</string>
     <string name="notifications_disabled_banner_desc">Aktivieren Sie Benachrichtigungen, um keine Medikamenteneinnahme zu verpassen.</string>
     <string name="notifications_disabled_banner_action">Jetzt aktivieren</string>
-
-    <string name="onboarding_sos_hint">Jederzeit im Bereich SOS konfigurierbar</string>
     <string name="fall_alert_title">🚨 Möglicher Sturz erkannt!</string>
     <string name="fall_alert_subtitle">Ein automatischer Notruf wird gesendet, wenn du nicht antwortest</string>
     <string name="fall_alert_notification_countdown">Notruf-SOS wird in %1$d Sekunden gesendet…</string>
@@ -324,4 +321,12 @@ PillSOS ist Ihr verlässlicher Begleiter für die Medikamenteneinnahme und gegen
     <string name="alarm_sound_mode_system">Systemeinstellungen folgen</string>
     <string name="sos_simulated_alert_msg">🚨 ALARM: Dies ist eine SIMULATION eines SOS-Notrufs. Du kannst diese Nachricht ignorieren!</string>
     <string name="fall_detected_tts_announcement">Pill SOS hat einen Sturz erkannt. Wenn Sie nicht eingreifen, wird in 30 Sekunden ein SOS an Ihre Kontakte gesendet</string>
+    <string name="onboarding_badge_essential">GRUNDLEGEND</string>
+    <string name="onboarding_perm_enable">Aktivieren</string>
+    <string name="onboarding_perm_active">Aktiv</string>
+    <string name="onboarding_warning_dialog_title">Erinnerungen gefährdet</string>
+    <string name="onboarding_warning_dialog_desc">Ohne Benachrichtigungen oder bei aktiver Akku-Optimierung kann Android Medikamentenerinnerungen stummschalten oder verzögern.\n\nMöchten Sie die Einrichtung abschließen oder trotzdem fortfahren?</string>
+    <string name="onboarding_warning_dialog_fix">Einrichtung abschließen</string>
+    <string name="onboarding_warning_dialog_skip">Trotzdem fortfahren</string>
+    <string name="onboarding_overlay_desc">Vollbild-Notfallalarm bei Sturzerkennung</string>
 </resources>

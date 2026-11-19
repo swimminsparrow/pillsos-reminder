@@ -163,8 +163,7 @@
     <string name="onboarding_notifications_title">الإشعارات والحماية</string>
     <string name="onboarding_notifications_subtitle">نصائح وإعدادات لبدء استخدام PillSOS بأعلى موثوقية.</string>
     <string name="onboarding_battery_title">موثوقية المنبهات والإشعارات</string>
-    <string name="onboarding_battery_desc">نصيحة: لضمان عدم تفويت التنبيهات، تأكد من عدم تقييد استخدام البطارية.</string>
-    <string name="onboarding_sos_title">ربط مستلم تنبيهات SOS</string>
+    <string name="onboarding_battery_desc">ضمان رنين المنبه حتى عندما تكون الشاشة مغلقة</string>
     <string name="onboarding_sos_desc">اربط أحباءك لإرسال أو استقبال رسائل واستغاثات SOS.</string>
     <string name="rate_me_title">هل يعجبك PillSOS؟</string>
     <string name="rate_me_desc">دعمك يساعدنا في الحفاظ على التطبيق مجانياً وموثوقاً ومحدثاً دائماً.</string>
@@ -267,14 +266,12 @@
 
     <!-- Notification Permission & Warning Banner -->
     <string name="onboarding_perm_notif_title">تنبيهات الأدوية</string>
-    <string name="onboarding_perm_notif_desc">احصل على تنبيهات صوتية وشاشة كاملة في الموعد المحدد لتناول دوائك.</string>
+    <string name="onboarding_perm_notif_desc">تنبيهات صوتية في الوقت المحدد لتناول الدواء</string>
     <string name="onboarding_perm_notif_enable">تفعيل الإشعارات</string>
     <string name="onboarding_perm_notif_enabled">الإشعارات مفعلة</string>
     <string name="notifications_disabled_banner_title">الإشعارات معطلة</string>
     <string name="notifications_disabled_banner_desc">قم بتفعيل الإشعارات حتى لا يفوتك موعد دوائك.</string>
     <string name="notifications_disabled_banner_action">تفعيل الآن</string>
-
-    <string name="onboarding_sos_hint">يمكن تهيئته في أي وقت من قسم SOS</string>
     <string name="fall_alert_title">🚨 تم اكتشاف سقوط محتمل!</string>
     <string name="fall_alert_subtitle">سيتم إرسال نداء استغاثة تلقائي إذا لم تستجب</string>
     <string name="fall_alert_notification_countdown">إرسال نداء الاستغاثة خلال %1$d ثانية…</string>
@@ -324,4 +321,12 @@
     <string name="alarm_sound_mode_system">اتباع إعدادات النظام</string>
     <string name="sos_simulated_alert_msg">🚨 إنذار: هذه محاكاة لطلب استغاثة (SOS). يمكنك تجاهل هذه الرسالة!</string>
     <string name="fall_detected_tts_announcement">اكتشف Pill SOS سقوطًا. إذا لم تتدخل، فسيتم إرسال نداء استغاثة SOS إلى جهات اتصالك خلال 30 ثانية</string>
+    <string name="onboarding_badge_essential">أساسي</string>
+    <string name="onboarding_perm_enable">تفعيل</string>
+    <string name="onboarding_perm_active">مفعّل</string>
+    <string name="onboarding_warning_dialog_title">تنبيهات الأدوية في خطر</string>
+    <string name="onboarding_warning_dialog_desc">بدون الإشعارات أو عند تفعيل تحسين البطارية، قد يكتم أندرويد تنبيهات دوائك أو يؤخرها。\n\nهل ترغب في إكمال الإعداد أم المتابعة على أي حال؟</string>
+    <string name="onboarding_warning_dialog_fix">إكمال الإعداد</string>
+    <string name="onboarding_warning_dialog_skip">المتابعة على أي حال</string>
+    <string name="onboarding_overlay_desc">تنبيه ملء الشاشة في حالة اكتشاف السقوط</string>
 </resources>

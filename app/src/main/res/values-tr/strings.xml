@@ -163,8 +163,7 @@
     <string name="onboarding_notifications_title">Bildirimler ve Koruma</string>
     <string name="onboarding_notifications_subtitle">PillSOS\'yi en yüksek güvenilirlikle kullanmak için ipuçları ve ayarlar.</string>
     <string name="onboarding_battery_title">Alarm ve Bildirim Güvenilirliği</string>
-    <string name="onboarding_battery_desc">İpucu: Alarmları kaçırmamak için pil kullanımının kısıtlanmadığından emin olun.</string>
-    <string name="onboarding_sos_title">SOS Alıcısı Bağlayın</string>
+    <string name="onboarding_battery_desc">Ekran kapalıyken bile güvenilir alarmlar</string>
     <string name="onboarding_sos_desc">SOS ve mesaj gönderip almak için sevdiklerinizi bağlayın.</string>
     <string name="rate_me_title">PillSOS\'yi beğendiniz mi?</string>
     <string name="rate_me_desc">Desteğiniz uygulamanın ücretsiz, güvenilir ve güncel kalmasına yardımcı olur.</string>
@@ -267,14 +266,12 @@ PillSOS, sevdiklerinizle ilaç takibi ve karşılıklı güvenlik için günlük
 
     <!-- Notification Permission & Warning Banner -->
     <string name="onboarding_perm_notif_title">İlaç Hatırlatıcıları</string>
-    <string name="onboarding_perm_notif_desc">İlaçlarınızı tam vaktinde almak için sesli uyarılar alın.</string>
+    <string name="onboarding_perm_notif_desc">İlaç vakitlerinde tam zamanında sesli uyarılar</string>
     <string name="onboarding_perm_notif_enable">Bildirimleri Etkinleştir</string>
     <string name="onboarding_perm_notif_enabled">Bildirimler Etkin</string>
     <string name="notifications_disabled_banner_title">Bildirimler Devre Dışı</string>
     <string name="notifications_disabled_banner_desc">İlaç hatırlatıcılarınızı kaçırmamak için bildirimleri açın.</string>
     <string name="notifications_disabled_banner_action">Şimdi Etkinleştir</string>
-
-    <string name="onboarding_sos_hint">SOS bölümünden istediğiniz zaman yapılandırılabilir</string>
     <string name="fall_alert_title">🚨 Olası Düşme Algılandı!</string>
     <string name="fall_alert_subtitle">Müdahale etmezseniz otomatik bir SOS gönderilecektir</string>
     <string name="fall_alert_notification_countdown">Acil durum SOS %1$d saniye içinde gönderiliyor…</string>
@@ -324,4 +321,12 @@ PillSOS, sevdiklerinizle ilaç takibi ve karşılıklı güvenlik için günlük
     <string name="alarm_sound_mode_system">Sistem ayarlarını takip et</string>
     <string name="sos_simulated_alert_msg">🚨 ALARM: Bu bir SOS talebi SİMÜLASYONUDUR. Bu mesajı yok sayabilirsiniz!</string>
     <string name="fall_detected_tts_announcement">Pill SOS bir düşme tespit etti. Yanıt vermezseniz 30 saniye içinde kişilerinize bir SOS gönderilecektir</string>
+    <string name="onboarding_badge_essential">GEREKLİ</string>
+    <string name="onboarding_perm_enable">Etkinleştir</string>
+    <string name="onboarding_perm_active">Etkin</string>
+    <string name="onboarding_warning_dialog_title">Hatırlatıcılar risk altında</string>
+    <string name="onboarding_warning_dialog_desc">Bildirimler olmadan veya pil optimizasyonu etkinken Android ilaç hatırlatıcılarını susturabilir veya geciktirebilir.\n\nKurulumu tamamlamak mı yoksa yine de devam etmek mi istersiniz?</string>
+    <string name="onboarding_warning_dialog_fix">Kurulumu Tamamla</string>
+    <string name="onboarding_warning_dialog_skip">Yine de Devam Et</string>
+    <string name="onboarding_overlay_desc">Düşme durumunda tam ekran acil durum uyarısı</string>
 </resources>

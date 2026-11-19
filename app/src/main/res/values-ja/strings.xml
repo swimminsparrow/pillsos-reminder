@@ -159,8 +159,7 @@
     <string name="onboarding_notifications_title">通知と保護</string>
     <string name="onboarding_notifications_subtitle">PillSOS を最大限の信頼性で使い始めるためのヒントと設定。</string>
     <string name="onboarding_battery_title">アラームと通知の信頼性</string>
-    <string name="onboarding_battery_desc">ヒント: アラームを見逃さないように、バッテリー最適化が無効になっていることを確認してください。</string>
-    <string name="onboarding_sos_title">SOS受信者を接続</string>
+    <string name="onboarding_battery_desc">画面オフ時でも確実にアラームを鳴らします</string>
     <string name="onboarding_sos_desc">大切な人と接続して、SOSやメッセージを送受信できます。</string>
     <string name="rate_me_title">PillSOS を気に入っていただけましたか？</string>
     <string name="rate_me_desc">皆様の応援が、アプリを無料かつ安定して最新の状態に保つ力になります。</string>
@@ -269,14 +268,12 @@ PillSOS は、服薬管理と大切な人との安心を支える毎日のパー
 
     <!-- Notification Permission & Warning Banner -->
     <string name="onboarding_perm_notif_title">服薬リマインダー通知</string>
-    <string name="onboarding_perm_notif_desc">正確な服薬時刻に音声とアラームでお知らせします。</string>
+    <string name="onboarding_perm_notif_desc">正確な服薬時間にアラームでお知らせします</string>
     <string name="onboarding_perm_notif_enable">通知を有効にする</string>
     <string name="onboarding_perm_notif_enabled">通知が有効です</string>
     <string name="notifications_disabled_banner_title">通知が無効です</string>
     <string name="notifications_disabled_banner_desc">お薬の飲み忘れを防ぐために通知を有効にしてください。</string>
     <string name="notifications_disabled_banner_action">今すぐ有効化</string>
-
-    <string name="onboarding_sos_hint">SOSセクションからいつでも設定できます</string>
     <string name="fall_alert_title">🚨 転倒の可能性を検出しました！</string>
     <string name="fall_alert_subtitle">応答がない場合、自動的にSOSが送信されます</string>
     <string name="fall_alert_notification_countdown">%1$d 秒後に緊急SOSを送信します…</string>
@@ -326,4 +323,12 @@ PillSOS は、服薬管理と大切な人との安心を支える毎日のパー
     <string name="alarm_sound_mode_system">システム設定に従う</string>
     <string name="sos_simulated_alert_msg">🚨 アラーム：これはSOSリクエストのシミュレーションです。このメッセージは無視して構いません！</string>
     <string name="fall_detected_tts_announcement">Pill SOSが転倒を検知しました。応答がない場合、30秒後に連絡先へSOSが送信されます</string>
+    <string name="onboarding_badge_essential">必須</string>
+    <string name="onboarding_perm_enable">有効化</string>
+    <string name="onboarding_perm_active">有効</string>
+    <string name="onboarding_warning_dialog_title">リマインダーが機能しない恐れがあります</string>
+    <string name="onboarding_warning_dialog_desc">通知が無効またはバッテリー最適化が有効な場合、服薬リマインダーが鳴らなかったり遅延したりする可能性があります。\n\n設定を完了しますか？それともこのまま続行しますか？</string>
+    <string name="onboarding_warning_dialog_fix">設定を完了する</string>
+    <string name="onboarding_warning_dialog_skip">このまま続行</string>
+    <string name="onboarding_overlay_desc">転倒検知時に全画面アラートを表示します</string>
 </resources>

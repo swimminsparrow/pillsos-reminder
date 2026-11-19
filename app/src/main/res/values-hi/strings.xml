@@ -163,8 +163,7 @@
     <string name="onboarding_notifications_title">सूचनाएं और सुरक्षा</string>
     <string name="onboarding_notifications_subtitle">PillSOS की पूर्ण विश्वसनीयता के लिए सुझाव और सेटिंग्स।</string>
     <string name="onboarding_battery_title">अलार्म और सूचनाओं की विश्वसनीयता</string>
-    <string name="onboarding_battery_desc">सुझाव: अलार्म न चूकने के लिए सुनिश्चित करें कि बैटरी अप्रतिबंधित है।</string>
-    <string name="onboarding_sos_title">SOS प्राप्तकर्ता जोड़ें</string>
+    <string name="onboarding_battery_desc">स्क्रीन बंद होने पर भी अलार्म बजना सुनिश्चित करें</string>
     <string name="onboarding_sos_desc">SOS और संदेश भेजने या प्राप्त करने के लिए अपने प्रियजनों को कनेक्ट करें।</string>
     <string name="rate_me_title">क्या आपको PillSOS पसंद है?</string>
     <string name="rate_me_desc">आपका समर्थन ऐप को मुफ्त और विश्वसनीय बनाए रखने में मदद करता है।</string>
@@ -267,14 +266,12 @@ PillSOS आपकी दवा प्रबंधन और अपनों क�
 
     <!-- Notification Permission & Warning Banner -->
     <string name="onboarding_perm_notif_title">दवा रिमाइंडर</string>
-    <string name="onboarding_perm_notif_desc">दवा लेने के सही समय पर ध्वनि और अलर्ट प्राप्त करें।</string>
+    <string name="onboarding_perm_notif_desc">सही समय पर दवा लेने के लिए अलार्म प्राप्त करें</string>
     <string name="onboarding_perm_notif_enable">सूचनाएं चालू करें</string>
     <string name="onboarding_perm_notif_enabled">सूचनाएं सक्रिय हैं</string>
     <string name="notifications_disabled_banner_title">सूचनाएं बंद हैं</string>
     <string name="notifications_disabled_banner_desc">दवा का समय न चूकें, इसके लिए सूचनाएं चालू करें।</string>
     <string name="notifications_disabled_banner_action">अभी चालू करें</string>
-
-    <string name="onboarding_sos_hint">एसओएस अनुभाग से किसी भी समय कॉन्फ़िगर किया जा सकता है</string>
     <string name="fall_alert_title">🚨 संभावित गिरावट का पता चला!</string>
     <string name="fall_alert_subtitle">यदि आप जवाब नहीं देते हैं तो स्वचालित एसओएस भेजा जाएगा</string>
     <string name="fall_alert_notification_countdown">%1$d सेकंड में आपातकालीन एसओएस भेजा जा रहा है…</string>
@@ -324,4 +321,12 @@ PillSOS आपकी दवा प्रबंधन और अपनों क�
     <string name="alarm_sound_mode_system">सिस्टम सेटिंग्स का पालन करें</string>
     <string name="sos_simulated_alert_msg">🚨 अलार्म: यह एक SOS अनुरोध का सिमुलेशन है। आप इस संदेश को अनदेखा कर सकते हैं!</string>
     <string name="fall_detected_tts_announcement">Pill SOS ने गिरने का पता लगाया है। यदि आप हस्तक्षेप नहीं करते हैं, तो 30 सेकंड में आपके संपर्कों को एक SOS भेजा जाएगा</string>
+    <string name="onboarding_badge_essential">अनिवार्य</string>
+    <string name="onboarding_perm_enable">सक्रिय करें</string>
+    <string name="onboarding_perm_active">सक्रिय</string>
+    <string name="onboarding_warning_dialog_title">दवा रिमाइंडर जोखिम में</string>
+    <string name="onboarding_warning_dialog_desc">सूचनाओं के बिना या बैटरी ऑप्टिमाइज़ेशन चालू होने पर, Android आपकी दवा के रिमाइंडर को म्यूट या विलंबित कर सकता है।\n\nक्या आप सेटअप पूरा करना चाहते हैं या फिर भी जारी रखना चाहते हैं?</string>
+    <string name="onboarding_warning_dialog_fix">सेटअप पूरा करें</string>
+    <string name="onboarding_warning_dialog_skip">फिर भी जारी रखें</string>
+    <string name="onboarding_overlay_desc">गिरने की स्थिति में पूर्ण स्क्रीन अलर्ट दिखाएं</string>
 </resources>

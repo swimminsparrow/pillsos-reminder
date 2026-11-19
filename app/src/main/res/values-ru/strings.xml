@@ -146,8 +146,7 @@
     <string name="onboarding_notifications_title">Уведомления и защита</string>
     <string name="onboarding_notifications_subtitle">Советы и настройки для максимально надежной работы PillSOS.</string>
     <string name="onboarding_battery_title">Надежность будильников и уведомлений</string>
-    <string name="onboarding_battery_desc">Совет: чтобы не пропустить будильники, убедитесь, что оптимизация батареи отключена.</string>
-    <string name="onboarding_sos_title">Подключить получателя SOS</string>
+    <string name="onboarding_battery_desc">Надежные сигналы при выключенном экране</string>
     <string name="onboarding_sos_desc">Подключите близких для отправки или получения SOS и сообщений.</string>
     <string name="rate_me_title">Вам нравится PillSOS?</string>
     <string name="rate_me_desc">Ваша поддержка помогает нам сохранять приложение бесплатным, надежным и актуальным.</string>
@@ -269,14 +268,12 @@ PillSOS — ваш надежный помощник для приема лек�
 
     <!-- Notification Permission & Warning Banner -->
     <string name="onboarding_perm_notif_title">Напоминания о лекарствах</string>
-    <string name="onboarding_perm_notif_desc">Получайте звуковые сигналы в точное время приема лекарств.</string>
+    <string name="onboarding_perm_notif_desc">Звуковые сигналы точно вовремя для приема лекарств</string>
     <string name="onboarding_perm_notif_enable">Включить уведомления</string>
     <string name="onboarding_perm_notif_enabled">Уведомления включены</string>
     <string name="notifications_disabled_banner_title">Уведомления отключены</string>
     <string name="notifications_disabled_banner_desc">Включите их, чтобы не пропустить прием лекарств.</string>
     <string name="notifications_disabled_banner_action">Включить сейчас</string>
-
-    <string name="onboarding_sos_hint">Можно настроить в любое время в разделе SOS</string>
     <string name="fall_alert_title">🚨 Обнаружено возможное падение!</string>
     <string name="fall_alert_subtitle">Сигнал SOS будет отправлен автоматически, если вы не ответите</string>
     <string name="fall_alert_notification_countdown">Отправка экстренного SOS через %1$d сек…</string>
@@ -326,4 +323,12 @@ PillSOS — ваш надежный помощник для приема лек�
     <string name="alarm_sound_mode_system">Использовать настройки системы</string>
     <string name="sos_simulated_alert_msg">🚨 ТРЕВОГА: это СИМУЛЯЦИЯ запроса SOS. Вы можете проигнорировать это сообщение!</string>
     <string name="fall_detected_tts_announcement">Pill SOS обнаружил падение. Если вы не ответите, через 30 секунд вашим контактам будет отправлен сигнал SOS</string>
+    <string name="onboarding_badge_essential">ОБЯЗАТЕЛЬНО</string>
+    <string name="onboarding_perm_enable">Включить</string>
+    <string name="onboarding_perm_active">Активно</string>
+    <string name="onboarding_warning_dialog_title">Напоминания под угрозой</string>
+    <string name="onboarding_warning_dialog_desc">Без уведомлений или при активной оптимизации батареи Android может заглушить или задержать напоминания о лекарствах.\n\nЗавершить настройку или продолжить в любом случае?</string>
+    <string name="onboarding_warning_dialog_fix">Завершить настройку</string>
+    <string name="onboarding_warning_dialog_skip">Продолжить</string>
+    <string name="onboarding_overlay_desc">Полноэкранный сигнал при падении</string>
 </resources>

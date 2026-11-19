@@ -159,8 +159,7 @@
     <string name="onboarding_notifications_title">通知与保护</string>
     <string name="onboarding_notifications_subtitle">提示与设置，让您以最高可靠性开始使用 PillSOS。</string>
     <string name="onboarding_battery_title">闹钟与通知可靠性</string>
-    <string name="onboarding_battery_desc">提示：为避免错过闹钟，请确保已停用电池优化。</string>
-    <string name="onboarding_sos_title">连接求救接收人</string>
+    <string name="onboarding_battery_desc">确保锁屏或熄屏时闹钟正常响铃</string>
     <string name="onboarding_sos_desc">连接您的亲友，以便发送或接收求救信号和消息。</string>
     <string name="rate_me_title">喜欢 PillSOS 吗？</string>
     <string name="rate_me_desc">您的支持有助于我们保持应用免费、稳定且持续更新。</string>
@@ -269,14 +268,12 @@ PillSOS 是您日常服药管理以及与亲友守望相助的贴心守护者。
 
     <!-- Notification Permission & Warning Banner -->
     <string name="onboarding_perm_notif_title">服药提醒通知</string>
-    <string name="onboarding_perm_notif_desc">在准确的服药时间接收声音和警报通知。</string>
+    <string name="onboarding_perm_notif_desc">在准确定时接收服药闹钟提醒</string>
     <string name="onboarding_perm_notif_enable">开启通知权限</string>
     <string name="onboarding_perm_notif_enabled">通知已开启</string>
     <string name="notifications_disabled_banner_title">通知已停用</string>
     <string name="notifications_disabled_banner_desc">开启通知以免遗漏重要的服药提醒。</string>
     <string name="notifications_disabled_banner_action">立即开启</string>
-
-    <string name="onboarding_sos_hint">可随时在 SOS 部分进行配置</string>
     <string name="fall_alert_title">🚨 检测到可能的跌倒！</string>
     <string name="fall_alert_subtitle">如果您不回应，将自动发送求救 SOS</string>
     <string name="fall_alert_notification_countdown">%1$d 秒后发送紧急 SOS…</string>
@@ -326,4 +323,12 @@ PillSOS 是您日常服药管理以及与亲友守望相助的贴心守护者。
     <string name="alarm_sound_mode_system">跟随系统设置</string>
     <string name="sos_simulated_alert_msg">🚨 警报：这是求救（SOS）请求的模拟测试。您可以忽略此消息！</string>
     <string name="fall_detected_tts_announcement">Pill SOS检测到跌倒。如果您不采取行动，将在30秒内向您的紧急联系人发送SOS</string>
+    <string name="onboarding_badge_essential">至关重要</string>
+    <string name="onboarding_perm_enable">开启</string>
+    <string name="onboarding_perm_active">已开启</string>
+    <string name="onboarding_warning_dialog_title">服药提醒可能受限</string>
+    <string name="onboarding_warning_dialog_desc">如果没有通知权限或开启了电池优化，Android 可能会静音或延迟您的服药提醒。\n\n您要完成设置还是仍然继续？</string>
+    <string name="onboarding_warning_dialog_fix">完成设置</string>
+    <string name="onboarding_warning_dialog_skip">仍然继续</string>
+    <string name="onboarding_overlay_desc">检测到跌倒时显示全屏紧急告警</string>
 </resources>

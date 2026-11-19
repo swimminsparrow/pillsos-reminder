@@ -186,10 +186,8 @@
     <string name="onboarding_notifications_title">App Setup</string>
     <string name="onboarding_notifications_subtitle">Essential settings to ensure PillSOS runs smoothly.</string>
     <string name="onboarding_battery_title">Battery Optimizations</string>
-    <string name="onboarding_battery_desc">Disable battery optimization to avoid missing alarms.</string>
-    <string name="onboarding_sos_title">Connect an SOS Recipient</string>
+    <string name="onboarding_battery_desc">Keep alarms reliable in background</string>
     <string name="onboarding_sos_desc">Connect your loved ones to send or receive SOS and messages.</string>
-    <string name="onboarding_sos_hint">Can be configured at any time from the SOS section</string>
     <string name="rate_me_title">Do you like PillSOS?</string>
     <string name="rate_me_desc">Your support helps us keep the app free, reliable, and always updated.</string>
     <string name="rate_me_excellent_title">Awesome! ⭐ Would you leave a review?</string>
@@ -311,7 +309,7 @@ PillSOS is a personal reminder and peer aid, NOT a certified medical device or l
 
     <!-- Notification Permission & Warning Banner -->
     <string name="onboarding_perm_notif_title">Notifications</string>
-    <string name="onboarding_perm_notif_desc">Allow notifications to receive your pill reminders.</string>
+    <string name="onboarding_perm_notif_desc">Never miss your medication reminders</string>
     <string name="onboarding_perm_notif_enable">Enable Notifications</string>
     <string name="onboarding_perm_notif_enabled">Notifications Enabled</string>
     <string name="notifications_disabled_banner_title">Notifications Disabled</string>
@@ -339,7 +337,7 @@ PillSOS is a personal reminder and peer aid, NOT a certified medical device or l
 
     <!-- Overlay Permission Onboarding & Warning Banner -->
     <string name="onboarding_overlay_title">Display Over Other Apps</string>
-    <string name="onboarding_overlay_desc">Required for the Fall Detection feature</string>
+    <string name="onboarding_overlay_desc">Show fullscreen emergency alert if you fall</string>
     <string name="onboarding_overlay_enable">Enable Permission</string>
     <string name="onboarding_overlay_enabled">Permission Granted</string>
     <string name="overlay_disabled_banner_title">Display Over Other Apps</string>
@@ -363,4 +361,11 @@ PillSOS is a personal reminder and peer aid, NOT a certified medical device or l
     <string name="test_notif_delivered">📤 SOS Delivery Status (Immediate)</string>
     <string name="test_notif_scheduled_toast">Firing in 5 seconds! Lock your phone or exit the app to test.</string>
     <string name="test_notif_sent_toast">Notification posted to notification shade!</string>
+    <string name="onboarding_badge_essential">ESSENTIAL</string>
+    <string name="onboarding_perm_enable">Enable</string>
+    <string name="onboarding_perm_active">Active</string>
+    <string name="onboarding_warning_dialog_title">Medication Reminders at Risk</string>
+    <string name="onboarding_warning_dialog_desc">Without notifications or with battery optimization enabled, Android may silence or delay your medication reminders.\n\nDo you want to complete the setup or continue anyway?</string>
+    <string name="onboarding_warning_dialog_fix">Complete Setup</string>
+    <string name="onboarding_warning_dialog_skip">Continue Anyway</string>
 </resources>

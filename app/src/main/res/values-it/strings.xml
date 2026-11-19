@@ -185,11 +185,9 @@
     <string name="sos_history_disclaimer">I messaggi vengono conservati per 30 giorni</string>
     <string name="onboarding_notifications_title">Notifiche e Protezione</string>
     <string name="onboarding_notifications_subtitle">Consigli e impostazioni per iniziare a usare PillSOS con la massima affidabilità.</string>
-    <string name="onboarding_battery_title">Affidabilità Notifiche e Sveglie</string>
-    <string name="onboarding_battery_desc">Un consiglio: per non perdere le notifiche, assicurati che la batteria sia senza restrizioni.</string>
-    <string name="onboarding_sos_title">Rete Emergenza SOS &amp; Cadute</string>
+    <string name="onboarding_battery_title">Ottimizzazione Batteria</string>
+    <string name="onboarding_battery_desc">Garantisce gli allarmi anche a schermo spento</string>
     <string name="onboarding_sos_desc">Collega i tuoi cari con crittografia end-to-end per inviare o ricevere avvisi SOS e notifiche di caduta.</string>
-    <string name="onboarding_sos_hint">Configurabile in qualsiasi momento dalla sezione SOS</string>
     <string name="rate_me_title">Ti piace PillSOS?</string>
     <string name="rate_me_desc">Il tuo supporto ci aiuta a mantenere l\'app gratuita, affidabile e sempre aggiornata.</string>
     <string name="rate_me_excellent_title">Eccellente! ⭐ Lasceresti una recensione?</string>
@@ -310,8 +308,8 @@ PillSOS è uno strumento di supporto personale, NON un dispositivo medico certif
     <string name="privacy_policy_title">Informativa sulla Privacy</string>
 
     <!-- Notification Permission & Warning Banner -->
-    <string name="onboarding_perm_notif_title">Notifiche Promemoria</string>
-    <string name="onboarding_perm_notif_desc">Ricevi avvisi sonori e allarmi all\'orario esatto in cui assumere i farmaci.</string>
+    <string name="onboarding_perm_notif_title">Notifiche</string>
+    <string name="onboarding_perm_notif_desc">Suona all\'orario esatto per le tue medicine</string>
     <string name="onboarding_perm_notif_enable">Abilita Notifiche</string>
     <string name="onboarding_perm_notif_enabled">Notifiche Abilitate</string>
     <string name="notifications_disabled_banner_title">Notifiche disattivate</string>
@@ -337,8 +335,8 @@ PillSOS è uno strumento di supporto personale, NON un dispositivo medico certif
     <string name="overlay_permission_enable_btn">Attiva</string>
 
     <!-- Overlay Permission Onboarding & Warning Banner -->
-    <string name="onboarding_overlay_title">Visualizzazione sopra altre app</string>
-    <string name="onboarding_overlay_desc">Necessario per la funzione Rilevamento Cadute</string>
+    <string name="onboarding_overlay_title">Sovrapposizione Schermo</string>
+    <string name="onboarding_overlay_desc">Mostra l\'avviso a schermo intero in emergenza</string>
     <string name="onboarding_overlay_enable">Attiva autorizzazione</string>
     <string name="onboarding_overlay_enabled">Autorizzazione concessa</string>
     <string name="overlay_disabled_banner_title">Visualizzazione sopra altre app</string>
@@ -351,4 +349,11 @@ PillSOS è uno strumento di supporto personale, NON un dispositivo medico certif
     <string name="alarm_sound_mode_system">Segui le impostazioni di sistema</string>
     <string name="sos_simulated_alert_msg">🚨 ALLARME: questa è una SIMULAZIONE di richiesta SOS. Puoi ignorare questo messaggio!</string>
     <string name="fall_detected_tts_announcement">Pill SOS ha rilevato una caduta. Se non intervieni, tra 30 secondi sarà inviato un SOS ai tuoi contatti</string>
+    <string name="onboarding_badge_essential">FONDAMENTALE</string>
+    <string name="onboarding_perm_enable">Attiva</string>
+    <string name="onboarding_perm_active">Attivo</string>
+    <string name="onboarding_warning_dialog_title">Promemoria a rischio</string>
+    <string name="onboarding_warning_dialog_desc">Senza notifiche o con il risparmio energetico attivo, Android potrebbe non suonare o ritardare i promemoria dei farmaci.\n\nVuoi completare la configurazione o continuare comunque?</string>
+    <string name="onboarding_warning_dialog_fix">Completa configurazione</string>
+    <string name="onboarding_warning_dialog_skip">Continua comunque</string>
 </resources>

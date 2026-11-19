@@ -165,8 +165,7 @@
     <string name="onboarding_notifications_title">Nutìfichi &amp; Prutizioni</string>
     <string name="onboarding_notifications_subtitle">Cunsigghi e mpustazzioni pi usari PillSOS c\'a màssima precisioni.</string>
     <string name="onboarding_battery_title">Affidabbilità di Svegghi e Nutìfichi</string>
-    <string name="onboarding_battery_desc">Un cunsigghiu: pi nun pèrdiri l\'allarmi, assicùrati ca a battarìa nun havi ristrizzioni.</string>
-    <string name="onboarding_sos_title">Cullèga Cui Arricivi l\'SOS</string>
+    <string name="onboarding_battery_desc">Fa sunari l\'allarmi macari a schermu stutatu</string>
     <string name="onboarding_sos_desc">Cullèga i to cari pi mannari o arricìviri SOS e missaggi.</string>
     <string name="rate_me_title">Ti piaci PillSOS?</string>
     <string name="rate_me_desc">U to aiutu nni serve pi mantèniri l\'app a gratis, sicura e sempri nova.</string>
@@ -269,14 +268,12 @@ PillSOS è l'alleatu tò di tutti i jorna p'arricurdari i midicini e prutèggiri
 
     <!-- Notification Permission & Warning Banner -->
     <string name="onboarding_perm_notif_title">Notìfichi Allarmi</string>
-    <string name="onboarding_perm_notif_desc">Senti i suoni all\'orariu esattu pi pigghiari i midicinali.</string>
+    <string name="onboarding_perm_notif_desc">Sona all\'orariu esattu pi ricurdàriti i midicinali</string>
     <string name="onboarding_perm_notif_enable">Attiva Notìfichi</string>
     <string name="onboarding_perm_notif_enabled">Notìfichi Attivati</string>
     <string name="notifications_disabled_banner_title">Notìfichi stutati</string>
     <string name="notifications_disabled_banner_desc">Attìvali pi nun pèrdiri i ricordi dî midicini.</string>
     <string name="notifications_disabled_banner_action">Attiva ora</string>
-
-    <string name="onboarding_sos_hint">Si po\' canciari quannu voi d\' \'a sezzioni SOS</string>
     <string name="fall_alert_title">🚨 Pussìbbili Caduta Truvata!</string>
     <string name="fall_alert_subtitle">Venirrà mannatu n\'SOS automàticu si nun rispunni</string>
     <string name="fall_alert_notification_countdown">Manna l\'SOS d\'emergenza tra %1$d secunni…</string>
@@ -324,4 +321,12 @@ PillSOS è l'alleatu tò di tutti i jorna p'arricurdari i midicini e prutèggiri
     <string name="alarm_sound_mode_system">Sègui i \'mpustazzioni dû sistema</string>
     <string name="sos_simulated_alert_msg">🚨 ALLARMI: chista è na SIMULAZZIONI di na richiesta di SOS. Poi gnurari stu missaggiu!</string>
     <string name="fall_detected_tts_announcement">Pill SOS attruvau na caduta. Si nun nterveni, tra 30 secunni veni mannatu n\'SOS ê to cuntatti</string>
+    <string name="onboarding_badge_essential">FONDAMENTALE</string>
+    <string name="onboarding_perm_enable">Attiva</string>
+    <string name="onboarding_perm_active">Attivu</string>
+    <string name="onboarding_warning_dialog_title">Ricuordi a risicu</string>
+    <string name="onboarding_warning_dialog_desc">Senza nutìfichi o c\' \'u risparmiu battarìa attivu, Android putissi nun sunari o fari tardu cu i ricuordi dî midicinali.\n\nBoi finiri \'a cunfigurazzioni o cuntinui u stissu?</string>
+    <string name="onboarding_warning_dialog_fix">Cumpreta cunfigurazzioni</string>
+    <string name="onboarding_warning_dialog_skip">Cuntinua u stissu</string>
+    <string name="onboarding_overlay_desc">Mustra l\'allarma a schermu sanu si cari</string>
 </resources>

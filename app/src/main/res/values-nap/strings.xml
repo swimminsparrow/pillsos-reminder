@@ -167,8 +167,7 @@ Cundividi stu còdice cu n\'amico fidato pe lle fa vedé \'e allarmi tuoje.</str
     <string name="onboarding_notifications_title">Nutìfiche e Prutezzione</string>
     <string name="onboarding_notifications_subtitle">Cunsiglie e \'mpustazziune pe ausà PillSOS cu \'o màssimo d\'\'a precisione.</string>
     <string name="onboarding_battery_title">Affidabbilità \'e Svegghie e Nutìfiche</string>
-    <string name="onboarding_battery_desc">Nu cunsiglio: pe nun perdere \'e svegghie, assicùrate ca \'a batteria nun è limitata.</string>
-    <string name="onboarding_sos_title">Cullega nu Destinatario SOS</string>
+    <string name="onboarding_battery_desc">Fa sunà \'e svegghie pure a schermo stutato</string>
     <string name="onboarding_sos_desc">Cullega \'e pariente pe mannà o riceve SOS e messagge.</string>
     <string name="rate_me_title">Te piace PillSOS?</string>
     <string name="rate_me_desc">\'O supporto tujo ce aiuta a tené ll\'app gratis, precisa e sempe aggiurnata.</string>
@@ -271,14 +270,12 @@ PillSOS è l'amico fidato pe' te ricurdà 'e mmedecine e pe' proteggere 'a famig
 
     <!-- Notification Permission & Warning Banner -->
     <string name="onboarding_perm_notif_title">Nutifiche Sveglie</string>
-    <string name="onboarding_perm_notif_desc">Siente \'e suone e ll\'avvisi \'all\'orario preciso pe piglià \'e mmedecine.</string>
+    <string name="onboarding_perm_notif_desc">Sona all\'orario giusto pe te ricurdà \'e mmedecine</string>
     <string name="onboarding_perm_notif_enable">Attiva \'e Nutifiche</string>
     <string name="onboarding_perm_notif_enabled">Nutifiche Attivate</string>
     <string name="notifications_disabled_banner_title">Nutifiche stutate</string>
     <string name="notifications_disabled_banner_desc">Attivale pe nun te perdere \'e mmedecine.</string>
     <string name="notifications_disabled_banner_action">Attiva mò</string>
-
-    <string name="onboarding_sos_hint">Se po\' configurà quanno vuó tu d\' \'a sezione SOS</string>
     <string name="fall_alert_title">🚨 Possibile Caruta Truvata!</string>
     <string name="fall_alert_subtitle">Vene mannato n\'SOS automatico si nun rispunne</string>
     <string name="fall_alert_notification_countdown">Manno \'o SOS d\'emergenza \'nfra %1$d secunne…</string>
@@ -326,4 +323,12 @@ PillSOS è l'amico fidato pe' te ricurdà 'e mmedecine e pe' proteggere 'a famig
     <string name="alarm_sound_mode_system">Sigue \'e \'mpustaziune d\'\'o sistema</string>
     <string name="sos_simulated_alert_msg">🚨 ALLARME: chesta è na SIMULAZIONE \'e na richiesta \'e SOS. Può ignorà \'stu messaggio!</string>
     <string name="fall_detected_tts_announcement">Pill SOS ha truvato \'na caruta. Si nun te muove, tra 30 secunne vene mannato n\'SOS ê cuntatte tuoie</string>
+    <string name="onboarding_badge_essential">FONDAMENTALE</string>
+    <string name="onboarding_perm_enable">Attiva</string>
+    <string name="onboarding_perm_active">Attivo</string>
+    <string name="onboarding_warning_dialog_title">Promemoria a rischio</string>
+    <string name="onboarding_warning_dialog_desc">Senza nutifiche o cu \'o risparmio \'e batteria attivo, Android putesse nun sunà o fà tardi cu \'e promemoria d\' \'e ffarmace.\n\nVuó accumpletà \'a cunfigurazzione o vuó continuà o stesso?</string>
+    <string name="onboarding_warning_dialog_fix">Accumpleta</string>
+    <string name="onboarding_warning_dialog_skip">Continua o stesso</string>
+    <string name="onboarding_overlay_desc">Mostra ll\'allarme a tutto schermo si cadi</string>
 </resources>

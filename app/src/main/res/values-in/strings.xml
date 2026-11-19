@@ -163,8 +163,7 @@
     <string name="onboarding_notifications_title">Notifikasi &amp; Perlindungan</string>
     <string name="onboarding_notifications_subtitle">Tips dan pengaturan untuk keandalan maksimal PillSOS.</string>
     <string name="onboarding_battery_title">Keandalan Alarm &amp; Notifikasi</string>
-    <string name="onboarding_battery_desc">Tips: Agar tidak ketinggalan alarm, pastikan penggunaan baterai tidak dibatasi.</string>
-    <string name="onboarding_sos_title">Hubungkan Penerima SOS</string>
+    <string name="onboarding_battery_desc">Pastikan alarm tetap bunyi meski layar mati</string>
     <string name="onboarding_sos_desc">Hubungkan orang terkasih untuk mengirim atau menerima SOS dan pesan.</string>
     <string name="rate_me_title">Suka dengan PillSOS?</string>
     <string name="rate_me_desc">Dukungan Anda membantu kami menjaga aplikasi tetap gratis, andal, dan selalu diperbarui.</string>
@@ -267,14 +266,12 @@ PillSOS adalah teman setia Anda untuk pengelolaan obat dan perlindungan bersama 
 
     <!-- Notification Permission & Warning Banner -->
     <string name="onboarding_perm_notif_title">Pengingat Obat</string>
-    <string name="onboarding_perm_notif_desc">Dapatkan pemberitahuan suara tepat pada waktu minum obat.</string>
+    <string name="onboarding_perm_notif_desc">Bunyikan alarm tepat waktu untuk minum obat</string>
     <string name="onboarding_perm_notif_enable">Aktifkan Notifikasi</string>
     <string name="onboarding_perm_notif_enabled">Notifikasi Aktif</string>
     <string name="notifications_disabled_banner_title">Notifikasi Dinonaktifkan</string>
     <string name="notifications_disabled_banner_desc">Aktifkan agar Anda tidak melewatkan pengingat obat.</string>
     <string name="notifications_disabled_banner_action">Aktifkan Sekarang</string>
-
-    <string name="onboarding_sos_hint">Dapat dikonfigurasi kapan saja dari bagian SOS</string>
     <string name="fall_alert_title">🚨 Kemungkinan Jatuh Terdeteksi!</string>
     <string name="fall_alert_subtitle">SOS otomatis akan dikirim jika Anda tidak merespons</string>
     <string name="fall_alert_notification_countdown">Mengirim SOS darurat dalam %1$d detik…</string>
@@ -324,4 +321,12 @@ PillSOS adalah teman setia Anda untuk pengelolaan obat dan perlindungan bersama 
     <string name="alarm_sound_mode_system">Ikuti pengaturan sistem</string>
     <string name="sos_simulated_alert_msg">🚨 ALARM: ini adalah SIMULASI permintaan SOS. Anda dapat mengabaikan pesan ini!</string>
     <string name="fall_detected_tts_announcement">Pill SOS mendeteksi jatuh. Jika Anda tidak merespons, SOS akan dikirim ke kontak Anda dalam 30 detik</string>
+    <string name="onboarding_badge_essential">PENTING</string>
+    <string name="onboarding_perm_enable">Aktifkan</string>
+    <string name="onboarding_perm_active">Aktif</string>
+    <string name="onboarding_warning_dialog_title">Pengingat Obat Berisiko</string>
+    <string name="onboarding_warning_dialog_desc">Tanpa notifikasi atau jika pengoptimalan baterai aktif, Android dapat membisukan atau menunda pengingat obat Anda.\n\nApakah Anda ingin menyelesaikan pengaturan atau tetap melanjutkan?</string>
+    <string name="onboarding_warning_dialog_fix">Selesaikan Pengaturan</string>
+    <string name="onboarding_warning_dialog_skip">Tetap Lanjutkan</string>
+    <string name="onboarding_overlay_desc">Tampilkan peringatan layar penuh saat terjatuh</string>
 </resources>

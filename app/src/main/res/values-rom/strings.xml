@@ -165,8 +165,7 @@
     <string name="onboarding_notifications_title">Notifiche &amp; Protezione</string>
     <string name="onboarding_notifications_subtitle">Consigli e dritte pe usà PillSOS co la massima precisione.</string>
     <string name="onboarding_battery_title">Affidabbilità de Sveje e Notifiche</string>
-    <string name="onboarding_battery_desc">Na dritta: pe nun perdete le sveje, controlla che la batteria nun abbia freni.</string>
-    <string name="onboarding_sos_title">Collega chi riceve l\'SOS</string>
+    <string name="onboarding_battery_desc">Fa sonà l\'allarmi pure a schermo spento</string>
     <string name="onboarding_sos_desc">Collega i parenti tui pe mannà o riceve SOS e messaggi.</string>
     <string name="rate_me_title">Te piace PillSOS?</string>
     <string name="rate_me_desc">Er supporto tuo ce serve pe mantene l\'app aggratis, sicura e sempre agiornata.</string>
@@ -269,14 +268,12 @@ PillSOS è l'amico fidato pe ricordatte le medicine e protegge la gente a cui vo
 
     <!-- Notification Permission & Warning Banner -->
     <string name="onboarding_perm_notif_title">Notifiche de li Promemoria</string>
-    <string name="onboarding_perm_notif_desc">Senti li suoni e l\'allarmi a l\'orario preciso pe pià le medicine.</string>
+    <string name="onboarding_perm_notif_desc">Sona all\'orario preciso pe ricordatte le medicine</string>
     <string name="onboarding_perm_notif_enable">Attiva le Notifiche</string>
     <string name="onboarding_perm_notif_enabled">Notifiche Attivate</string>
     <string name="notifications_disabled_banner_title">Notifiche disattivate</string>
     <string name="notifications_disabled_banner_desc">Attivale pe nun perdete le medicine.</string>
     <string name="notifications_disabled_banner_action">Attiva mo</string>
-
-    <string name="onboarding_sos_hint">Configurabbile quanno te pare daa sezione SOS</string>
     <string name="fall_alert_title">🚨 Possibbile Caduta Rilevata!</string>
     <string name="fall_alert_subtitle">Viene mannato \'n SOS automatico se nun risponni</string>
     <string name="fall_alert_notification_countdown">Invio SOS de emergenza tra %1$d secondi…</string>
@@ -324,4 +321,12 @@ PillSOS è l'amico fidato pe ricordatte le medicine e protegge la gente a cui vo
     <string name="alarm_sound_mode_system">Segui l\'impostazioni der sistema</string>
     <string name="sos_simulated_alert_msg">🚨 ALLARME: questa è \'na SIMULAZIONE de \'na richiesta de SOS. Poi ignorà \'sto messaggio!</string>
     <string name="fall_detected_tts_announcement">Pill SOS dikhla jekh peripe. Te na keres khanchi, ande 30 sekunde jekh SOS ka avel bishaldo ka chire kontaktura</string>
+    <string name="onboarding_badge_essential">FONDAMENTALE</string>
+    <string name="onboarding_perm_enable">Attiva</string>
+    <string name="onboarding_perm_active">Attivo</string>
+    <string name="onboarding_warning_dialog_title">Promemoria a rischio</string>
+    <string name="onboarding_warning_dialog_desc">Senza notifiche o cor risparmio batteria attivo, Android potrebbe nun sonà o fa ritardo coi promemoria de le medicine.\n\nVoi finì de configurà o vai avanti lo stesso?</string>
+    <string name="onboarding_warning_dialog_fix">Finisci configurazione</string>
+    <string name="onboarding_warning_dialog_skip">Continua lo stesso</string>
+    <string name="onboarding_overlay_desc">Mostra l\'allarme a schermo intero se caschi</string>
 </resources>

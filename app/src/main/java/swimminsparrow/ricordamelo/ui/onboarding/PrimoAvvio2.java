@@ -12,12 +12,18 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.card.MaterialCardView;
+
 import swimminsparrow.ricordamelo.PillSOS;
 import swimminsparrow.ricordamelo.R;
 import swimminsparrow.ricordamelo.core.data.SettingsDB;
-
-import com.google.android.material.button.MaterialButton;
 import swimminsparrow.ricordamelo.core.utils.BatteryOptimizationsHelper;
+import swimminsparrow.ricordamelo.core.utils.CheckPermissionsHandler;
+import swimminsparrow.ricordamelo.core.utils.OverlayPermissionHelper;
+import swimminsparrow.ricordamelo.core.utils.PermissionCallback;
+import swimminsparrow.ricordamelo.ui.BaseActivity;
+import swimminsparrow.ricordamelo.ui.common.Dialogs.DialogBuilder;
 
 public class PrimoAvvio2 extends Fragment {
 
@@ -26,6 +32,9 @@ public class PrimoAvvio2 extends Fragment {
     private MaterialButton btnBatteryOpt;
     private MaterialButton btnNotificationPerm;
     private MaterialButton btnOverlayPerm;
+    private MaterialCardView cardNotificationPerm;
+    private MaterialCardView cardBatteryOpt;
+    private MaterialCardView cardOverlayPerm;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -37,26 +46,51 @@ public class PrimoAvvio2 extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        cardNotificationPerm = rootView.findViewById(R.id.cardNotificationPerm);
         btnNotificationPerm = rootView.findViewById(R.id.btnNotificationPerm);
+        View.OnClickListener notifClick = v -> {
+            if (!CheckPermissionsHandler.isNotificationGranted(requireContext())) {
+                requestNotificationPermission();
+            }
+        };
         if (btnNotificationPerm != null) {
-            btnNotificationPerm.setOnClickListener(v -> requestNotificationPermission());
+            btnNotificationPerm.setOnClickListener(notifClick);
+        }
+        if (cardNotificationPerm != null) {
+            cardNotificationPerm.setOnClickListener(notifClick);
         }
 
+        cardBatteryOpt = rootView.findViewById(R.id.cardBatteryOpt);
         btnBatteryOpt = rootView.findViewById(R.id.btnBatteryOpt);
+        View.OnClickListener batteryClick = v -> {
+            if (!BatteryOptimizationsHelper.isIgnoringBatteryOptimizations(requireContext())) {
+                BatteryOptimizationsHelper.openBatteryOptimizationSettings(requireContext());
+            }
+        };
         if (btnBatteryOpt != null) {
-            btnBatteryOpt.setOnClickListener(
-                    v -> BatteryOptimizationsHelper.openBatteryOptimizationSettings(requireContext()));
+            btnBatteryOpt.setOnClickListener(batteryClick);
+        }
+        if (cardBatteryOpt != null) {
+            cardBatteryOpt.setOnClickListener(batteryClick);
         }
 
+        cardOverlayPerm = rootView.findViewById(R.id.cardOverlayPerm);
         btnOverlayPerm = rootView.findViewById(R.id.btnOverlayPerm);
+        View.OnClickListener overlayClick = v -> {
+            if (!OverlayPermissionHelper.canDrawOverlays(requireContext())) {
+                OverlayPermissionHelper.requestOverlayPermission(requireContext());
+            }
+        };
         if (btnOverlayPerm != null) {
-            btnOverlayPerm.setOnClickListener(
-                    v -> swimminsparrow.ricordamelo.core.utils.OverlayPermissionHelper.requestOverlayPermission(requireContext()));
+            btnOverlayPerm.setOnClickListener(overlayClick);
+        }
+        if (cardOverlayPerm != null) {
+            cardOverlayPerm.setOnClickListener(overlayClick);
         }
 
         butStartMainActivity = rootView.findViewById(R.id.button_start_MainActivity);
         if (butStartMainActivity != null) {
-            butStartMainActivity.setOnClickListener(v -> finishPrimoAvvioTour());
+            butStartMainActivity.setOnClickListener(v -> onStartClicked());
         }
 
         updateNotificationStatus();
@@ -75,105 +109,96 @@ public class PrimoAvvio2 extends Fragment {
     private void requestNotificationPermission() {
         if (!isAdded() || getActivity() == null)
             return;
-        if (getActivity() instanceof swimminsparrow.ricordamelo.ui.BaseActivity) {
-            ((swimminsparrow.ricordamelo.ui.BaseActivity) getActivity())
-                    .checkNotificationPermission(new swimminsparrow.ricordamelo.core.utils.PermissionCallback() {
-                        @Override
-                        public void onPermissionGranted() {
-                            updateNotificationStatus();
-                        }
+        if (getActivity() instanceof BaseActivity) {
+            ((BaseActivity) getActivity()).checkNotificationPermission(new PermissionCallback() {
+                @Override
+                public void onPermissionGranted() {
+                    updateNotificationStatus();
+                }
 
-                        @Override
-                        public void onPermissionDenied() {
-                            updateNotificationStatus();
-                        }
-                    });
+                @Override
+                public void onPermissionDenied() {
+                    updateNotificationStatus();
+                }
+            });
         }
     }
 
     private void updateNotificationStatus() {
         if (getContext() == null || btnNotificationPerm == null)
             return;
-        boolean granted = swimminsparrow.ricordamelo.core.utils.CheckPermissionsHandler
-                .isNotificationGranted(requireContext());
-        if (granted) {
-            btnNotificationPerm.setText(R.string.onboarding_perm_notif_enabled);
-            btnNotificationPerm.setIconResource(R.drawable.baseline_done_24);
-            btnNotificationPerm.setEnabled(false);
-            btnNotificationPerm.setAlpha(1.0f);
-            btnNotificationPerm.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#E8F5E9")));
-            btnNotificationPerm.setTextColor(Color.parseColor("#1B5E38"));
-            btnNotificationPerm.setIconTint(ColorStateList.valueOf(Color.parseColor("#1B5E38")));
-            btnNotificationPerm.setStrokeColor(ColorStateList.valueOf(Color.parseColor("#A3D9B5")));
-            btnNotificationPerm.setStrokeWidth(2);
-        } else {
-            btnNotificationPerm.setText(R.string.onboarding_perm_notif_enable);
-            btnNotificationPerm.setIconResource(R.drawable.ic_notifications_bell_24);
-            btnNotificationPerm.setEnabled(true);
-            btnNotificationPerm.setAlpha(1.0f);
-            btnNotificationPerm.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#F1F5F9")));
-            btnNotificationPerm.setTextColor(Color.parseColor("#1E293B"));
-            btnNotificationPerm.setIconTint(ColorStateList.valueOf(Color.parseColor("#1E6F3E")));
-            btnNotificationPerm.setStrokeColor(ColorStateList.valueOf(Color.parseColor("#CBD5E1")));
-            btnNotificationPerm.setStrokeWidth(2);
-        }
+        boolean granted = CheckPermissionsHandler.isNotificationGranted(requireContext());
+        applyButtonState(btnNotificationPerm, granted);
     }
 
     private void updateBatteryStatus() {
         if (getContext() == null || btnBatteryOpt == null)
             return;
         boolean ignoring = BatteryOptimizationsHelper.isIgnoringBatteryOptimizations(requireContext());
-        if (ignoring) {
-            btnBatteryOpt.setText(R.string.onboarding_battery_unrestricted);
-            btnBatteryOpt.setIconResource(R.drawable.baseline_done_24);
-            btnBatteryOpt.setEnabled(false);
-            btnBatteryOpt.setAlpha(1.0f);
-            btnBatteryOpt.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#E8F5E9")));
-            btnBatteryOpt.setTextColor(Color.parseColor("#1B5E38"));
-            btnBatteryOpt.setIconTint(ColorStateList.valueOf(Color.parseColor("#1B5E38")));
-            btnBatteryOpt.setStrokeColor(ColorStateList.valueOf(Color.parseColor("#A3D9B5")));
-            btnBatteryOpt.setStrokeWidth(2);
-        } else {
-            btnBatteryOpt.setText(R.string.onboarding_battery_disable_restrictions);
-            btnBatteryOpt.setIconResource(R.drawable.outline_battery_status_good_24);
-            btnBatteryOpt.setEnabled(true);
-            btnBatteryOpt.setAlpha(1.0f);
-            btnBatteryOpt.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#F1F5F9")));
-            btnBatteryOpt.setTextColor(Color.parseColor("#1E293B"));
-            btnBatteryOpt.setIconTint(ColorStateList.valueOf(Color.parseColor("#1E6F3E")));
-            btnBatteryOpt.setStrokeColor(ColorStateList.valueOf(Color.parseColor("#CBD5E1")));
-            btnBatteryOpt.setStrokeWidth(2);
-        }
+        applyButtonState(btnBatteryOpt, ignoring);
     }
 
     private void updateOverlayStatus() {
         if (getContext() == null || btnOverlayPerm == null)
             return;
-        boolean granted = swimminsparrow.ricordamelo.core.utils.OverlayPermissionHelper.canDrawOverlays(requireContext());
+        boolean granted = OverlayPermissionHelper.canDrawOverlays(requireContext());
+        applyButtonState(btnOverlayPerm, granted);
+    }
+
+    private void applyButtonState(MaterialButton btn, boolean granted) {
         if (granted) {
-            btnOverlayPerm.setText(R.string.onboarding_overlay_enabled);
-            btnOverlayPerm.setIconResource(R.drawable.baseline_done_24);
-            btnOverlayPerm.setEnabled(false);
-            btnOverlayPerm.setAlpha(1.0f);
-            btnOverlayPerm.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#E8F5E9")));
-            btnOverlayPerm.setTextColor(Color.parseColor("#1B5E38"));
-            btnOverlayPerm.setIconTint(ColorStateList.valueOf(Color.parseColor("#1B5E38")));
-            btnOverlayPerm.setStrokeColor(ColorStateList.valueOf(Color.parseColor("#A3D9B5")));
-            btnOverlayPerm.setStrokeWidth(2);
+            btn.setText(R.string.onboarding_perm_active);
+            btn.setIconResource(R.drawable.baseline_done_24);
+            btn.setEnabled(false);
+            btn.setAlpha(1.0f);
+            btn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#E8F5E9")));
+            btn.setTextColor(Color.parseColor("#1B5E38"));
+            btn.setIconTint(ColorStateList.valueOf(Color.parseColor("#1B5E38")));
+            btn.setStrokeColor(ColorStateList.valueOf(Color.parseColor("#A3D9B5")));
+            btn.setStrokeWidth(2);
         } else {
-            btnOverlayPerm.setText(R.string.onboarding_overlay_enable);
-            btnOverlayPerm.setIconResource(R.drawable.ic_fall_detection_24);
-            btnOverlayPerm.setEnabled(true);
-            btnOverlayPerm.setAlpha(1.0f);
-            btnOverlayPerm.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#F1F5F9")));
-            btnOverlayPerm.setTextColor(Color.parseColor("#1E293B"));
-            btnOverlayPerm.setIconTint(ColorStateList.valueOf(Color.parseColor("#1E6F3E")));
-            btnOverlayPerm.setStrokeColor(ColorStateList.valueOf(Color.parseColor("#CBD5E1")));
-            btnOverlayPerm.setStrokeWidth(2);
+            btn.setText(R.string.onboarding_perm_enable);
+            btn.setIcon(null);
+            btn.setEnabled(true);
+            btn.setAlpha(1.0f);
+            btn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#1E6F3E")));
+            btn.setTextColor(Color.WHITE);
+            btn.setStrokeWidth(0);
         }
     }
 
+    private void onStartClicked() {
+        if (getContext() == null) return;
+
+        boolean notifGranted = CheckPermissionsHandler.isNotificationGranted(requireContext());
+        boolean batteryIgnored = BatteryOptimizationsHelper.isIgnoringBatteryOptimizations(requireContext());
+
+        if (!notifGranted || !batteryIgnored) {
+            showSafetyWarningDialog(!notifGranted);
+        } else {
+            finishPrimoAvvioTour();
+        }
+    }
+
+    private void showSafetyWarningDialog(boolean missingNotification) {
+        new DialogBuilder(requireContext(), DialogBuilder.Type.WARNING)
+                .setTitleText(getString(R.string.onboarding_warning_dialog_title))
+                .setContentText(getString(R.string.onboarding_warning_dialog_desc))
+                .setConfirmText(getString(R.string.onboarding_warning_dialog_fix))
+                .setCancelText(getString(R.string.onboarding_warning_dialog_skip))
+                .setConfirmClickListener(dialog -> {
+                    if (missingNotification) {
+                        requestNotificationPermission();
+                    } else {
+                        BatteryOptimizationsHelper.openBatteryOptimizationSettings(requireContext());
+                    }
+                })
+                .setCancelClickListener(dialog -> finishPrimoAvvioTour())
+                .show();
+    }
+
     private void finishPrimoAvvioTour() {
+        if (getContext() == null) return;
         SettingsDB.getInstance(requireContext()).setPrimoAvvio(true);
         PillSOS.callRicordamelo(requireActivity());
     }
