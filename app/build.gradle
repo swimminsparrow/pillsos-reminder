@@ -32,8 +32,8 @@ android {
     defaultConfig {
         applicationId 'swimminsparrow.ricordamelo'
         minSdkVersion 26
-        versionName '3.5'
-        versionCode 101
+        versionName '3.6'
+        versionCode 102
         targetSdk 36
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         manifestPlaceholders = [appName: "@string/app_name", admobAppId: ""]
