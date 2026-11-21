@@ -36,6 +36,7 @@ public class MainActivity extends BaseActivity {
     private NavController navController;
     private AppBarConfiguration appBarConfiguration;
     private IAdsManager adsManager;
+    private boolean whatsNewChecked = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -223,6 +224,10 @@ public class MainActivity extends BaseActivity {
     }
 
     private void checkWhatsNew() {
+        if (whatsNewChecked) {
+            return;
+        }
+        whatsNewChecked = true;
         if (SettingsDB.getInstance(this).getPrimoAvvio() && !SettingsDB.getInstance(this).getWhatsNew(2)) {
             if (getSupportFragmentManager().findFragmentByTag("WhatsNewBottomSheet") == null) {
                 WhatsNewBottomSheetDialogFragment dialog = WhatsNewBottomSheetDialogFragment.newInstance();

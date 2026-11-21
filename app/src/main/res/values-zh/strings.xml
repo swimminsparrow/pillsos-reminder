@@ -240,12 +240,9 @@
     <string name="onboarding_badge_optional">可选</string>
     <string name="whatsnew_subtitle">此版本的新功能与改进</string>
     <string name="whatsnew_feat1_title">20种语言与方言</string>
-    <string name="whatsnew_feat1_desc">支持20种语言的完整精准翻译，包含地区方言。</string>
     <string name="whatsnew_feat2_title">SOS紧急保护网络</string>
     <string name="whatsnew_feat3_title">全新界面</string>
-    <string name="whatsnew_feat3_desc">清新护眼、直观舒适的全新交互体验。</string>
     <string name="whatsnew_feat4_title">100% 开源透明</string>
-    <string name="whatsnew_feat4_desc">代码完全开源透明，严格保护您的个人隐私与数据安全。</string>
     <string name="menu_alarms">闹钟</string>
     <string name="menu_settings">设置</string>
     <string name="menu_coffee">咖啡</string>

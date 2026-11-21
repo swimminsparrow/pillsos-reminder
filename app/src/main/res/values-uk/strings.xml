@@ -238,12 +238,9 @@
     <string name="onboarding_badge_optional">НЕОБОВ\'ЯЗКОВО</string>
     <string name="whatsnew_subtitle">Що нового та покращення в цій версії</string>
     <string name="whatsnew_feat1_title">20 мов та діалектів</string>
-    <string name="whatsnew_feat1_desc">Повний та точний переклад на 20 мов, включно з регіональними діалектами.</string>
     <string name="whatsnew_feat2_title">Мережа захисту SOS</string>
     <string name="whatsnew_feat3_title">Новий інтерфейс</string>
-    <string name="whatsnew_feat3_desc">Свіжий, приємний та інтуїтивно зрозумілий інтерфейс.</string>
     <string name="whatsnew_feat4_title">100% Open Source</string>
-    <string name="whatsnew_feat4_desc">Відкритий і прозорий код із повною повагою до вашої конфіденційності.</string>
     <string name="menu_alarms">Будильники</string>
     <string name="menu_settings">Налаштування</string>
     <string name="menu_coffee">Кава</string>

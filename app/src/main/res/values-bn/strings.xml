@@ -240,12 +240,9 @@
     <string name="onboarding_badge_optional">ঐচ্ছিক</string>
     <string name="whatsnew_subtitle">এই সংস্করণের নতুন বৈশিষ্ট্য ও উন্নতি</string>
     <string name="whatsnew_feat1_title">২০টি ভাষা ও উপভাষা</string>
-    <string name="whatsnew_feat1_desc">আঞ্চলিক উপভাষাসহ ২০টি ভাষায় সম্পূর্ণ ও নির্ভুল অনুবাদ।</string>
     <string name="whatsnew_feat2_title">SOS সুরক্ষা নেটওয়ার্ক</string>
     <string name="whatsnew_feat3_title">নতুন ইন্টারফেস</string>
-    <string name="whatsnew_feat3_desc">সতেজ, আরামদায়ক এবং সহজ ইন্টারফেস।</string>
     <string name="whatsnew_feat4_title">১০০% ওপেন সোর্স</string>
-    <string name="whatsnew_feat4_desc">স্বচ্ছ ও উন্মুক্ত কোড, আপনার গোপনীয়তার পূর্ণ সুরক্ষা।</string>
     <string name="menu_alarms">অ্যালার্ম</string>
     <string name="menu_settings">সেটিংস</string>
     <string name="menu_coffee">কফি</string>

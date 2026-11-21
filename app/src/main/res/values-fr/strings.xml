@@ -240,12 +240,9 @@
     <string name="onboarding_badge_optional">OPTIONNEL</string>
     <string name="whatsnew_subtitle">Nouveautés et améliorations de cette version</string>
     <string name="whatsnew_feat1_title">20 langues et dialectes</string>
-    <string name="whatsnew_feat1_desc">Traduction complète et soignée en 20 langues, y compris les dialectes régionaux.</string>
     <string name="whatsnew_feat2_title">Réseau de protection SOS</string>
     <string name="whatsnew_feat3_title">Nouvelle interface</string>
-    <string name="whatsnew_feat3_desc">Interface fraîche, apaisante et intuitive.</string>
     <string name="whatsnew_feat4_title">100 % Open Source</string>
-    <string name="whatsnew_feat4_desc">Code transparent et libre, dans le respect total de votre vie privée.</string>
     <string name="menu_alarms">Alarmes</string>
     <string name="menu_settings">Paramètres</string>
     <string name="menu_coffee">Café</string>

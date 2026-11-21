@@ -277,12 +277,9 @@
     <string name="onboarding_badge_optional">OPZIONALE</string>
     <string name="whatsnew_subtitle">Novità di questa versione</string>
     <string name="whatsnew_feat1_title">20 Lingue e Dialetti</string>
-    <string name="whatsnew_feat1_desc">Tradotta in 20 idiomi, inclusi Napoletano, Siciliano e Romanesco.</string>
     <string name="whatsnew_feat2_title">Invio SOS</string>
     <string name="whatsnew_feat3_title">Nuova Interfaccia</string>
-    <string name="whatsnew_feat3_desc">Interfaccia fresca e intuitiva.</string>
     <string name="whatsnew_feat4_title">100% Open Source</string>
-    <string name="whatsnew_feat4_desc">Codice trasparente e libero. Ci trovi su github.</string>
     <string name="menu_alarms">Allarmi</string>
     <string name="menu_settings">Impostazioni</string>
     <string name="menu_coffee">Caffè</string>

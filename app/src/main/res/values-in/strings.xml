@@ -238,12 +238,9 @@
     <string name="onboarding_badge_optional">OPSIONAL</string>
     <string name="whatsnew_subtitle">Fitur baru dan peningkatan dalam versi ini</string>
     <string name="whatsnew_feat1_title">20 Bahasa &amp; Dialek</string>
-    <string name="whatsnew_feat1_desc">Terjemahan lengkap dan akurat dalam 20 bahasa, termasuk dialek regional.</string>
     <string name="whatsnew_feat2_title">Jaringan Perlindungan SOS</string>
     <string name="whatsnew_feat3_title">Antarmuka Baru</string>
-    <string name="whatsnew_feat3_desc">Antarmuka yang segar, menenangkan, dan intuitif.</string>
     <string name="whatsnew_feat4_title">100% Sumber Terbuka</string>
-    <string name="whatsnew_feat4_desc">Kode transparan dan bebas, menjaga privasi Anda sepenuhnya.</string>
     <string name="menu_alarms">Alarm</string>
     <string name="menu_settings">Pengaturan</string>
     <string name="menu_coffee">Kopi</string>

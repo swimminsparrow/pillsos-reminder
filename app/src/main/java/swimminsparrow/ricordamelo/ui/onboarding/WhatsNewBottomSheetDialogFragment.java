@@ -1,5 +1,6 @@
 package swimminsparrow.ricordamelo.ui.onboarding;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,11 +34,21 @@ public class WhatsNewBottomSheetDialogFragment extends BaseBottomSheetDialogFrag
         MaterialButton btnGotIt = view.findViewById(R.id.btnWhatsNewGotIt);
         if (btnGotIt != null) {
             btnGotIt.setOnClickListener(v -> {
-                if (getContext() != null) {
-                    SettingsDB.getInstance(requireContext()).setWhatsNew(2);
-                }
+                markAsSeen();
                 dismiss();
             });
+        }
+    }
+
+    @Override
+    public void onDismiss(@NonNull DialogInterface dialog) {
+        super.onDismiss(dialog);
+        markAsSeen();
+    }
+
+    private void markAsSeen() {
+        if (getContext() != null) {
+            SettingsDB.getInstance(requireContext()).setWhatsNew(2);
         }
     }
 }

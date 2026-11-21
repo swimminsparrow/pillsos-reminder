@@ -240,12 +240,9 @@ Udostępnij ten kod zaufanemu kontaktowi, aby mógł monitorować Twoje alerty.<
     <string name="onboarding_badge_optional">OPCJONALNIE</string>
     <string name="whatsnew_subtitle">Nowości i ulepszenia w tej wersji</string>
     <string name="whatsnew_feat1_title">20 języków i dialektów</string>
-    <string name="whatsnew_feat1_desc">Kompletne i dokładne tłumaczenie na 20 języków, w tym dialekty regionalne.</string>
     <string name="whatsnew_feat2_title">Sieć ochrony SOS</string>
     <string name="whatsnew_feat3_title">Nowy interfejs</string>
-    <string name="whatsnew_feat3_desc">Świeży, kojący i intuicyjny interfejs.</string>
     <string name="whatsnew_feat4_title">100% Open Source</string>
-    <string name="whatsnew_feat4_desc">Przejrzysty i otwarty kod z pełnym poszanowaniem Twojej prywatności.</string>
     <string name="menu_alarms">Alarmy</string>
     <string name="menu_settings">Ustawienia</string>
     <string name="menu_coffee">Kawa</string>

@@ -238,12 +238,9 @@
     <string name="onboarding_badge_optional">اختياري</string>
     <string name="whatsnew_subtitle">الجديد والتحسينات في هذا الإصدار</string>
     <string name="whatsnew_feat1_title">20 لغة ولهجة</string>
-    <string name="whatsnew_feat1_desc">ترجمة كاملة ودقيقة بـ 20 لغة، بما في ذلك اللهجات الإقليمية.</string>
     <string name="whatsnew_feat2_title">شبكة حماية SOS</string>
     <string name="whatsnew_feat3_title">واجهة جديدة</string>
-    <string name="whatsnew_feat3_desc">واجهة مريحة وسلسة وبسيطة.</string>
     <string name="whatsnew_feat4_title">مفتوح المصدر 100%</string>
-    <string name="whatsnew_feat4_desc">كود برمجي شفاف وحر، مع احترام كامل لخصوصيتك.</string>
     <string name="menu_alarms">المنبهات</string>
     <string name="menu_settings">الإعدادات</string>
     <string name="menu_coffee">قهوة</string>

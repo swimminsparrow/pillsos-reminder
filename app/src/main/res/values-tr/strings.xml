@@ -238,12 +238,9 @@
     <string name="onboarding_badge_optional">İSTEĞE BAĞLI</string>
     <string name="whatsnew_subtitle">Bu sürümdeki yenilikler ve geliştirmeler</string>
     <string name="whatsnew_feat1_title">20 Dil ve Lehçe</string>
-    <string name="whatsnew_feat1_desc">Bölgesel lehçeler dahil 20 dilde eksiksiz ve doğru çeviri.</string>
     <string name="whatsnew_feat2_title">SOS Koruma Ağı</string>
     <string name="whatsnew_feat3_title">Yeni Arayüz</string>
-    <string name="whatsnew_feat3_desc">Ferah, dinlendirici ve sezgisel bir arayüz.</string>
     <string name="whatsnew_feat4_title">%100 Açık Kaynak</string>
-    <string name="whatsnew_feat4_desc">Gizliliğinize tam saygılı, şeffaf ve özgür kaynak kodu.</string>
     <string name="menu_alarms">Alarmlar</string>
     <string name="menu_settings">Ayarlar</string>
     <string name="menu_coffee">Kahve</string>

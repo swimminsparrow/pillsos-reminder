@@ -240,12 +240,9 @@
     <string name="onboarding_badge_optional">FACORTATIVO</string>
     <string name="whatsnew_subtitle">Novità e mijoramenti de sta versione</string>
     <string name="whatsnew_feat1_title">20 Lingue e Dialetti</string>
-    <string name="whatsnew_feat1_desc">Traduzzione completa e precisa in 20 lingue, compresi Napoletano, Siciliano e Romanesco.</string>
     <string name="whatsnew_feat2_title">Rete de Protezzione SOS</string>
     <string name="whatsnew_feat3_title">Nova Interfaccia</string>
-    <string name="whatsnew_feat3_desc">Grafica fresca, rilassante e intuitiva.</string>
     <string name="whatsnew_feat4_title">100% Open Source</string>
-    <string name="whatsnew_feat4_desc">Codice aperto e trasparente, cor massimo rispetto de la privacy.</string>
     <string name="menu_alarms">Allarmi</string>
     <string name="menu_settings">Impostazzioni</string>
     <string name="menu_coffee">Caffè</string>

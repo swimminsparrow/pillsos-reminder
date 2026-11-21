@@ -238,12 +238,9 @@
     <string name="onboarding_badge_optional">वैकल्पिक</string>
     <string name="whatsnew_subtitle">इस संस्करण में नई सुविधाएँ और सुधार</string>
     <string name="whatsnew_feat1_title">20 भाषाएँ और बोलियाँ</string>
-    <string name="whatsnew_feat1_desc">क्षेत्रीय बोलियों सहित 20 भाषाओं में पूर्ण और सटीक अनुवाद।</string>
     <string name="whatsnew_feat2_title">SOS सुरक्षा नेटवर्क</string>
     <string name="whatsnew_feat3_title">नया इंटरफ़ेस</string>
-    <string name="whatsnew_feat3_desc">ताज़ा, शांत और सहज इंटरफ़ेस।</string>
     <string name="whatsnew_feat4_title">100% ओपन सोर्स</string>
-    <string name="whatsnew_feat4_desc">पारदर्शी और स्वतंत्र कोड, आपकी गोपनीयता का पूरा सम्मान।</string>
     <string name="menu_alarms">अलार्म</string>
     <string name="menu_settings">सेटिंग्स</string>
     <string name="menu_coffee">कॉफ़ी</string>

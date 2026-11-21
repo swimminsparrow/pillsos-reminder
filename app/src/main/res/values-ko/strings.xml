@@ -238,12 +238,9 @@
     <string name="onboarding_badge_optional">선택 사항</string>
     <string name="whatsnew_subtitle">이번 버전의 새로운 기능 및 개선 사항</string>
     <string name="whatsnew_feat1_title">20개 언어 및 방언</string>
-    <string name="whatsnew_feat1_desc">지역 방언을 포함한 20개 언어로 완벽하고 정확한 번역 제공。</string>
     <string name="whatsnew_feat2_title">SOS 보호 네트워크</string>
     <string name="whatsnew_feat3_title">새로운 인터페이스</string>
-    <string name="whatsnew_feat3_desc">눈이 편안하고 직관적인 새로운 인터페이스。</string>
     <string name="whatsnew_feat4_title">100% 오픈 소스</string>
-    <string name="whatsnew_feat4_desc">투명하고 자유로운 코드, 철저한 개인정보 보호.</string>
     <string name="menu_alarms">알람</string>
     <string name="menu_settings">설정</string>
     <string name="menu_coffee">커피</string>

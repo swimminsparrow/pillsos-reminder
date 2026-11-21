@@ -240,12 +240,9 @@
     <string name="onboarding_badge_optional">FACCULTATIVU</string>
     <string name="whatsnew_subtitle">Nuvedità e migghiuramenti di sta virsioni</string>
     <string name="whatsnew_feat1_title">20 Lingui e Dialetti</string>
-    <string name="whatsnew_feat1_desc">Traduzzioni cumpleta e precisa n 20 lingui, cu Napulitanu, Sicilianu e Rumanescu.</string>
     <string name="whatsnew_feat2_title">Riti di Prutizzioni SOS</string>
     <string name="whatsnew_feat3_title">Nova Ntirfaccia</string>
-    <string name="whatsnew_feat3_desc">Gràfica frisca, rilassanti e fàcili da usari.</string>
     <string name="whatsnew_feat4_title">100% Open Source</string>
-    <string name="whatsnew_feat4_desc">Còdici grapitu e trasparenti, cu màssimu rispettu d\'a privacy.</string>
     <string name="menu_alarms">Allarmi</string>
     <string name="menu_settings">Mpustazzioni</string>
     <string name="menu_coffee">Cafè</string>

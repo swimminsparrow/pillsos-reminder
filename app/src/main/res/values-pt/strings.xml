@@ -242,12 +242,9 @@ Compartilhe este código com um contato de confiança para que ele possa monitor
     <string name="onboarding_badge_optional">OPCIONAL</string>
     <string name="whatsnew_subtitle">Novidades e melhorias desta versão</string>
     <string name="whatsnew_feat1_title">20 idiomas e dialetos</string>
-    <string name="whatsnew_feat1_desc">Tradução completa e precisa em 20 idiomas, incluindo dialetos regionais.</string>
     <string name="whatsnew_feat2_title">Rede de proteção SOS</string>
     <string name="whatsnew_feat3_title">Nova interface</string>
-    <string name="whatsnew_feat3_desc">Interface fresca, relaxante e intuitiva.</string>
     <string name="whatsnew_feat4_title">100% Open Source</string>
-    <string name="whatsnew_feat4_desc">Código transparente e livre, com total respeito pela sua privacidade.</string>
     <string name="menu_alarms">Alarmes</string>
     <string name="menu_settings">Definições</string>
     <string name="menu_coffee">Café</string>

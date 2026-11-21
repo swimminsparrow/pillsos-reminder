@@ -277,12 +277,9 @@
     <string name="onboarding_badge_optional">OPTIONAL</string>
     <string name="whatsnew_subtitle">"What's changed in this version"</string>
     <string name="whatsnew_feat1_title">20 Languages &amp; Dialects</string>
-    <string name="whatsnew_feat1_desc">Translated in 20 languages, including regional Italian dialects.</string>
-    <string name="whatsnew_feat2_title">SOS Protection Network</string>
+    <string name="whatsnew_feat2_title">Connect people you care with the SOS Protection Network</string>
     <string name="whatsnew_feat3_title">New Interface</string>
-    <string name="whatsnew_feat3_desc">Fresh, soothing, and intuitive interface.</string>
     <string name="whatsnew_feat4_title">100% Open Source</string>
-    <string name="whatsnew_feat4_desc">Transparent and free code. Check on github.</string>
     <string name="menu_alarms">Alarms</string>
     <string name="menu_settings">Settings</string>
     <string name="menu_coffee">Coffee</string>

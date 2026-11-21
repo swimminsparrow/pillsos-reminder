@@ -240,12 +240,9 @@
     <string name="onboarding_badge_optional">任意</string>
     <string name="whatsnew_subtitle">このバージョンの新機能と改善点</string>
     <string name="whatsnew_feat1_title">20言語と方言</string>
-    <string name="whatsnew_feat1_desc">地域の方言を含む20の言語に対応した正確な完全翻訳。</string>
     <string name="whatsnew_feat2_title">SOS保護ネットワーク</string>
     <string name="whatsnew_feat3_title">新しいインターフェース</string>
-    <string name="whatsnew_feat3_desc">心地よく直感的で使いやすいインターフェース。</string>
     <string name="whatsnew_feat4_title">100% オープンソース</string>
-    <string name="whatsnew_feat4_desc">透明で自由なコード。プライバシーを最優先に保護します。</string>
     <string name="menu_alarms">アラーム</string>
     <string name="menu_settings">設定</string>
     <string name="menu_coffee">コーヒー</string>

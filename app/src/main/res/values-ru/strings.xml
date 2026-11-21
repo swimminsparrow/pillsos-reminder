@@ -240,12 +240,9 @@
     <string name="onboarding_badge_optional">НЕОБЯЗАТЕЛЬНО</string>
     <string name="whatsnew_subtitle">Что нового и улучшения в этой версии</string>
     <string name="whatsnew_feat1_title">20 языков и диалектов</string>
-    <string name="whatsnew_feat1_desc">Полный и точный перевод на 20 языков, включая региональные диалекты.</string>
     <string name="whatsnew_feat2_title">Сеть защиты SOS</string>
     <string name="whatsnew_feat3_title">Новый интерфейс</string>
-    <string name="whatsnew_feat3_desc">Свежий, приятный и интуитивно понятный интерфейс.</string>
     <string name="whatsnew_feat4_title">100% Open Source</string>
-    <string name="whatsnew_feat4_desc">Открытый и прозрачный код с полным уважением к вашей конфиденциальности.</string>
     <string name="menu_alarms">Будильники</string>
     <string name="menu_settings">Настройки</string>
     <string name="menu_coffee">Кофе</string>
