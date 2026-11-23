@@ -471,4 +471,12 @@ public class SettingsDB {
     public void clearPendingConnectionRequest() {
         databasePreferences.edit().remove("pending_connection_request_json").apply();
     }
+
+    public boolean isOemBatteryOptimizationChecked() {
+        return databasePreferences.getBoolean("oem_battery_optimization_checked", false);
+    }
+
+    public void setOemBatteryOptimizationChecked(boolean checked) {
+        databasePreferences.edit().putBoolean("oem_battery_optimization_checked", checked).apply();
+    }
 }

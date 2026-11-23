@@ -199,7 +199,11 @@
     <string name="unsaved_changes_discard">Exit without saving</string>
     <string name="unsaved_changes_keep_editing">Keep editing</string>
     <string name="battery_already_unrestricted">Battery optimizations are already successfully disabled. PillSOS has unrestricted background access to always ring on time.</string>
+    <string name="battery_oem_card_title">%1$s Optimization</string>
+    <string name="battery_oem_card_desc">Configure %1$s to prevent delayed alarms</string>
+    <string name="battery_oem_warning_desc">%1$s devices use aggressive power management that may delay alarms. Please configure %1$s settings to allow PillSOS to auto-start and run in background without restrictions.</string>
     <string name="battery_prompt_dialog_desc">To ensure alarms and SOS notifications always ring on time, disable battery restrictions for PillSOS by selecting \'Unrestricted\'.</string>
+    <string name="open_device_settings">Open %1$s Settings</string>
     <string name="configure">Configure</string>
     <string name="onboarding_battery_unrestricted">Battery Unrestricted</string>
     <string name="onboarding_battery_disable_restrictions">Disable Battery Restrictions</string>

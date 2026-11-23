@@ -178,7 +178,11 @@
     <string name="unsaved_changes_discard">Jèttali</string>
     <string name="unsaved_changes_keep_editing">Cuntinua a scrìviri</string>
     <string name="battery_already_unrestricted">A battarìa è già a postu senza lìmiti! 👍</string>
+    <string name="battery_oem_card_title">Ottimizazzioni %1$s</string>
+    <string name="battery_oem_card_desc">Cunfigura %1$s pi nun fari sunari ll\'allarmi \'n ritardu</string>
+    <string name="battery_oem_warning_desc">I telefuni %1$s usanu na gistioni d\'a battarìa troppu stritta chi po\' fari ritardari ll\'allarmi. Cunfigura i mpustazzioni di %1$s pi fari pàrtiri PillSOS \'n automàticu e \'n background senza blòcchi.</string>
     <string name="battery_prompt_dialog_desc">Pi fari sunari l\'allarmi sempri precisi, leva i lìmiti di la battarìa pi PillSOS.</string>
+    <string name="open_device_settings">Rapi i mpustazzioni %1$s</string>
     <string name="configure">Mpòsta</string>
     <string name="onboarding_battery_unrestricted">Battarìa senza lìmiti</string>
     <string name="onboarding_battery_disable_restrictions">Leva i ristrizzioni</string>

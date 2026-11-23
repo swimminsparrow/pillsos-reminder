@@ -172,7 +172,11 @@
     <string name="unsaved_changes_discard">Quitter sans enregistrer</string>
     <string name="unsaved_changes_keep_editing">Continuer à modifier</string>
     <string name="battery_already_unrestricted">Les optimisations de batterie sont déjà désactivées. PillSOS a un accès illimité en arrière-plan pour toujours sonner à l\'heure.</string>
+    <string name="battery_oem_card_title">Optimisation %1$s</string>
+    <string name="battery_oem_card_desc">Configurez %1$s pour éviter les retards d\'alarme</string>
+    <string name="battery_oem_warning_desc">Les appareils %1$s utilisent une gestion agressive de la batterie qui peut retarder les alarmes. Veuillez configurer les paramètres %1$s pour autoriser PillSOS à démarrer automatiquement et à s\'exécuter en arrière-plan sans restriction.</string>
     <string name="battery_prompt_dialog_desc">Pour garantir que les alarmes et alertes SOS sonnent à temps, désactivez les restrictions de batterie en sélectionnant \'Non restreint\'.</string>
+    <string name="open_device_settings">Ouvrir les paramètres %1$s</string>
     <string name="configure">Configurer</string>
     <string name="onboarding_battery_unrestricted">Batterie non restreinte</string>
     <string name="onboarding_battery_disable_restrictions">Désactiver les restrictions de batterie</string>

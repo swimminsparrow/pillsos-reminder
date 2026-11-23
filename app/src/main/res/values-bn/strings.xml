@@ -172,7 +172,11 @@
     <string name="unsaved_changes_discard">সংরক্ষণ না করে প্রস্থান করুন</string>
     <string name="unsaved_changes_keep_editing">সম্পাদনা চালিয়ে যান</string>
     <string name="battery_already_unrestricted">ব্যাটারি অপ্টিমাইজেশন ইতিমধ্যে সফলভাবে নিষ্ক্রিয় করা হয়েছে।</string>
+    <string name="battery_oem_card_title">%1$s অপ্টিমাইজেশন</string>
+    <string name="battery_oem_card_desc">অ্যালার্মের বিলম্ব রোধ করতে %1$s কনফিগার করুন</string>
+    <string name="battery_oem_warning_desc">دستگاه‌های %1$s বা ব্যাটারি সীমাবদ্ধতা অ্যালার্ম বিলম্বিত করতে পারে। PillSOS-কে স্বয়ংক্রিয়ভাবে চালু হতে এবং কোনো সীমাবদ্ধতা ছাড়াই ব্যাকগ্রাউন্ডে চলতে দিতে %1$s সেটিংস কনফিগার করুন।</string>
     <string name="battery_prompt_dialog_desc">অ্যালার্ম এবং এসওএস বিজ্ঞপ্তিগুলি সময়মতো বাজানো নিশ্চিত করতে, ব্যাটারি অপ্টিমাইজেশন নিষ্ক্রিয় করুন।</string>
+    <string name="open_device_settings">%1$s সেটিংস খুলুন</string>
     <string name="configure">কনফিগার করুন</string>
     <string name="onboarding_battery_unrestricted">ব্যাটারি নিয়ন্ত্রণমুক্ত</string>
     <string name="onboarding_battery_disable_restrictions">ব্যাটারি সীমাবদ্ধতা অক্ষম করুন</string>

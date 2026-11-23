@@ -178,7 +178,11 @@
     <string name="unsaved_changes_discard">Verwerfen</string>
     <string name="unsaved_changes_keep_editing">Weiter bearbeiten</string>
     <string name="battery_already_unrestricted">Akkunutzung ist bereits uneingeschränkt! 👍</string>
+    <string name="battery_oem_card_title">Optimierung für %1$s</string>
+    <string name="battery_oem_card_desc">%1$s konfigurieren, um Verzögerungen bei Alarmen zu vermeiden</string>
+    <string name="battery_oem_warning_desc">%1$s-Geräte nutzen ein aggressives Akkumanagement, das Alarme verzögern kann. Bitte passe die %1$s-Einstellungen an, damit PillSOS automatisch starten und uneingeschränkt im Hintergrund laufen kann.</string>
     <string name="battery_prompt_dialog_desc">Um sicherzustellen, dass Alarme pünktlich klingeln, deaktiviere die Akku-Einschränkungen für PillSOS.</string>
+    <string name="open_device_settings">%1$s-Einstellungen öffnen</string>
     <string name="configure">Konfigurieren</string>
     <string name="onboarding_battery_unrestricted">Akku-Nutzung uneingeschränkt</string>
     <string name="onboarding_battery_disable_restrictions">Einschränkungen aufheben</string>

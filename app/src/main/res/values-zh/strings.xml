@@ -172,7 +172,11 @@
     <string name="unsaved_changes_discard">不保存退出</string>
     <string name="unsaved_changes_keep_editing">继续编辑</string>
     <string name="battery_already_unrestricted">电池优化已成功停用。应用具有无限制的后台访问权限，始终准时响铃。</string>
+    <string name="battery_oem_card_title">%1$s 优化</string>
+    <string name="battery_oem_card_desc">配置 %1$s 以防闹钟延迟</string>
+    <string name="battery_oem_warning_desc">%1$s 设备采用严格的后台电量管理，可能会导致闹钟延迟。请配置 %1$s 设置，允许 PillSOS 自动启动并在后台无限制运行。</string>
     <string name="battery_prompt_dialog_desc">为确保闹钟和SOS通知准时响铃，请选择“无限制”以停用电池限制。</string>
+    <string name="open_device_settings">打开 %1$s 设置</string>
     <string name="configure">配置</string>
     <string name="onboarding_battery_unrestricted">电池无限制</string>
     <string name="onboarding_battery_disable_restrictions">停用电池限制</string>

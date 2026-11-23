@@ -176,7 +176,11 @@
     <string name="unsaved_changes_discard">Hapus</string>
     <string name="unsaved_changes_keep_editing">Lanjutkan Mengedit</string>
     <string name="battery_already_unrestricted">Penggunaan baterai sudah tidak dibatasi! 👍</string>
+    <string name="battery_oem_card_title">Optimalisasi %1$s</string>
+    <string name="battery_oem_card_desc">Konfigurasikan %1$s untuk mencegah alarm tertunda</string>
+    <string name="battery_oem_warning_desc">Perangkat %1$s menggunakan manajemen baterai agresif yang dapat menunda alarm. Silakan konfigurasikan pengaturan %1$s agar PillSOS dapat memulai otomatis dan berjalan di latar belakang tanpa batasan.</string>
     <string name="battery_prompt_dialog_desc">Agar alarm berbunyi tepat waktu, nonaktifkan pembatasan baterai untuk PillSOS.</string>
+    <string name="open_device_settings">Buka Pengaturan %1$s</string>
     <string name="configure">Konfigurasi</string>
     <string name="onboarding_battery_unrestricted">Baterai Tidak Dibatasi</string>
     <string name="onboarding_battery_disable_restrictions">Hapus Pembatasan</string>

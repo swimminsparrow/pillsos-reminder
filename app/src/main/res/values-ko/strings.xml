@@ -176,7 +176,11 @@
     <string name="unsaved_changes_discard">취소</string>
     <string name="unsaved_changes_keep_editing">계속 수정</string>
     <string name="battery_already_unrestricted">배터리 제한이 이미 해제되어 있습니다! 👍</string>
+    <string name="battery_oem_card_title">%1$s 최적화</string>
+    <string name="battery_oem_card_desc">알람 지연을 방지하기 위해 %1$s 설정</string>
+    <string name="battery_oem_warning_desc">%1$s 기기는 배터리 절전을 위해 백그라운드를 엄격하게 제한하여 알람이 지연될 수 있습니다. PillSOS가 자동 시작 및 백그라운드에서 제한 없이 실행되도록 %1$s 설정을 구성하세요。</string>
     <string name="battery_prompt_dialog_desc">정확한 시간에 알람이 울리도록 배터리 제한을 해제해주세요.</string>
+    <string name="open_device_settings">%1$s 설정 열기</string>
     <string name="configure">설정하기</string>
     <string name="onboarding_battery_unrestricted">배터리 제한 없음</string>
     <string name="onboarding_battery_disable_restrictions">제한 해제하기</string>

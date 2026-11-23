@@ -178,7 +178,11 @@
     <string name="unsaved_changes_discard">Butta via</string>
     <string name="unsaved_changes_keep_editing">Continua a scrive</string>
     <string name="battery_already_unrestricted">La batteria già sta a posto senza freni! 👍</string>
+    <string name="battery_oem_card_title">Ottimizzazzione %1$s</string>
+    <string name="battery_oem_card_desc">Configura %1$s pe evità che ll\'allarmi sonino \'n ritardo</string>
+    <string name="battery_oem_warning_desc">I telefoni %1$s c\'hanno \'na gestione de la batteria troppo tosta che po\' fa ritardà ll\'allarmi. Imposta %1$s pe fa partì PillSOS \'n automatico e fallo girà \'n background senza freni.</string>
     <string name="battery_prompt_dialog_desc">Pe fa sonà l\'allarmi sempre precisi spaccati, toji le restrizioni de la batteria pe PillSOS.</string>
+    <string name="open_device_settings">Apri impostazzioni %1$s</string>
     <string name="configure">Imposta</string>
     <string name="onboarding_battery_unrestricted">Batteria senza limiti</string>
     <string name="onboarding_battery_disable_restrictions">Leva le restrizioni</string>

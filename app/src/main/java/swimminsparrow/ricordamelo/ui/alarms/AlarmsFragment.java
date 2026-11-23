@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -105,8 +106,38 @@ public class AlarmsFragment extends Fragment {
         if (rootView == null || getContext() == null) return;
         View banner = rootView.findViewById(R.id.card_battery_disabled);
         if (banner == null) return;
-        boolean ignoring = swimminsparrow.ricordamelo.core.utils.BatteryOptimizationsHelper.isIgnoringBatteryOptimizations(requireContext());
-        banner.setVisibility(ignoring ? View.GONE : View.VISIBLE);
+
+        Context context = requireContext();
+        boolean standardIgnored = swimminsparrow.ricordamelo.core.utils.BatteryOptimizationsHelper.isIgnoringBatteryOptimizations(context);
+        boolean oemChecked = SettingsDB.getInstance(context).isOemBatteryOptimizationChecked();
+        boolean isOem = swimminsparrow.ricordamelo.core.utils.BatteryOptimizationsHelper.isAggressiveOem();
+
+        boolean shouldShow = !standardIgnored || (isOem && !oemChecked);
+
+        if (shouldShow) {
+            TextView tvTitle = banner.findViewById(R.id.tv_battery_banner_title);
+            TextView tvDesc = banner.findViewById(R.id.tv_battery_banner_desc);
+
+            if (standardIgnored && isOem) {
+                String brand = swimminsparrow.ricordamelo.core.utils.BatteryOptimizationsHelper.getDeviceBrand();
+                if (tvTitle != null) {
+                    tvTitle.setText(getString(R.string.battery_oem_card_title, brand));
+                }
+                if (tvDesc != null) {
+                    tvDesc.setText(getString(R.string.battery_oem_card_desc, brand));
+                }
+            } else {
+                if (tvTitle != null) {
+                    tvTitle.setText(R.string.onboarding_battery_title);
+                }
+                if (tvDesc != null) {
+                    tvDesc.setText(R.string.onboarding_battery_desc);
+                }
+            }
+            banner.setVisibility(View.VISIBLE);
+        } else {
+            banner.setVisibility(View.GONE);
+        }
         updateProBannerVisibility();
     }
 

@@ -180,7 +180,11 @@ Cundividi stu còdice cu n\'amico fidato pe lle fa vedé \'e allarmi tuoje.</str
     <string name="unsaved_changes_discard">Esci senza sarvà</string>
     <string name="unsaved_changes_keep_editing">Continua a cagnà</string>
     <string name="battery_already_unrestricted">L\'ottimizzazzione d\'a batteria so\' già luvate. PillSOS po\' faticà \'n background pe sunà sempe preciso.</string>
+    <string name="battery_oem_card_title">Ottimizzazione %1$s</string>
+    <string name="battery_oem_card_desc">Cunfigura %1$s accussì ll\'allarmi nun fanne ritardo</string>
+    <string name="battery_oem_warning_desc">I telefunielle %1$s stutano ll\'app \'n background pe sparagnà \'a batteria e ll\'allarmi ponno ritardà. Cunfigura ll\'impostaziune \'e %1$s pe permettere a PillSOS ll\'avvio automateco senza blocche.</string>
     <string name="battery_prompt_dialog_desc">Pe fa sunà sempe puntuali sveglie e avvisi SOS, leva \'e limitazzioni d\'a batteria mettendo \'Senza restrizziune\'.</string>
+    <string name="open_device_settings">Arapi \'e \'mpostaziune %1$s</string>
     <string name="configure">Cunfigura</string>
     <string name="onboarding_battery_unrestricted">Batteria Senza Restrizziune</string>
     <string name="onboarding_battery_disable_restrictions">Leva Restrizziune Batteria</string>

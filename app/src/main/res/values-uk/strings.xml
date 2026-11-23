@@ -176,7 +176,11 @@
     <string name="unsaved_changes_discard">Скасувати</string>
     <string name="unsaved_changes_keep_editing">Продовжити редагування</string>
     <string name="battery_already_unrestricted">Робота батареї вже без обмежень! 👍</string>
+    <string name="battery_oem_card_title">Оптимізація %1$s</string>
+    <string name="battery_oem_card_desc">Налаштуйте %1$s, щоб сигнали лунали вчасно</string>
+    <string name="battery_oem_warning_desc">Пристрої %1$s використовують агресивне керування живленням, що може затримувати сигнали. Налаштуйте параметри %1$s, щоб дозволити PillSOS автозапуск і роботу у фоновому режимі без обмежень.</string>
     <string name="battery_prompt_dialog_desc">Щоб сигнали лунали завжди вчасно, вимкніть обмеження батареї для PillSOS.</string>
+    <string name="open_device_settings">Відкрити налаштування %1$s</string>
     <string name="configure">Налаштувати</string>
     <string name="onboarding_battery_unrestricted">Батарея без обмежень</string>
     <string name="onboarding_battery_disable_restrictions">Зняти обмеження</string>

@@ -176,7 +176,11 @@
     <string name="unsaved_changes_discard">हटाएं</string>
     <string name="unsaved_changes_keep_editing">संपादन जारी रखें</string>
     <string name="battery_already_unrestricted">बैटरी पहले से ही अप्रतिबंधित है! 👍</string>
+    <string name="battery_oem_card_title">%1$s अनुकूलन</string>
+    <string name="battery_oem_card_desc">अलार्म में देरी रोकने के लिए %1$s कॉन्फ़िगर करें</string>
+    <string name="battery_oem_warning_desc">%1$s डिवाइस सख्त बैटरी प्रबंधन का उपयोग करते हैं जिससे अलार्म में देरी हो सकती है। PillSOS को ऑटो-स्टार्ट और बैकग्राउंड में बिना किसी प्रतिबंध के चलने की अनुमति देने के लिए %1$s सेटिंग्स कॉन्फ़िगर करें।</string>
     <string name="battery_prompt_dialog_desc">समय पर अलार्म के लिए PillSOS हेतु बैटरी प्रतिबंध हटा दें।</string>
+    <string name="open_device_settings">%1$s सेटिंग्स खोलें</string>
     <string name="configure">कॉन्फ़िगर करें</string>
     <string name="onboarding_battery_unrestricted">बैटरी अप्रतिबंधित</string>
     <string name="onboarding_battery_disable_restrictions">प्रतिबंध हटाएं</string>

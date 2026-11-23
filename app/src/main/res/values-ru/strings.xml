@@ -159,7 +159,11 @@
     <string name="unsaved_changes_discard">Выйти без сохранения</string>
     <string name="unsaved_changes_keep_editing">Продолжить редактирование</string>
     <string name="battery_already_unrestricted">Оптимизация батареи уже отключена. У приложения есть неограниченный фоновый доступ для своевременных уведомлений.</string>
+    <string name="battery_oem_card_title">Оптимизация %1$s</string>
+    <string name="battery_oem_card_desc">Настройте %1$s, чтобы будильники не задерживались</string>
+    <string name="battery_oem_warning_desc">Устройства %1$s агрессивно ограничивают фоновые процессы, что может задержать срабатывание будильников. Настройте параметры %1$s, разрешив PillSOS автозапуск и работу в фоновом режиме без ограничений.</string>
     <string name="battery_prompt_dialog_desc">Чтобы будильники и SOS-уведомления всегда срабатывали вовремя, отключите ограничения батареи, выбрав \'Без ограничений\'.</string>
+    <string name="open_device_settings">Открыть настройки %1$s</string>
     <string name="configure">Настроить</string>
     <string name="onboarding_battery_unrestricted">Батарея без ограничений</string>
     <string name="onboarding_battery_disable_restrictions">Отключить ограничения батареи</string>

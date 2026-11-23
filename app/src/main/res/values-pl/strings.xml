@@ -172,7 +172,11 @@ Udostępnij ten kod zaufanemu kontaktowi, aby mógł monitorować Twoje alerty.<
     <string name="unsaved_changes_discard">Wyjdź bez zapisywania</string>
     <string name="unsaved_changes_keep_editing">Kontynuuj edycję</string>
     <string name="battery_already_unrestricted">Optymalizacje baterii są już pomyślnie wyłączone. PillSOS ma nieograniczony dostęp w tle, aby zawsze dzwonić na czas.</string>
+    <string name="battery_oem_card_title">Optymalizacja %1$s</string>
+    <string name="battery_oem_card_desc">Skonfiguruj %1$s, aby uniknąć opóźnień alarmów</string>
+    <string name="battery_oem_warning_desc">Urządzenia %1$s stosują agresywne zarządzanie baterią, które może opóźniać alarmy. Skonfiguruj ustawienia %1$s, aby zezwolić PillSOS na autostart i działanie w tle bez ograniczeń.</string>
     <string name="battery_prompt_dialog_desc">Aby upewnić się, że alarmy i powiadomienia SOS zawsze dzwonią na czas, wyłącz ograniczenia baterii, wybierając opcję \'Bez ograniczeń\'.</string>
+    <string name="open_device_settings">Otwórz ustawienia %1$s</string>
     <string name="configure">Skonfiguruj</string>
     <string name="onboarding_battery_unrestricted">Bateria bez ograniczeń</string>
     <string name="onboarding_battery_disable_restrictions">Wyłącz ograniczenia baterii</string>

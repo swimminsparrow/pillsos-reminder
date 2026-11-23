@@ -176,7 +176,11 @@
     <string name="unsaved_changes_discard">تجاهل</string>
     <string name="unsaved_changes_keep_editing">متابعة التعديل</string>
     <string name="battery_already_unrestricted">البطارية تعمل بالفعل دون قيود! 👍</string>
+    <string name="battery_oem_card_title">تحسين %1$s</string>
+    <string name="battery_oem_card_desc">اضبط إعدادات %1$s لتجنب تأخير التنبيهات</string>
+    <string name="battery_oem_warning_desc">تستخدم أجهزة %1$s إدارة طاقة صارمة قد تؤدي إلى تأخير التنبيهات. يرجى ضبط إعدادات %1$s للسماح لـ PillSOS بالتشغيل التلقائي والعمل في الخلفية دون قيود.</string>
     <string name="battery_prompt_dialog_desc">لضمان رنين المنبه في وقته تماماً، يرجى إلغاء قيود البطارية لـ PillSOS.</string>
+    <string name="open_device_settings">فتح إعدادات %1$s</string>
     <string name="configure">ضبط</string>
     <string name="onboarding_battery_unrestricted">البطارية غير مقيدة</string>
     <string name="onboarding_battery_disable_restrictions">إلغاء القيود</string>

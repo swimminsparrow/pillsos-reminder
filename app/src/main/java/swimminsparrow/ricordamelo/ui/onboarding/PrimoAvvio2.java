@@ -64,7 +64,7 @@ public class PrimoAvvio2 extends Fragment {
         btnBatteryOpt = rootView.findViewById(R.id.btnBatteryOpt);
         View.OnClickListener batteryClick = v -> {
             if (!BatteryOptimizationsHelper.isIgnoringBatteryOptimizations(requireContext())) {
-                BatteryOptimizationsHelper.openBatteryOptimizationSettings(requireContext());
+                BatteryOptimizationsHelper.openStandardBatteryOptimizationSettings(requireContext());
             }
         };
         if (btnBatteryOpt != null) {
@@ -190,7 +190,7 @@ public class PrimoAvvio2 extends Fragment {
                     if (missingNotification) {
                         requestNotificationPermission();
                     } else {
-                        BatteryOptimizationsHelper.openBatteryOptimizationSettings(requireContext());
+                        BatteryOptimizationsHelper.openStandardBatteryOptimizationSettings(requireContext());
                     }
                 })
                 .setCancelClickListener(dialog -> finishPrimoAvvioTour())

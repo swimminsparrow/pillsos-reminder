@@ -172,7 +172,11 @@
     <string name="unsaved_changes_discard">保存せずに終了</string>
     <string name="unsaved_changes_keep_editing">編集を続ける</string>
     <string name="battery_already_unrestricted">バッテリーの最適化は既に正常に無効化されています。常に時間通りに通知するために無制限のバックグラウンドアクセスがあります。</string>
+    <string name="battery_oem_card_title">%1$s の最適化</string>
+    <string name="battery_oem_card_desc">アラームの遅延を防ぐために %1$s を設定</string>
+    <string name="battery_oem_warning_desc">%1$s 端末はバックグラウンド制御が厳しいため、アラームが遅れる場合があります。PillSOS の自動起動とバックグラウンド無制限実行を %1$s の設定で許可してください。</string>
     <string name="battery_prompt_dialog_desc">アラームとSOS通知を常に時間通りに鳴らすため、「制限なし」を選択してバッテリー制限を無効にしてください。</string>
+    <string name="open_device_settings">%1$s の設定を開く</string>
     <string name="configure">設定</string>
     <string name="onboarding_battery_unrestricted">バッテリー制限なし</string>
     <string name="onboarding_battery_disable_restrictions">バッテリー制限を無効化</string>

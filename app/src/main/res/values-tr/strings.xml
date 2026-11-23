@@ -176,7 +176,11 @@
     <string name="unsaved_changes_discard">Sil</string>
     <string name="unsaved_changes_keep_editing">Düzenlemeye Devam Et</string>
     <string name="battery_already_unrestricted">Pil kullanımı zaten kısıtlamasız! 👍</string>
+    <string name="battery_oem_card_title">%1$s Optimizasyonu</string>
+    <string name="battery_oem_card_desc">Alarmların gecikmesini önlemek için %1$s ayarlarını yapılandırın</string>
+    <string name="battery_oem_warning_desc">PillSOS\'nin alarmları zamanında çalması için %1$s ayarlarını yapılandırarak otomatik başlatmaya ve kısıtlama olmadan arka planda çalışmasına izin verin.</string>
     <string name="battery_prompt_dialog_desc">Alarmların zamanında çalması için PillSOS\'nin pil kısıtlamalarını kaldırın.</string>
+    <string name="open_device_settings">%1$s Ayarlarını Aç</string>
     <string name="configure">Yapılandır</string>
     <string name="onboarding_battery_unrestricted">Pil Kısıtlamasız</string>
     <string name="onboarding_battery_disable_restrictions">Kısıtlamaları Kaldır</string>
