@@ -121,7 +121,8 @@ public class AdsManager implements IAdsManager {
         }
 
         adView = new AdView(activity);
-        adView.setAdUnitId(activity.getString(R.string.bannerInferiore));
+        int resId = BuildConfig.DEBUG ? R.string.bannerInferioreTest : R.string.bannerInferiore;
+        adView.setAdUnitId(activity.getString(resId));
 
         AdSize adSize = getAdSize(activity, container);
         adView.setAdSize(adSize);

@@ -32,8 +32,8 @@ android {
     defaultConfig {
         applicationId 'swimminsparrow.ricordamelo'
         minSdkVersion 26
-        versionName '3.6'
-        versionCode 102
+        versionName '3.7'
+        versionCode 103
         targetSdk 36
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         manifestPlaceholders = [appName: "@string/app_name", admobAppId: ""]
@@ -52,6 +52,7 @@ android {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
             manifestPlaceholders += [appName: "@string/app_name"]
         }
     }
@@ -74,12 +75,12 @@ android {
         free {
             dimension "distribution"
             manifestPlaceholders += [admobAppId: ""]
-            resValue "string", "bannerInferiore", ""
         }
         nonfree {
             dimension "distribution"
             manifestPlaceholders += [admobAppId: admobAppId]
             resValue "string", "bannerInferiore", admobBannerId
+            resValue "string", "bannerInferioreTest", "ca-app-pub-3940256099942544/6300978111"
             buildConfigField "String", "DEFAULT_PRO_PRICE", "\"$defaultProPrice\""
             buildConfigField "String", "REVENUECAT_KEY_DEBUG", "\"$rcDebugKey\""
             buildConfigField "String", "REVENUECAT_KEY_RELEASE", "\"$rcReleaseKey\""
